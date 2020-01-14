@@ -1,0 +1,5 @@
+to create site: bundle exec jekyll serve
+
+in _includes/footer.html: remove first part
+in _data/ui-text.yml: change follow-label from "Follow" to "Links"
+in _pages: add files (not in _site)
