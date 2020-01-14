@@ -1,5 +1,9 @@
 to create site: bundle exec jekyll serve
 
+in _sass/minimal_mistakes/_masthead: add font-size: $type-size-4; to
+.site-title and .masthead__menu-item
+in _sass/minimal_mistakes/_sidebar: change font size of sidebar
+in _sass/minimal_mistakes/variables: change font sizes
 in _includes/footer.html: remove first part
 in _data/ui-text.yml: change follow-label from "Follow" to "Links"
 in _pages: add files (not in _site)
