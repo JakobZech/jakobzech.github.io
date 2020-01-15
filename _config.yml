@@ -112,8 +112,8 @@ author:
   bio              : "Postdoc at MIT"
   email            : "jzech@mit.edu"
   links:
-    - label: "CV"
-      url: "files/CV_Jakob_Zech.pdf"
+#    - label: "CV"
+#      url: "files/CV_Jakob_Zech.pdf"
     - label: "Google Scholar"
       url: "https://scholar.google.nl/citations?user=F678i2sAAAAJ&hl=en"
 #    - label: "Email"
