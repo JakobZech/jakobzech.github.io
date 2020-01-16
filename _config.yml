@@ -112,10 +112,16 @@ author:
   bio              : "Postdoc at MIT"
   email            : "jzech@mit.edu"
   links:
-#    - label: "CV"
-#      url: "files/CV_Jakob_Zech.pdf"
+    # - label: "Curriculum Vitae"
+    #   url: "files/CV_Jakob_Zech.pdf"
+    #   icon: "ai ai-cv ai"
     - label: "Google Scholar"
       url: "https://scholar.google.nl/citations?user=F678i2sAAAAJ&hl=en"
+      icon: "ai ai-google-scholar ai"
+    - label: "ORCID"
+      icon: "ai ai-orcid ai"
+#      icon: "fab fa-orcid"
+      url: "https://orcid.org/0000-0003-3163-3735"      
 #    - label: "Email"
 #      icon: "fas fa-fw fa-envelope-square"
 #      # url: mailto:your.name@email.com
