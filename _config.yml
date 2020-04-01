@@ -109,8 +109,9 @@ analytics:
 author:
 # name             : "Jakob Zech"
   avatar           : "/files/bio-photo.jpg"
-  bio              : "Postdoc at MIT"
-  email            : "jzech@mit.edu"
+  bio              : "Juniorprofessor at <br>
+  University of Heidelberg"
+  email            : "jakob.zech@uni-heidelberg.de"
   links:
     # - label: "Curriculum Vitae"
     #   url: "files/CV_Jakob_Zech.pdf"

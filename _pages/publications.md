@@ -22,12 +22,14 @@ J. A. A. Opschoor, Ch. Schwab and J. Zech<br>
 <h2>Journal Papers</h2>
 <ul>
 <li><b>Convergence rates of high dimensional Smolyak quadrature</b><br>
-to appear in <i>Mathematical Modelling and Numerical Analysis</i>, 2020<br>
-J. Zech and Ch. Schwab</li>
+<i>Mathematical Modelling and Numerical Analysis</i>, 2020<br>
+J. Zech and Ch. Schwab<br>
+<a href="https://www.esaim-m2an.org/component/article?access=doi&doi=10.1051/m2an/2020003">link</a></li>
 
 <li><b>Domain Uncertainty Quantification in Computational Electromagnetics</b><br>
-to appear in <i>SIAM/ASA J. Uncertain. Quantif.</i>, 2020 <br>
-R. Aylwin, C. Jerez-Hanckes, Ch. Schwab and J. Zech</li>
+<i>SIAM/ASA J. Uncertain. Quantif.</i>, Vol. 8, No. 1, 301-341, 2020 <br>
+R. Aylwin, C. Jerez-Hanckes, Ch. Schwab and J. Zech<br>
+<a href="https://epubs.siam.org/doi/abs/10.1137/19M1239374?mobileUi=0">link</a></li>
 
 <li><b> Uncertainty Quantification for Spectral Fractional Diffusion: Sparsity Analysis of Parametric Solutions</b><br>
 <i>SIAM/ASA J. Uncertain. Quantif.</i>, Vol. 7, No. 3, 913-947, 2019<br>
