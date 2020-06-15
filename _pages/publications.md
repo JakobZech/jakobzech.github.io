@@ -6,6 +6,13 @@ layout: archive
 
 <h2>Preprints</h2>
 <ul>
+
+<li><b>Sparse approximation of triangular transports on bounded domains</b><br />
+Technical report, 2020<br />
+J. Zech and Y. Marzouk<br />
+<a href="https://arxiv.org/abs/2006.06994">link</a></li>
+
+
 <li><b>
 Deep ReLU Neural Network Expression Rates for Data-to-QoI Maps in Bayesian PDE Inversion</b><br>
 Technical report 2020-02, Seminar for Applied Mathematics, ETH Z&uuml;rich, 2020<br>
