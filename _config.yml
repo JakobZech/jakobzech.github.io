@@ -15,6 +15,7 @@
 minimal_mistakes_skin    : "default" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
 
 # Site Settings
+encoding: utf-8
 locale                   : "en-US"
 title                    : "Jakob Zech"
 title_separator          : "-"
