@@ -29,9 +29,10 @@ J. A. A. Opschoor, Ch. Schwab and J. Zech<br>
 <h2>Journal Papers</h2>
 <ul>
 <li><b>Convergence rates of high dimensional Smolyak quadrature</b><br>
-<i>Mathematical Modelling and Numerical Analysis</i>, 2020<br>
+<i>Mathematical Modelling and Numerical Analysis</i>,
+Vol. 54, No. 4, 1259 - 1307, 2020<br>
 J. Zech and Ch. Schwab<br>
-<a href="https://www.esaim-m2an.org/component/article?access=doi&doi=10.1051/m2an/2020003">link</a></li>
+<a href="https://www.esaim-m2an.org/articles/m2an/abs/2020/04/m2an170122/m2an170122.html">link</a></li>
 
 <li><b>Domain Uncertainty Quantification in Computational Electromagnetics</b><br>
 <i>SIAM/ASA J. Uncertain. Quantif.</i>, Vol. 8, No. 1, 301-341, 2020 <br>
