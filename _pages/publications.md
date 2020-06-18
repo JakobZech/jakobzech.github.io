@@ -20,9 +20,9 @@ L. Herrmann, Ch. Schwab and J. Zech<br>
 <a href="https://www.sam.math.ethz.ch/sam_reports/reports_final/reports2020/2020-02_fp.pdf">link</a></li>
 
 <li><b>Exponential ReLU DNN expression of holomorphic maps in high dimension</b><br>
-Technical report 2019-50, Seminar for Applied Mathematics, ETH Z&uuml;rich, 2019<br>
+Technical report 2019-35, Seminar for Applied Mathematics, ETH Z&uuml;rich, 2019<br>
 J. A. A. Opschoor, Ch. Schwab and J. Zech<br>
-<a href="https://www.sam.math.ethz.ch/sam_reports/reports_final/reports2019/2019-50_fp.pdf">link</a></li>
+<a href="https://www.sam.math.ethz.ch/sam_reports/reports_final/reports2019/2019-35_fp.pdf">link</a></li>
 </ul>
 
 
