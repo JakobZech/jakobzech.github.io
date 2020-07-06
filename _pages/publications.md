@@ -4,8 +4,15 @@ permalink: /publications/
 layout: archive
 ---
 
+
 <h2>Preprints</h2>
 <ul>
+
+<li><b>Deep learning in high dimension: ReLU network Expression Rates for Bayesian PDE inversion</b><br />
+Technical report 2020-47, Seminar for Applied Mathematics, ETH Z&uuml;rich, 2020<br>
+J. A. A. Opschoor, Ch. Schwab and J. Zech<br>
+<a href="https://www.sam.math.ethz.ch/sam_reports/reports_final/reports2020/2020-47_fp.pdf">link</a></li>
+
 
 <li><b>Sparse approximation of triangular transports on bounded domains</b><br />
 Technical report, 2020<br />
