@@ -109,7 +109,7 @@ analytics:
 # Site Author
 author:
 # name             : "Jakob Zech"
-  avatar           : "/files/bio-photo.jpg"
+#  avatar           : "/files/bio-photo.jpg"
   bio              : "Juniorprofessor at <br>
     Heidelberg University"
   email            : "jakob.zech@uni-heidelberg.de"

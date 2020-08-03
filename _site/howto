@@ -7,3 +7,7 @@ in _sass/minimal_mistakes/variables: change font sizes
 in _includes/footer.html: remove first part
 in _data/ui-text.yml: change follow-label from "Follow" to "Links"
 in _pages: add files (not in _site)
+
+import font: https://stackoverflow.com/questions/18570424/using-fontawesome-with-sass
+
+(import in minimal_mistakes.scss; then change /minimal_mistakes/_variables.scss)
