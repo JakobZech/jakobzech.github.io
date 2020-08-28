@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
-<loc>https://jakobzech.com/</loc>
+<loc>http://localhost:4000/</loc>
 </url>
 <url>
-<loc>https://jakobzech.com/publications/</loc>
+<loc>http://localhost:4000/publications/</loc>
 </url>
 <url>
-<loc>https://jakobzech.com/talks/</loc>
+<loc>http://localhost:4000/talks/</loc>
 </url>
 <url>
-<loc>https://jakobzech.com/talks/</loc>
+<loc>http://localhost:4000/talks/</loc>
 </url>
 <url>
-<loc>https://jakobzech.com/teaching/</loc>
+<loc>http://localhost:4000/teaching/</loc>
 </url>
 </urlset>
