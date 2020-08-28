@@ -21,12 +21,12 @@ J. Zech and Y. Marzouk<br />
 
 <li><b>
 Deep ReLU Neural Network Expression Rates for Data-to-QoI Maps in Bayesian PDE Inversion</b><br>
-Technical report 2020-02, Seminar for Applied Mathematics, ETH Z&uuml;rich, 2020<br>
+to appear in <i>Inverse Problems</i><br>
 L. Herrmann, Ch. Schwab and J. Zech<br>
-<a href="https://www.sam.math.ethz.ch/sam_reports/reports_final/reports2020/2020-02_fp.pdf">link</a></li>
+<a href="https://iopscience.iop.org/article/10.1088/1361-6420/abaf64/pdf">link</a></li>
 
 <li><b>Exponential ReLU DNN expression of holomorphic maps in high dimension</b><br>
-Technical report 2019-35, Seminar for Applied Mathematics, ETH Z&uuml;rich, 2019<br>
+to appear in <i>Constructive Approximation</i><br>
 J. A. A. Opschoor, Ch. Schwab and J. Zech<br>
 <a href="https://www.sam.math.ethz.ch/sam_reports/reports_final/reports2019/2019-35_fp.pdf">link</a></li>
 </ul>

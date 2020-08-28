@@ -1,22 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
-<loc>http://localhost:4000/</loc>
+<loc>https://jakobzech.com/</loc>
 </url>
 <url>
-<loc>http://localhost:4000/publications/</loc>
+<loc>https://jakobzech.com/publications/</loc>
 </url>
 <url>
-<loc>http://localhost:4000/talks/</loc>
+<loc>https://jakobzech.com/talks/</loc>
 </url>
 <url>
-<loc>http://localhost:4000/talks/</loc>
+<loc>https://jakobzech.com/talks/</loc>
 </url>
 <url>
-<loc>http://localhost:4000/teaching/</loc>
-</url>
-<url>
-<loc>http://localhost:4000/files/ApprThNNs.pdf</loc>
-<lastmod>2020-08-03T14:59:11+02:00</lastmod>
+<loc>https://jakobzech.com/teaching/</loc>
 </url>
 </urlset>
