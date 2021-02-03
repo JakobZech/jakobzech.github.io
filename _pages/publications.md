@@ -19,12 +19,7 @@ Technical report, 2020<br />
 J. Zech and Y. Marzouk<br />
 <a href="https://arxiv.org/abs/2006.06994">link</a></li>
 
-<li><b>
-Deep ReLU Neural Network Expression Rates for Data-to-QoI Maps in Bayesian PDE Inversion</b><br>
-to appear in <i>Inverse Problems</i>
-<br>
-L. Herrmann, Ch. Schwab and J. Zech<br>
-<a href="https://doi.org/10.1088/1361-6420/abaf64">link</a></li>
+
 
 <li><b>Exponential ReLU DNN expression of holomorphic maps in high dimension</b><br>
 to appear in <i>Constructive Approximation</i><br>
@@ -35,6 +30,15 @@ J. A. A. Opschoor, Ch. Schwab and J. Zech<br>
 
 <h2>Journal Papers</h2>
 <ul>
+
+
+<li><b>
+Deep neural network expression of posterior expectations in Bayesian PDE inversion</b><br>
+<i>Inverse Problems</i>, Vol. 36, No. 12, 2020
+<br>
+L. Herrmann, Ch. Schwab and J. Zech<br>
+<a href="https://doi.org/10.1088/1361-6420/abaf64">link</a></li>
+
 <li><b>Convergence rates of high dimensional Smolyak quadrature</b><br>
 <i>Mathematical Modelling and Numerical Analysis</i>,
 Vol. 54, No. 4, 1259 - 1307, 2020<br>
