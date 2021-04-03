@@ -5,7 +5,8 @@ layout: archive
 ---
 
 <ul>
-<li><b>2020 Fall</b> - <i>Numerical Methods for Bayesian Inverse Problems</i>, Universit&auml;t Heidelberg, for course description see <a href="https://muesli.mathi.uni-heidelberg.de">Muesli</a></li>
+<li><b>2021 Spring</b> - <i>Seminar: Approximation theory for neural networks</i>, Universit&auml;t Heidelberg, see <a href="https://moodle.uni-heidelberg.de/course/view.php?id=7579">Moodle</a></li>
+<li><b>2020 Fall</b> - <i>Numerical Methods for Bayesian Inverse Problems</i>, Universit&auml;t Heidelberg</li>
 <li><b>2020 Spring</b> - <i>Seminar: Approximation theory for neural networks</i>, Universit&auml;t Heidelberg</li>
 <li><b>2018 Fall</b> - Assistant for <i>Numerical Analysis Seminar:
      Mathematics of Deep Neural Network Approximation</i>, ETH Z&uuml;rich</li>
