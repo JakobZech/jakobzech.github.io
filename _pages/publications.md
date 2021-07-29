@@ -14,22 +14,30 @@ J. A. A. Opschoor, Ch. Schwab and J. Zech<br>
 <a href="https://www.sam.math.ethz.ch/sam_reports/reports_final/reports2020/2020-47_fp.pdf">link</a></li>
 
 
-<li><b>Sparse approximation of triangular transports on bounded domains</b><br />
+<li><b>Sparse approximation of triangular transports. Part II: the finite dimensional case</b><br />
+Technical report, 2021<br />
+J. Zech and Y. Marzouk<br />
+<a href="https://arxiv.org/abs/2107.13422">link</a></li>
+
+
+<li><b>Sparse approximation of triangular transports. Part I: the finite dimensional case</b><br />
 Technical report, 2020<br />
 J. Zech and Y. Marzouk<br />
 <a href="https://arxiv.org/abs/2006.06994">link</a></li>
 
 
-
-<li><b>Exponential ReLU DNN expression of holomorphic maps in high dimension</b><br>
-to appear in <i>Constructive Approximation</i><br>
-J. A. A. Opschoor, Ch. Schwab and J. Zech<br>
-<a href="https://www.sam.math.ethz.ch/sam_reports/reports_final/reports2019/2019-35_fp.pdf">link</a></li>
 </ul>
 
 
 <h2>Journal Papers</h2>
 <ul>
+
+
+<li><b>Exponential ReLU DNN expression of holomorphic maps in high dimension</b><br>
+<i>Constructive Approximation</i>, 2021
+<br>
+J. A. A. Opschoor, Ch. Schwab and J. Zech<br>
+<a href="https://link.springer.com/article/10.1007/s00365-021-09542-5">link</a></li>
 
 
 <li><b>
