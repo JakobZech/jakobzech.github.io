@@ -14,7 +14,7 @@ J. A. A. Opschoor, Ch. Schwab and J. Zech<br>
 <a href="https://www.sam.math.ethz.ch/sam_reports/reports_final/reports2020/2020-47_fp.pdf">link</a></li>
 
 
-<li><b>Sparse approximation of triangular transports. Part II: the finite dimensional case</b><br />
+<li><b>Sparse approximation of triangular transports. Part II: the infinite dimensional case</b><br />
 Technical report, 2021<br />
 J. Zech and Y. Marzouk<br />
 <a href="https://arxiv.org/abs/2107.13422">link</a></li>
