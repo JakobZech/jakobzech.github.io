@@ -9,7 +9,7 @@ layout: archive
 <ul>
 
 <li><b>Deep Learning in High Dimension: Neural Network Approximation of Analytic Functions in L2 w.r.t. Gaussian measures</b><br />
-ArXiv preprint, 2021<br>
+arXiv preprint, 2021<br>
 Ch. Schwab and J. Zech<br>
 <a href="https://arxiv.org/abs/2111.07080">link</a></li>
 
@@ -21,13 +21,13 @@ J. A. A. Opschoor, Ch. Schwab and J. Zech<br>
 
 
 <li><b>Sparse approximation of triangular transports. Part II: the infinite dimensional case</b><br />
-ArXiv preprint, 2021<br />
+arXiv preprint, 2021<br />
 J. Zech and Y. Marzouk<br />
 <a href="https://arxiv.org/abs/2107.13422">link</a></li>
 
 
 <li><b>Sparse approximation of triangular transports. Part I: the finite dimensional case</b><br />
-ArXiv preprint, 2020<br />
+arXiv preprint, 2020<br />
 J. Zech and Y. Marzouk<br />
 <a href="https://arxiv.org/abs/2006.06994">link</a></li>
 
