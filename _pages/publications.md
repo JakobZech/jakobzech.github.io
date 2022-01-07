@@ -8,6 +8,11 @@ layout: archive
 <h2>Preprints</h2>
 <ul>
 
+<li><b>Analyticity and sparsity in uncertainty quantification for PDEs with Gaussian random field inputs</b><br />
+arXiv preprint, 2022<br>
+Dinh Dũng, Van Kien Nguyen, Christoph Schwab and Jakob Zech<br>
+<a href="https://arxiv.org/abs/2201.01912">link</a></li>
+
 <li><b>Deep Learning in High Dimension: Neural Network Approximation of Analytic Functions in L2 w.r.t. Gaussian measures</b><br />
 arXiv preprint, 2021<br>
 Ch. Schwab and J. Zech<br>
