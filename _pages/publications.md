@@ -8,6 +8,11 @@ layout: archive
 <h2>Preprints</h2>
 <ul>
 
+<li><b>De Rham compatible Deep Neural Networks</b><br />
+Technical report 2022-03, Seminar for Applied Mathematics, ETH Z&uuml;rich, 2022<br>
+M. Longo, J. A. A. Opschoor, N. Disch, Ch. Schwab and J. Zech<br>
+<a href="https://www.sam.math.ethz.ch/sam_reports/counter/ct.php?file=/sam_reports/reports_final/reports2022/2022-03_fp.pdf">link</a></li>
+
 <li><b>Analyticity and sparsity in uncertainty quantification for PDEs with Gaussian random field inputs</b><br />
 arXiv preprint, 2022<br>
 Dinh Dũng, Van Kien Nguyen, Christoph Schwab and Jakob Zech<br>
