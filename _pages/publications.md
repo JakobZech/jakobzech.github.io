@@ -24,29 +24,46 @@ Ch. Schwab and J. Zech<br>
 <a href="https://arxiv.org/abs/2111.07080">link</a></li>
 
 
-<li><b>Deep learning in high dimension: ReLU network Expression Rates for Bayesian PDE inversion</b><br />
-Technical report 2020-47, Seminar for Applied Mathematics, ETH Z&uuml;rich, 2020<br>
-J. A. A. Opschoor, Ch. Schwab and J. Zech<br>
-<a href="https://www.sam.math.ethz.ch/sam_reports/reports_final/reports2020/2020-47_fp.pdf">link</a></li>
 
 
-<li><b>Sparse approximation of triangular transports. Part II: the infinite dimensional case</b><br />
-arXiv preprint (accepted in Constructive Approximation), 2021<br />
-J. Zech and Y. Marzouk<br />
-<a href="https://arxiv.org/abs/2107.13422">link</a></li>
 
-
-<li><b>Sparse approximation of triangular transports. Part I: the finite dimensional case</b><br />
-arXiv preprint (accepted in Constructive Approximation), 2020<br />
-J. Zech and Y. Marzouk<br />
-<a href="https://arxiv.org/abs/2006.06994">link</a></li>
 
 
 </ul>
 
 
-<h2>Journal Papers</h2>
+<h2>Journal papers and book chapters</h2>
 <ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li><b>Sparse Approximation of Triangular Transports, Part II: The Infinite-Dimensional Case</b><br />
+<i>Constructive Approximation</i>, 2022<br />
+J. Zech and Y. Marzouk<br />
+<a href="https://link.springer.com/article/10.1007/s00365-022-09570-9">link</a></li>
+
+
+<li><b>Sparse Approximation of Triangular Transports, Part I: The Finite-Dimensional Case</b><br />
+<i>Constructive Approximation</i>, 2022<br />
+J. Zech and Y. Marzouk<br />
+<a href="https://link.springer.com/article/10.1007/s00365-022-09569-2">link</a></li>
+
+
+<li><b>Deep learning in high dimension: ReLU neural network expression for Bayesian PDE inversion</b><br />
+<i>Optimization and Control for Partial Differential Equations: Uncertainty quantification, open and closed-loop control, and shape optimization</i>,
+De Gruyter, 419-462, 2022<br>
+J. A. A. Opschoor, Ch. Schwab and J. Zech<br>
+<a href="https://doi.org/10.1515/9783110695984-015">link</a></li>
 
 
 <li><b>Exponential ReLU DNN expression of holomorphic maps in high dimension</b><br>
