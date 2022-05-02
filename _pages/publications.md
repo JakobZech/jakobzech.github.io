@@ -8,6 +8,11 @@ layout: archive
 <h2>Preprints</h2>
 <ul>
 
+<li><b>Multilevel Optimization for Inverse Problems</b><br />
+arXiv preprint, 2022<br>
+S. Weissmann, A. Wilson and J. Zech<br>
+<a href="https://arxiv.org/abs/2204.13732">link</a></li>
+
 <li><b>De Rham compatible Deep Neural Networks</b><br />
 arXiv preprint, 2022<br>
 M. Longo, J. A. A. Opschoor, N. Disch, Ch. Schwab and J. Zech<br>
