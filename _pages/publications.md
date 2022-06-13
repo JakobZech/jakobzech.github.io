@@ -8,6 +8,11 @@ layout: archive
 <h2>Preprints</h2>
 <ul>
 
+<li><b>Neural and gpc operator surrogates: construction and expression rate bounds</b><br />
+arXiv preprint, 2022<br>
+L. Herrmann, Ch. Schwab and J. Zech <br>
+<a href="https://math.ethz.ch/sam/research/reports.html?id=1015">link</a></li>
+
 <li><b>Multilevel Optimization for Inverse Problems</b><br />
 arXiv preprint, 2022<br>
 S. Weissmann, A. Wilson and J. Zech<br>
