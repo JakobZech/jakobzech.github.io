@@ -9,7 +9,7 @@ layout: archive
 <ul>
 
 <li><b>Neural and gpc operator surrogates: construction and expression rate bounds</b><br />
-arXiv preprint, 2022<br>
+preprint, 2022<br>
 L. Herrmann, Ch. Schwab and J. Zech <br>
 <a href="https://math.ethz.ch/sam/research/reports.html?id=1015">link</a></li>
 
