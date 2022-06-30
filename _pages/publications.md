@@ -13,11 +13,6 @@ preprint, 2022<br>
 L. Herrmann, Ch. Schwab and J. Zech <br>
 <a href="https://math.ethz.ch/sam/research/reports.html?id=1015">link</a></li>
 
-<li><b>Multilevel Optimization for Inverse Problems</b><br />
-arXiv preprint, 2022<br>
-S. Weissmann, A. Wilson and J. Zech<br>
-<a href="https://arxiv.org/abs/2204.13732">link</a></li>
-
 <li><b>De Rham compatible Deep Neural Networks</b><br />
 arXiv preprint, 2022<br>
 M. Longo, J. A. A. Opschoor, N. Disch, Ch. Schwab and J. Zech<br>
@@ -42,19 +37,14 @@ Ch. Schwab and J. Zech<br>
 </ul>
 
 
-<h2>Journal papers and book chapters</h2>
+<h2>Journal papers, conference papers and book chapters</h2>
 <ul>
 
 
-
-
-
-
-
-
-
-
-
+<li><b>Multilevel Optimization for Inverse Problems</b><br />
+COLT 2022<br>
+S. Weissmann, A. Wilson and J. Zech<br>
+<a href="https://proceedings.mlr.press/v178/weissmann22a.html">link</a></li>
 
 
 <li><b>Sparse Approximation of Triangular Transports, Part II: The Infinite-Dimensional Case</b><br />
