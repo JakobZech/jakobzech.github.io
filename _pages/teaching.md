@@ -5,7 +5,7 @@ layout: archive
 ---
 
 <ul>
-<li><b>2021 Fall</b> - <i>High Dimensional Approximation and Applications in Uncertainty Quantification</i>, Universit&auml;t Heidelberg, <a href="https://moodle.uni-heidelberg.de/course/view.php?id=11450">Moodle</a></li>
+<li><b>2022 Spring</b> - <i>High Dimensional Approximation and Applications in Uncertainty Quantification</i>, Universit&auml;t Heidelberg, <a href="https://moodle.uni-heidelberg.de/course/view.php?id=11450">Moodle</a></li>
 <li><b>2021 Fall</b> - <i>Theory of Deep Learning</i>, Universit&auml;t Heidelberg, <a href="https://moodle.uni-heidelberg.de/course/view.php?id=9602">Moodle</a></li>
 <li><b>2021 Spring</b> - <i>Seminar: Approximation theory for neural networks</i>, Universit&auml;t Heidelberg, <a href="https://moodle.uni-heidelberg.de/course/view.php?id=7579">Moodle</a></li>
 <li><b>2020 Fall</b> - <i>Numerical Methods for Bayesian Inverse Problems</i>, Universit&auml;t Heidelberg</li>
