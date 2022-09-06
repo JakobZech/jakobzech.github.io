@@ -42,7 +42,7 @@ Ch. Schwab and J. Zech<br>
 
 
 <li><b>Multilevel Optimization for Inverse Problems</b><br />
-Proceedings of Machine Learning Research 2022<br>
+Proceedings of Machine Learning Research, Volume 178: Conference on Learning Theory, 2022<br>
 S. Weissmann, A. Wilson and J. Zech<br>
 <a href="https://proceedings.mlr.press/v178/weissmann22a.html">link</a></li>
 
