@@ -13,3 +13,6 @@ in _layouts/home.html: change main site (not in _site/index.html)
 import font: https://stackoverflow.com/questions/18570424/using-fontawesome-with-sass
 
 (import in minimal_mistakes.scss; then change /minimal_mistakes/_variables.scss)
+
+to create new subpage: add corresponding file in _pages
+to add link in header: change _site/sitemap.xml
