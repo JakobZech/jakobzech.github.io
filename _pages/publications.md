@@ -6,50 +6,52 @@ layout: archive
 
 
 <h2>Preprints</h2>
-<ul>
-
-<li><b>Multilevel Domain Uncertainty Quantification in Computational Electromagnetics</b><br />
-arXiv preprint, 2022<br>
-R. Aylwin, C. Jerez-Hanckes, Ch. Schwab and J. Zech <br>
-<a href="https://arxiv.org/abs/2212.07240">link</a></li>
-
+<ul class="my-publication-list">
 <li><b>Neural and gpc operator surrogates: construction and expression rate bounds</b><br />
 arXiv preprint, 2022<br>
 L. Herrmann, Ch. Schwab and J. Zech <br>
 <a href="https://arxiv.org/abs/2207.04950">link</a></li>
-
-<li><b>De Rham compatible Deep Neural Networks</b><br />
-arXiv preprint, 2022<br>
-M. Longo, J. A. A. Opschoor, N. Disch, Ch. Schwab and J. Zech<br>
-<a href="https://arxiv.org/abs/2201.05395">link</a></li>
-
-<li><b>Analyticity and sparsity in uncertainty quantification for PDEs with Gaussian random field inputs</b><br />
-arXiv preprint, 2022<br>
-Dinh Dũng, Van Kien Nguyen, Christoph Schwab and Jakob Zech<br>
-<a href="https://arxiv.org/abs/2201.01912">link</a></li>
-
-<li><b>Deep Learning in High Dimension: Neural Network Approximation of Analytic Functions in L2 w.r.t. Gaussian measures</b><br />
-arXiv preprint, 2021 (accepted in JUQ)<br>
-Ch. Schwab and J. Zech<br>
-<a href="https://arxiv.org/abs/2111.07080">link</a></li>
-
-
-
-
-
-
-
 </ul>
 
+<h2>Books</h2>
+<ul class="my-publication-list">
+<li><b>Analyticity and sparsity in uncertainty quantification for PDEs with Gaussian random field inputs</b><br />
+<i>Springer Lecture Notes in Mathematics</i>, 2023<br>
+Dinh Dũng, Van Kien Nguyen, Christoph Schwab and Jakob Zech<br>
+<a href="https://link.springer.com/book/9783031383854">link</a></li>
+</ul>
 
-<h2>Journal papers, conference papers and book chapters</h2>
-<ul>
-
+<h2>Proceedings and Book Chapters</h2>
+<ul class="my-publication-list">
 
 <li><b>Multilevel Optimization for Inverse Problems</b><br />
 Proceedings of Machine Learning Research, Volume 178: Conference on Learning Theory, 2022<br>
 S. Weissmann, A. Wilson and J. Zech<br>
 <a href="https://proceedings.mlr.press/v178/weissmann22a.html">link</a></li>
+
+<li><b>Deep learning in high dimension: ReLU neural network expression for Bayesian PDE inversion</b><br />
+<i>Optimization and Control for Partial Differential Equations: Uncertainty quantification, open and closed-loop control, and shape optimization</i>,
+De Gruyter, 419-462, 2022<br>
+J. A. A. Opschoor, Ch. Schwab and J. Zech<br>
+<a href="https://doi.org/10.1515/9783110695984-015">link</a></li>
+</ul>
+
+<h2>Journal papers</h2>
+<ul class="my-publication-list">
+<li><b>De Rham compatible Deep Neural Network FEM</b><br />
+<i>Neural Networks</i>, 2023<br>
+M. Longo, J. A. A. Opschoor, N. Disch, Ch. Schwab and J. Zech<br>
+<a href="https://www.sciencedirect.com/science/article/pii/S0893608023003088">link</a></li>
+
+<li><b>Multilevel Domain Uncertainty Quantification in Computational Electromagnetics</b><br />
+<i>Mathematical Models and Methods in Applied Sciences</i>, 2023<br>
+R. Aylwin, C. Jerez-Hanckes, Ch. Schwab and J. Zech <br>
+<a href="https://www.worldscientific.com/doi/abs/10.1142/S0218202523500264">link</a></li>
+
+<li><b>Deep Learning in High Dimension: Neural Network Approximation of Analytic Functions in L2 w.r.t. Gaussian measures</b><br />
+<i>SIAM/ASA Journal of Uncertainty Quantification</i>, 2022<br>
+Ch. Schwab and J. Zech<br>
+<a href="https://epubs.siam.org/doi/10.1137/21M1462738">link</a></li>
 
 
 <li><b>Sparse Approximation of Triangular Transports, Part II: The Infinite-Dimensional Case</b><br />
@@ -64,11 +66,7 @@ J. Zech and Y. Marzouk<br />
 <a href="https://link.springer.com/article/10.1007/s00365-022-09569-2">link</a></li>
 
 
-<li><b>Deep learning in high dimension: ReLU neural network expression for Bayesian PDE inversion</b><br />
-<i>Optimization and Control for Partial Differential Equations: Uncertainty quantification, open and closed-loop control, and shape optimization</i>,
-De Gruyter, 419-462, 2022<br>
-J. A. A. Opschoor, Ch. Schwab and J. Zech<br>
-<a href="https://doi.org/10.1515/9783110695984-015">link</a></li>
+
 
 
 <li><b>Exponential ReLU DNN expression of holomorphic maps in high dimension</b><br>
@@ -130,7 +128,7 @@ S. Sauter and J. Zech<br>
 
 <h2>Theses</h2>
 
-<ul>
+<ul class="my-publication-list">
 <li><b>Sparse-Grid Approximation of High-Dimensional Parametric PDEs</b><br>
 PhD thesis, Advisor: Prof. Dr. Christoph Schwab, ETH Z&uuml;rich, 2018<br>
 J. Zech<br>
@@ -141,4 +139,41 @@ Master's thesis, Advisor: Prof. Dr. Stefan Sauter, ETH Z&uuml;rich and Universit
 J. Zech<br>
 <a href="https://www.math.uzh.ch/compmath/fileadmin/user/stas/compmath/Abschlussarbeiten/masterarbeit.zech.jakob.052014.pdf">link</a>
 </li>
+
 </ul>
+
+<!--
+<script>
+    window.onload = function() {
+        let count = 1;
+        const lists = document.getElementsByClassName('my-publication-list');
+        for (let list of lists) {
+            const items = list.getElementsByTagName('li');
+            for (let item of items) {
+                item.innerHTML = `<b>[${count}]</b> ` + item.innerHTML;
+                count++;
+            }
+        }
+    }
+</script>
+-->
+
+<script>
+    window.onload = function() {
+        let count = 0;
+        const lists = document.getElementsByClassName('my-publication-list');
+        // Calculate total number of items
+        for (let list of lists) {
+            const items = list.getElementsByTagName('li');
+            count += items.length;
+        }
+        // Enumerate items in reverse
+        for (let list of lists) {
+            const items = list.getElementsByTagName('li');
+            for (let item of items) {
+                item.innerHTML = `<b>[${count}]</b> ` + item.innerHTML;
+                count--;
+            }
+        }
+    }
+</script>
