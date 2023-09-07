@@ -8,6 +8,12 @@ layout: archive
 <h2>Preprints</h2>
 <ul class="my-publication-list">
 
+<li><b>Distribution learning via neural differential equations: a nonparametric statistical perspective</b><br />
+arXiv preprint, 2023<br>
+Y. Marzouk, Z. Ren, S. Wang, J. Zech<br>
+<a href=" http://arxiv.org/abs/2309.01043">link</a></li>
+
+
 <li><b>Deep Operator Network Approximation Rates for Lipschitz Operators</b><br />
 arXiv preprint, 2023<br>
 A. Stein, Ch. Schwab and J. Zech <br>
