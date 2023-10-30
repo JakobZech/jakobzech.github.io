@@ -155,6 +155,33 @@ J. Zech<br>
 
 </ul>
 
+
+
+<script>
+    window.onload = function() {
+        let count = 0;
+        const lists = document.getElementsByClassName('my-publication-list');
+        
+        // Calculate total number of items excluding the last two theses
+        for (let list of lists) {
+            const items = list.getElementsByTagName('li');
+            count += items.length;
+        }
+        count -= 2; // Subtract 2 for the last two theses
+
+        // Enumerate items in reverse
+        for (let list of lists) {
+            const items = list.getElementsByTagName('li');
+            for (let item of items) {
+                if (count > 0) {
+                    item.innerHTML = `<b>[${count}]</b> ` + item.innerHTML;
+                }
+                count--;
+            }
+        }
+    }
+</script>
+
 <!--
 <script>
     window.onload = function() {
@@ -169,7 +196,6 @@ J. Zech<br>
         }
     }
 </script>
--->
 
 <script>
     window.onload = function() {
@@ -190,3 +216,4 @@ J. Zech<br>
         }
     }
 </script>
+-->
