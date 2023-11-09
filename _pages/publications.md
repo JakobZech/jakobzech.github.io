@@ -8,11 +8,16 @@ layout: archive
 <h2>Preprints</h2>
 <ul class="my-publication-list">
 
+<li><b>Measure transport via polynomial density surrogates</b><br />
+arXiv preprint, 2023<br>
+J. Westermann, J. Zech<br>
+<a href="https://arxiv.org/abs/2311.04172">link</a></li>
+
+
 <li><b>Distribution learning via neural differential equations: a nonparametric statistical perspective</b><br />
 arXiv preprint, 2023<br>
 Y. Marzouk, Z. Ren, S. Wang, J. Zech<br>
-<a href=" http://arxiv.org/abs/2309.01043">link</a></li>
-
+<a href="http://arxiv.org/abs/2309.01043">link</a></li>
 
 <li><b>Deep Operator Network Approximation Rates for Lipschitz Operators</b><br />
 arXiv preprint, 2023<br>
