@@ -8,6 +8,12 @@ layout: archive
 <h2>Preprints</h2>
 <ul class="my-publication-list">
 
+<li><b>Metropolis-adjusted interacting particle sampling</b><br />
+arXiv preprint, 2023<br>
+J. Sprungk, S. Weissmann, J. Zech<br>
+<a href="https://arxiv.org/abs/2312.13889">link</a></li>
+
+
 <li><b>Measure transport via polynomial density surrogates</b><br />
 arXiv preprint, 2023<br>
 J. Westermann, J. Zech<br>
