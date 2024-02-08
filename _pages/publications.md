@@ -5,14 +5,12 @@ layout: archive
 ---
 
 
-
-
 <h2>Preprints</h2>
 <ul class="my-publication-list">
 
 <li><b>On the mean-field limit for Stein variational gradient descent: stability and multilevel approximation</b><br />
 arXiv preprint, 2024<br>
-S. Weissmann and J. Zech<br>
+S. Weissmann, J. Zech<br>
 <a href="https://arxiv.org/abs/2402.01320">link</a></li>
 
 
