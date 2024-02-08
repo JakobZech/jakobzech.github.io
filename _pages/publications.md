@@ -36,7 +36,7 @@ arXiv preprint, 2023<br>
 A. Stein, Ch. Schwab and J. Zech <br>
 <a href=" http://arxiv.org/abs/2307.09835">link</a></li>
 
-<li><b>Neural and gpc operator surrogates: construction and expression rate bounds</b><br />
+<li><b>Neural and spectral operator surrogates: unified construction and expression rate bounds</b><br />
 arXiv preprint, 2022<br>
 L. Herrmann, Ch. Schwab and J. Zech <br>
 <a href="https://arxiv.org/abs/2207.04950">link</a></li>
