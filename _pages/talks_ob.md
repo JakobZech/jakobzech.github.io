@@ -1,6 +1,6 @@
 ---
 title: Talks
-permalink: /talks/
+permalink: /talks_ob/
 layout: archive
 ---
 
