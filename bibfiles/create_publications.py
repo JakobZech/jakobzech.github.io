@@ -184,7 +184,7 @@ function copyToClipboard(text) {
             md_content += f"""<li><b>{title}</b><br />
 <i>{publication_info}</i>, {year}<br>
 {authors}<br>
-<a href="{url}">link</a>, <a href="/{key}.html">bibtex</a>"""
+<a href="{url}">Link</a>, <a href="/{key}.html">BibTex</a>"""
             bibtex_copy_button = generate_bibtex_entry_button_with_curly_brackets(entry)
             md_content += " "+bibtex_copy_button+f"</li>\n"
             generate_individual_html(entry, output_dir, title, key)
