@@ -16,7 +16,7 @@ def create_html_content(entry_key, entry):
     permalink = f"/publications/bibtex/{entry_key}/"
 
     return f"""---
-layout: page
+layout: archive
 title: "{entry.fields['title']}"
 permalink: {permalink}
 ---
