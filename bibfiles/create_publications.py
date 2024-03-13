@@ -12,12 +12,24 @@ section_titles = {
 }
 
 def latex_to_unicode(text):
+    # LaTeX to Unicode mappings, add more mappings as needed
     mappings = {
         "\\'{e}": "é", "\\~{u}": "ũ", "\\`{e}": "è",
-        # Add more mappings as needed
+        "\\$": "$",  # Preserve $ for LaTeX math
     }
+    # Preserve LaTeX math by temporarily replacing it
+    math_regex = re.compile(r'(\$\$?.*?\$\$?)')
+    math_matches = math_regex.findall(text)
+    text = math_regex.sub('MATH_PLACEHOLDER', text)
+    
     regex = re.compile('|'.join(re.escape(key) for key in mappings.keys()))
-    return regex.sub(lambda m: mappings[m.group()], text)
+    text = regex.sub(lambda m: mappings[m.group()], text)
+
+    # Restore LaTeX math
+    for match in math_matches:
+        text = text.replace('MATH_PLACEHOLDER', match, 1)
+    
+    return text
 
 def clean_bibtex_string(value):
     value = latex_to_unicode(value)    
@@ -33,7 +45,7 @@ def format_author_name(person):
 def format_authors(entry):
     authors = [format_author_name(person) for person in entry.persons.get('author', [])]
     if len(authors) > 2:
-        return ', '.join(authors[:-1]) + ', and ' + authors[-1]
+        return ', '.join(authors[:-1]) + ' and ' + authors[-1]
     return ' and '.join(authors)
 
 def get_publication_info(entry):
@@ -52,59 +64,79 @@ def parse_bib_file(bib_file):
     return parser.parse_file(bib_file)
 
 def generate_individual_html(entry, output_dir, title, key):
-    bibtex_content = html.escape(entry.to_string('bibtex'))
+    # Convert the BibTeX entry to a string
+    bibtex_content = entry.to_string('bibtex')
+    
+    # Replace quotes around field values with curly brackets
+    bibtex_content_with_curly_brackets = re.sub(r'=\s*"([^"]*)"', r'= {\1}', bibtex_content)
+    
+    # Prepare the BibTeX string for inclusion in an HTML attribute
+    bibtex_content_for_html_attribute = html.escape(bibtex_content_with_curly_brackets).replace('"', '&quot;')
+    
+    # Generate the HTML content with a copy button
     html_content = f"""---
 layout: archive
 title: "{title}"
 permalink: /{key}.html
 ---
 
+<script>
+function copyToClipboard() {{
+    const el = document.createElement('textarea');
+    el.value = `{bibtex_content_with_curly_brackets}`;
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand('copy');
+    document.body.removeChild(el);
+    alert('BibTeX entry copied to clipboard!');
+}}
+</script>
+
+<button onclick='copyToClipboard()' style='padding:5px; background-color:#f0f0f0;border:1px solid #ccc;cursor:pointer;border-radius:5px;'>Copy BibTeX</button>
+
 <pre>
-{bibtex_content}
+{html.escape(bibtex_content_with_curly_brackets)}
 </pre>
 """
     with open(os.path.join(output_dir, f"{key}.html"), 'w') as html_file:
         html_file.write(html_content)
 
+# def generate_individual_html(entry, output_dir, title, key):
+#     # Convert the BibTeX entry to a string
+#     bibtex_content = entry.to_string('bibtex')
+    
+#     # Replace quotes around field values with curly brackets
+#     bibtex_content_with_curly_brackets = re.sub(r'=\s*"([^"]*)"', r'= {\1}', bibtex_content)
+    
+#     # Escape the modified BibTeX string for HTML
+#     bibtex_content_escaped = html.escape(bibtex_content_with_curly_brackets)
+    
+#     html_content = f"""---
+# layout: archive
+# title: "{title}"
+# permalink: /{key}.html
+# ---
+
+# <pre>
+# {bibtex_content_escaped}
+# </pre>
+# """
+#     with open(os.path.join(output_dir, f"{key}.html"), 'w') as html_file:
+#         html_file.write(html_content)
 
 def escape_for_html_attribute(js_string):
-    """
-    Prepares a JavaScript string to be placed inside an HTML attribute.
-    The function replaces quotes with their HTML entity equivalents.
-    """
     return js_string.replace('"', '&quot;').replace("'", '&#39;')
 
 def generate_bibtex_entry_button_with_curly_brackets(bibtex_entry):
-    """
-    Generates a JavaScript snippet for copying the BibTeX entry, modifying it
-    to use curly brackets instead of quotes for field values. This version also
-    ensures proper handling of line breaks and HTML attribute escaping.
-    """
-    # Convert the BibTeX entry to string
     bibtex_string = bibtex_entry.to_string('bibtex')
-    
-    # Replace double quotes with curly brackets for field values, ensuring proper JavaScript handling
-    # Note: This simple replacement assumes the BibTeX fields do not contain nested curly brackets.
     bibtex_string_with_curly_brackets = re.sub(r'=\s*"([^"]*)"', r'= {\1}', bibtex_string)
-    
-    # Escape for HTML attribute and replace line breaks for HTML/JS compatibility
     escaped_bibtex_string = escape_for_html_attribute(bibtex_string_with_curly_brackets).replace('\n', '\\n')
-    
-    # Generate the HTML for the copy button with the formatted BibTeX string
     button_html = f"""<button onclick='copyToClipboard("{escaped_bibtex_string}")' style='padding:0px; background-color:#f0f0f0;border:1px solid #ccc;cursor:pointer;border-radius:5px;'>copy</button>"""
     return button_html
 
 def generate_bibtex_entry_button(bibtex_entry):
-    """
-    Generates a JavaScript snippet for copying the BibTeX entry, with modifications
-    to handle line breaks and ensure correct JavaScript string formatting.
-    """
-    # Convert the BibTeX entry to string and prepare it for HTML attribute inclusion
     bibtex_string = bibtex_entry.to_string('bibtex')
-    # Escape quotes and replace line breaks to ensure the string is handled correctly in HTML/JS
     escaped_bibtex_string = escape_for_html_attribute(bibtex_string).replace('\n', '\\n')
-    
-    # Generate the HTML for the copy button with the properly formatted BibTeX string
     button_html = f"""<button onclick='copyToClipboard("{escaped_bibtex_string}")' style='padding:0px;background-color:#f0f0f0;border:1px solid #ccc;cursor:pointer;'>copy</button>"""
     return button_html
         
@@ -116,10 +148,14 @@ permalink: /publications/
 layout: archive
 ---
 
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
 <script>
 function copyToClipboard(text) {
     navigator.clipboard.writeText(text).then(function() {
-        alert('Copying bibtex entry to clipboard was successful!');
+        alert('BibTeX entry copied to clipboard!');
     }, function(err) {
         console.error('Could not copy text: ', err);
     });
@@ -145,10 +181,8 @@ function copyToClipboard(text) {
             url = entry.fields.get('url', entry.fields.get('eprint', '#'))
             key = entry.key
 
-            bibtex_string_for_js = html.escape(entry.to_string('bibtex').replace('"', '&quot;'))
-            
             md_content += f"""<li><b>{title}</b><br />
-{year}{f" - {publication_info}" if publication_info else ""}<br>
+<i>{publication_info}</i>, {year}<br>
 {authors}<br>
 <a href="{url}">link</a>, <a href="/{key}.html">bibtex</a>"""
             bibtex_copy_button = generate_bibtex_entry_button_with_curly_brackets(entry)
