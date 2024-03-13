@@ -91,7 +91,7 @@ def generate_bibtex_entry_button_with_curly_brackets(bibtex_entry):
     escaped_bibtex_string = escape_for_html_attribute(bibtex_string_with_curly_brackets).replace('\n', '\\n')
     
     # Generate the HTML for the copy button with the formatted BibTeX string
-    button_html = f"""<button onclick='copyToClipboard("{escaped_bibtex_string}")' style='padding:0px;background-color:#f0f0f0;border:1px solid #ccc;cursor:pointer;'>copy</button>"""
+    button_html = f"""<button onclick='copyToClipboard("{escaped_bibtex_string}")' style='padding:0px; background-color:#f0f0f0;border:1px solid #ccc;cursor:pointer;border-radius:5px;'>copy</button>"""
     return button_html
 
 def generate_bibtex_entry_button(bibtex_entry):
@@ -119,7 +119,7 @@ layout: archive
 <script>
 function copyToClipboard(text) {
     navigator.clipboard.writeText(text).then(function() {
-        alert('Copying to clipboard was successful!');
+        alert('Copying bibtex entry to clipboard was successful!');
     }, function(err) {
         console.error('Could not copy text: ', err);
     });
