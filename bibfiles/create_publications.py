@@ -77,7 +77,7 @@ def generate_individual_html(entry, output_dir, title, key):
     html_content = f"""---
 layout: archive
 title: "{title}"
-permalink: /{key}.html
+permalink: /publications/{key}.html
 ---
 
 <script>
@@ -114,7 +114,7 @@ function copyToClipboard() {{
 #     html_content = f"""---
 # layout: archive
 # title: "{title}"
-# permalink: /{key}.html
+# permalink: /publications/{key}.html
 # ---
 
 # <pre>
