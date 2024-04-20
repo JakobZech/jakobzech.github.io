@@ -192,6 +192,9 @@ function copyToClipboard(text) {
     if current_section_opened:
         md_content += "</ul>\n"
 
+    md_content += '<a href="/files/main.bib" download="main.bib" style="padding:0px;background-color:#f0f0f0;border:1px solid #ccc;cursor:pointer;border-radius:5px;display:inline-block;text-decoration:none;color:black;">Download main.bib</a>\n'
+    # md_content += '<button href="/files/main.bib" download="main.bib" style="padding:0px;background-color:#f0f0f0;border:1px solid #ccc;cursor:pointer;border-radius:5px">Download main.bib</button>\n'
+        
     md_content += """
 <script>
     window.onload = function() {
@@ -221,12 +224,31 @@ function copyToClipboard(text) {
     with open(os.path.join(output_dir, "publications.md"), 'w') as md_file:
         md_file.write(md_content)
 
+def filter_and_save(input_filepath, output_filepath):
+    try:
+        with open(input_filepath, 'r') as file:
+            lines = file.readlines()
+
+        filtered_lines = [line for line in lines if "@Section" not in line]
+
+        with open(output_filepath, 'w') as file:
+            file.writelines(filtered_lines)
+            
+        print("File processed and saved successfully.")
+
+    except FileNotFoundError:
+        print("Error: The file at the specified input filepath does not exist.")
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        
 def main(bib_file, output_dir):
+    filter_and_save(bib_file,bib_file_download)    
     bib_data = parse_bib_file(bib_file)
     generate_publications_md_and_html_files(bib_data, output_dir)
     print("Done generating publications.md and HTML files with copy functionality.")
 
 bib_file = './main.bib'  # Path to your BibTeX file
+bib_file_download = '../files/main.bib'  # Path to your BibTeX file
 output_dir = '.'  # Output directory for the HTML files and publications.md
 
 main(bib_file, output_dir)

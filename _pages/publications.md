@@ -142,6 +142,7 @@ Jakob Zech<br>
 Jakob Zech<br>
 <a href="https://www.math.uzh.ch/compmath/fileadmin/user/stas/compmath/Abschlussarbeiten/masterarbeit.zech.jakob.052014.pdf">Link</a>, <a href="/publications/Zech2014Master.html">BibTex</a> <button onclick='copyToClipboard("@mastersthesis{Zech2014Master,\n    author = {Zech, Jakob},\n    title = {A Posteriori Error Estimation of hp-DG Finite Element Methods for Highly Indefinite Helmholtz Problems},\n    school = {ETH Zürich and Universität Zürich},\n    year = {2014},\n    advisor = {Prof. Dr. Stefan Sauter},\n    url = {https://www.math.uzh.ch/compmath/fileadmin/user/stas/compmath/Abschlussarbeiten/masterarbeit.zech.jakob.052014.pdf},\n    type = {Master&#39;s thesis}\n}\n")' style='padding:0px; background-color:#f0f0f0;border:1px solid #ccc;cursor:pointer;border-radius:5px;'>copy</button></li>
 </ul>
+<a href="/files/main.bib" download="main.bib" style="padding:0px;background-color:#f0f0f0;border:1px solid #ccc;cursor:pointer;border-radius:5px;display:inline-block;text-decoration:none;color:black;">Download main.bib</a>
 
 <script>
     window.onload = function() {
