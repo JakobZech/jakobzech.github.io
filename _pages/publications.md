@@ -68,7 +68,7 @@ Joost A. A. Opschoor, Christoph Schwab and Jakob Zech<br>
 <li><b>Neural and spectral operator surrogates: unified construction and expression rate bounds</b><br />
 <i>Advances in Computational Mathematics (accepted)</i>, 2024<br>
 Lukas Herrmann, Christoph Schwab and Jakob Zech<br>
-<a href="#">Link</a>, <a href="/publications/Herrmann2024Operator.html">BibTex</a> <button onclick='copyToClipboard("@article{Herrmann2024Operator,\n    Author = {Herrmann, Lukas and Schwab, Christoph and Zech, Jakob},\n    Title = {Neural and spectral operator surrogates: unified construction and expression rate bounds},\n    Year = {2024},\n    Journal = {Advances in Computational Mathematics (accepted)}\n}\n")' style='padding:0px; background-color:#f0f0f0;border:1px solid #ccc;cursor:pointer;border-radius:5px;'>copy</button></li>
+<a href="https://arxiv.org/abs/2207.04950">Link</a>, <a href="/publications/Herrmann2024Operator.html">BibTex</a> <button onclick='copyToClipboard("@article{Herrmann2024Operator,\n    Author = {Herrmann, Lukas and Schwab, Christoph and Zech, Jakob},\n    Title = {Neural and spectral operator surrogates: unified construction and expression rate bounds},\n    Year = {2024},\n    Journal = {Advances in Computational Mathematics (accepted)},\n    URL = {https://arxiv.org/abs/2207.04950}\n}\n")' style='padding:0px; background-color:#f0f0f0;border:1px solid #ccc;cursor:pointer;border-radius:5px;'>copy</button></li>
 <li><b>De Rham compatible Deep Neural Network FEM</b><br />
 <i>Neural Networks</i>, 2023<br>
 Marcello Longo, Joost A.A. Opschoor, Nico Disch, Christoph Schwab and Jakob Zech<br>
