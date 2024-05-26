@@ -34,6 +34,11 @@ var store = [{
         "tags": [],
         "url": "https://jakobzech.com/publications/Herrmann2022Operator.html",
         "teaser":"https://jakobzech.com/files/bio-photo.jpg"},{
+        "title": "Neural and spectral operator surrogates: unified construction and expression rate bounds",
+        "excerpt":"  Copy BibTeX   @article{Herrmann2024Operator,     Author = {Herrmann, Lukas and Schwab, Christoph and Zech, Jakob},     Title = {Neural and spectral operator surrogates: unified construction and expression rate bounds},     Year = {2024},     Journal = {Advances in Computational Mathematics (accepted)} }   ","categories": [],
+        "tags": [],
+        "url": "https://jakobzech.com/publications/Herrmann2024Operator.html",
+        "teaser":"https://jakobzech.com/files/bio-photo.jpg"},{
         "title": "Electromagnetic wave scattering by random surfaces: shape holomorphy",
         "excerpt":"Copy BibTeX @article{Jerez2017Maxwell, AUTHOR = {Jerez-Hanckes, Carlos and Schwab, Christoph and Zech, Jakob}, TITLE = {Electromagnetic wave scattering by random surfaces: shape holomorphy}, JOURNAL = {Math. Models Methods Appl. Sci.}, FJOURNAL = {Mathematical Models and Methods in Applied Sciences}, VOLUME = {27}, YEAR = {2017}, NUMBER = {12}, PAGES =...","categories": [],
         "tags": [],
