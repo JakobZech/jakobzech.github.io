@@ -33,10 +33,6 @@ Björn Sprungk, Simon Weissmann and Jakob Zech<br>
 <i>arXiv preprint</i>, 2023<br>
 Josephine Westermann and Jakob Zech<br>
 <a href="https://arxiv.org/abs/2311.04172">Link</a>, <a href="/publications/Westermann2023Transport.html">BibTex</a> <button onclick='copyToClipboard("@article{Westermann2023Transport,\n    Author = {Westermann, Josephine and Zech, Jakob},\n    Title = {Measure transport via polynomial density surrogates},\n    Year = {2023},\n    Journal = {arXiv preprint},\n    Url = {https://arxiv.org/abs/2311.04172}\n}\n")' style='padding:0px; background-color:#f0f0f0;border:1px solid #ccc;cursor:pointer;border-radius:5px;'>copy</button></li>
-<li><b>Distribution learning via neural differential equations: a nonparametric statistical perspective</b><br />
-<i>arXiv preprint</i>, 2023<br>
-Youssef Marzouk, Zhi Ren, Sven Wang and Jakob Zech<br>
-<a href="https://arxiv.org/abs/2309.01043">Link</a>, <a href="/publications/Marzouk2023Distribution.html">BibTex</a> <button onclick='copyToClipboard("@article{Marzouk2023Distribution,\n    Author = {Marzouk, Youssef and Ren, Zhi and Wang, Sven and Zech, Jakob},\n    Title = {Distribution learning via neural differential equations: a nonparametric statistical perspective},\n    Year = {2023},\n    Journal = {arXiv preprint},\n    Url = {https://arxiv.org/abs/2309.01043}\n}\n")' style='padding:0px; background-color:#f0f0f0;border:1px solid #ccc;cursor:pointer;border-radius:5px;'>copy</button></li>
 <li><b>Deep Operator Network Approximation Rates for Lipschitz Operators</b><br />
 <i>arXiv preprint</i>, 2023<br>
 Christoph Schwab, Andreas Stein and Jakob Zech<br>
@@ -65,6 +61,10 @@ Joost A. A. Opschoor, Christoph Schwab and Jakob Zech<br>
 
 <h2>Journal Papers</h2>
 <ul class="my-publication-list">
+<li><b>Distribution learning via neural differential equations: a nonparametric statistical perspective</b><br />
+<i>Journal of Machine Learning Research (accepted)</i>, 2024<br>
+Youssef Marzouk, Zhi Ren, Sven Wang and Jakob Zech<br>
+<a href="https://arxiv.org/abs/2309.01043">Link</a>, <a href="/publications/Marzouk2023Distribution.html">BibTex</a> <button onclick='copyToClipboard("@article{Marzouk2023Distribution,\n    Author = {Marzouk, Youssef and Ren, Zhi and Wang, Sven and Zech, Jakob},\n    Title = {Distribution learning via neural differential equations: a nonparametric statistical perspective},\n    Year = {2024},\n    Journal = {Journal of Machine Learning Research (accepted)},\n    Url = {https://arxiv.org/abs/2309.01043}\n}\n")' style='padding:0px; background-color:#f0f0f0;border:1px solid #ccc;cursor:pointer;border-radius:5px;'>copy</button></li>
 <li><b>Neural and spectral operator surrogates: unified construction and expression rate bounds</b><br />
 <i>Advances in Computational Mathematics (accepted)</i>, 2024<br>
 Lukas Herrmann, Christoph Schwab and Jakob Zech<br>
