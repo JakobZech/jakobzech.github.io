@@ -1,5 +1,5 @@
 ---
-title: Two PhD positions (E 13 TV-L 75%) in Heidelberg<br>and Berlin 
+title: Two PhD positions (E 13 TV-L 75%) in Heidelberg <br>and Berlin 
 permalink: /position/
 layout: archive
 ---
