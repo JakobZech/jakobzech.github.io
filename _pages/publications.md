@@ -21,6 +21,10 @@ function copyToClipboard(text) {
 
 <h2>Preprints</h2>
 <ul class="my-publication-list">
+<li><b>Mathematical theory of deep learning</b><br />
+<i>arXiv preprint</i>, 2024<br>
+Philipp Petersen and Jakob Zech<br>
+<a href="https://arxiv.org/abs/2407.18384">Link</a>, <a href="/publications/Petersen2024Deep.html">BibTex</a> <button onclick='copyToClipboard("@misc{Petersen2024Deep,\n    Author = {Petersen, Philipp and Zech, Jakob},\n    Title = {Mathematical theory of deep learning},\n    Year = {2024},\n    Journal = {arXiv preprint},\n    Url = {https://arxiv.org/abs/2407.18384}\n}\n")' style='padding:0px; background-color:#f0f0f0;border:1px solid #ccc;cursor:pointer;border-radius:5px;'>copy</button></li>
 <li><b>On the mean-field limit for Stein variational gradient descent: stability and multilevel approximation</b><br />
 <i>arXiv preprint</i>, 2024<br>
 Simon Weissmann and Jakob Zech<br>
