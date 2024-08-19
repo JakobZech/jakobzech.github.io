@@ -65,10 +65,10 @@ Joost A. A. Opschoor, Christoph Schwab and Jakob Zech<br>
 
 <h2>Journal Papers</h2>
 <ul class="my-publication-list">
-<li><b>Distribution learning via neural differential equations: a nonparametric statistical perspective</b><br />
-<i>Journal of Machine Learning Research (accepted)</i>, 2024<br>
-Youssef Marzouk, Zhi Ren, Sven Wang and Jakob Zech<br>
-<a href="https://arxiv.org/abs/2309.01043">Link</a>, <a href="/publications/Marzouk2023Distribution.html">BibTex</a> <button onclick='copyToClipboard("@article{Marzouk2023Distribution,\n    Author = {Marzouk, Youssef and Ren, Zhi and Wang, Sven and Zech, Jakob},\n    Title = {Distribution learning via neural differential equations: a nonparametric statistical perspective},\n    Year = {2024},\n    Journal = {Journal of Machine Learning Research (accepted)},\n    Url = {https://arxiv.org/abs/2309.01043}\n}\n")' style='padding:0px; background-color:#f0f0f0;border:1px solid #ccc;cursor:pointer;border-radius:5px;'>copy</button></li>
+<li><b>Distribution Learning via Neural Differential Equations: A Nonparametric Statistical Perspective</b><br />
+<i>Journal of Machine Learning Research</i>, 2024<br>
+Youssef Marzouk, Zhi (Robert) Ren, Sven Wang and Jakob Zech<br>
+<a href="http://jmlr.org/papers/v25/23-1280.html">Link</a>, <a href="/publications/Marzouk2023Distribution.html">BibTex</a> <button onclick='copyToClipboard("@article{Marzouk2023Distribution,\n    author = {Marzouk, Youssef and Ren, Zhi (Robert) and Wang, Sven and Zech, Jakob},\n    title = {Distribution Learning via Neural Differential Equations: A Nonparametric Statistical Perspective},\n    journal = {Journal of Machine Learning Research},\n    year = {2024},\n    volume = {25},\n    number = {232},\n    pages = {1--61},\n    url = {http://jmlr.org/papers/v25/23-1280.html}\n}\n")' style='padding:0px; background-color:#f0f0f0;border:1px solid #ccc;cursor:pointer;border-radius:5px;'>copy</button></li>
 <li><b>Neural and spectral operator surrogates: unified construction and expression rate bounds</b><br />
 <i>Advances in Computational Mathematics</i>, 2024<br>
 Lukas Herrmann, Christoph Schwab and Jakob Zech<br>
