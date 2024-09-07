@@ -23,8 +23,8 @@ function copyToClipboard(text) {
 <ul class="my-publication-list">
 <li><b>On the mean field limit of consensus based methods</b><br />
 <i>arXiv preprint</i>, 2024<br>
-Marvin Ko\ss, Simon Weissmann and Jakob Zech<br>
-<a href="https://arxiv.org/abs/2409.03518">Link</a>, <a href="/publications/Koss2024consensus.html">BibTex</a> <button onclick='copyToClipboard("@misc{Koss2024consensus,\n    Author = {Ko{\ss}, Marvin and Weissmann, Simon and Zech, Jakob},\n    Title = {On the mean field limit of consensus based methods},\n    Year = {2024},\n    Journal = {arXiv preprint},\n    Url = {https://arxiv.org/abs/2409.03518}\n}\n")' style='padding:0px; background-color:#f0f0f0;border:1px solid #ccc;cursor:pointer;border-radius:5px;'>copy</button></li>
+Marvin Koß, Simon Weissmann and Jakob Zech<br>
+<a href="https://arxiv.org/abs/2409.03518">Link</a>, <a href="/publications/Koss2024consensus.html">BibTex</a> <button onclick='copyToClipboard("@misc{Koss2024consensus,\n    Author = {Koß, Marvin and Weissmann, Simon and Zech, Jakob},\n    Title = {On the mean field limit of consensus based methods},\n    Year = {2024},\n    Journal = {arXiv preprint},\n    Url = {https://arxiv.org/abs/2409.03518}\n}\n")' style='padding:0px; background-color:#f0f0f0;border:1px solid #ccc;cursor:pointer;border-radius:5px;'>copy</button></li>
 <li><b>Mathematical theory of deep learning</b><br />
 <i>arXiv preprint</i>, 2024<br>
 Philipp Petersen and Jakob Zech<br>
