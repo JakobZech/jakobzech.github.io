@@ -45,7 +45,7 @@ var store = [{
         "url": "http://localhost:4000/publications/Jerez2017Maxwell.html",
         "teaser":"http://localhost:4000/files/bio-photo.jpg"},{
         "title": "On the mean field limit of consensus based methods",
-        "excerpt":"  Copy BibTeX   @misc{Koss2024consensus,     Author = {Ko{\\ss}, Marvin and Weissmann, Simon and Zech, Jakob},     Title = {On the mean field limit of consensus based methods},     Year = {2024},     Journal = {arXiv preprint},     Url = {https://arxiv.org/abs/2409.03518} }   ","categories": [],
+        "excerpt":"  Copy BibTeX   @misc{Koss2024consensus,     Author = {Koß, Marvin and Weissmann, Simon and Zech, Jakob},     Title = {On the mean field limit of consensus based methods},     Year = {2024},     Journal = {arXiv preprint},     Url = {https://arxiv.org/abs/2409.03518} }   ","categories": [],
         "tags": [],
         "url": "http://localhost:4000/publications/Koss2024consensus.html",
         "teaser":"http://localhost:4000/files/bio-photo.jpg"},{
