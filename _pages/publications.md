@@ -21,6 +21,10 @@ function copyToClipboard(text) {
 
 <h2>Preprints</h2>
 <ul class="my-publication-list">
+<li><b>Statistical Learning Theory for Neural Operators</b><br />
+<i>arXiv preprint</i>, 2024<br>
+Niklas Reinhardt, Sven Wang and Jakob Zech<br>
+<a href="https://arxiv.org/abs/2412.17582">Link</a>, <a href="/publications/Reinhardt2024Operator.html">BibTex</a> <button onclick='copyToClipboard("@misc{Reinhardt2024Operator,\n    Author = {Reinhardt, Niklas and Wang, Sven and Zech, Jakob},\n    Title = {Statistical Learning Theory for Neural Operators},\n    Year = {2024},\n    Journal = {arXiv preprint},\n    Url = {https://arxiv.org/abs/2412.17582}\n}\n")' style='padding:0px; background-color:#f0f0f0;border:1px solid #ccc;cursor:pointer;border-radius:5px;'>copy</button></li>
 <li><b>On the mean field limit of consensus based methods</b><br />
 <i>arXiv preprint</i>, 2024<br>
 Marvin Koß, Simon Weissmann and Jakob Zech<br>
