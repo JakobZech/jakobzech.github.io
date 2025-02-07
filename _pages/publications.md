@@ -21,6 +21,10 @@ function copyToClipboard(text) {
 
 <h2>Preprints</h2>
 <ul class="my-publication-list">
+<li><b>Distribution learning via neural differential equations: minimal energy regularization and approximation theory</b><br />
+<i>arXiv preprint</i>, 2025<br>
+Youssef Marzouk, Zhi Ren and Jakob Zech<br>
+<a href="https://arxiv.org/abs/2502.03795">Link</a>, <a href="/publications/Marzouk2025Node.html">BibTex</a> <button onclick='copyToClipboard("@misc{Marzouk2025Node,\n    Author = {Marzouk, Youssef and Ren, Zhi and Zech, Jakob},\n    Title = {Distribution learning via neural differential equations: minimal energy regularization and approximation theory},\n    Year = {2025},\n    Journal = {arXiv preprint},\n    Url = {https://arxiv.org/abs/2502.03795}\n}\n")' style='padding:0px; background-color:#f0f0f0;border:1px solid #ccc;cursor:pointer;border-radius:5px;'>copy</button></li>
 <li><b>Statistical Learning Theory for Neural Operators</b><br />
 <i>arXiv preprint</i>, 2024<br>
 Niklas Reinhardt, Sven Wang and Jakob Zech<br>
@@ -41,14 +45,6 @@ Simon Weissmann and Jakob Zech<br>
 <i>arXiv preprint</i>, 2023<br>
 Björn Sprungk, Simon Weissmann and Jakob Zech<br>
 <a href="https://arxiv.org/abs/2312.13889">Link</a>, <a href="/publications/Sprungk2023Particle.html">BibTex</a> <button onclick='copyToClipboard("@article{Sprungk2023Particle,\n    Author = {Sprungk, Björn and Weissmann, Simon and Zech, Jakob},\n    Title = {Metropolis-adjusted interacting particle sampling},\n    Year = {2023},\n    Journal = {arXiv preprint},\n    Url = {https://arxiv.org/abs/2312.13889}\n}\n")' style='padding:0px; background-color:#f0f0f0;border:1px solid #ccc;cursor:pointer;border-radius:5px;'>copy</button></li>
-<li><b>Measure transport via polynomial density surrogates</b><br />
-<i>arXiv preprint</i>, 2023<br>
-Josephine Westermann and Jakob Zech<br>
-<a href="https://arxiv.org/abs/2311.04172">Link</a>, <a href="/publications/Westermann2023Transport.html">BibTex</a> <button onclick='copyToClipboard("@article{Westermann2023Transport,\n    Author = {Westermann, Josephine and Zech, Jakob},\n    Title = {Measure transport via polynomial density surrogates},\n    Year = {2023},\n    Journal = {arXiv preprint},\n    Url = {https://arxiv.org/abs/2311.04172}\n}\n")' style='padding:0px; background-color:#f0f0f0;border:1px solid #ccc;cursor:pointer;border-radius:5px;'>copy</button></li>
-<li><b>Deep Operator Network Approximation Rates for Lipschitz Operators</b><br />
-<i>arXiv preprint</i>, 2023<br>
-Christoph Schwab, Andreas Stein and Jakob Zech<br>
-<a href="https://arxiv.org/abs/2307.09835">Link</a>, <a href="/publications/Schwab2023Lipschitz.html">BibTex</a> <button onclick='copyToClipboard("@article{Schwab2023Lipschitz,\n    Author = {Schwab, Christoph and Stein, Andreas and Zech, Jakob},\n    Title = {Deep Operator Network Approximation Rates for Lipschitz Operators},\n    Year = {2023},\n    Journal = {arXiv preprint},\n    Url = {https://arxiv.org/abs/2307.09835}\n}\n")' style='padding:0px; background-color:#f0f0f0;border:1px solid #ccc;cursor:pointer;border-radius:5px;'>copy</button></li>
 </ul>
 
 <h2>Books</h2>
@@ -73,6 +69,14 @@ Joost A. A. Opschoor, Christoph Schwab and Jakob Zech<br>
 
 <h2>Journal Papers</h2>
 <ul class="my-publication-list">
+<li><b>Measure transport via polynomial density surrogates</b><br />
+<i>Foundations of Data Science (accepted)</i>, 2023<br>
+Josephine Westermann and Jakob Zech<br>
+<a href="https://arxiv.org/abs/2311.04172">Link</a>, <a href="/publications/Westermann2025Transport.html">BibTex</a> <button onclick='copyToClipboard("@article{Westermann2025Transport,\n    Author = {Westermann, Josephine and Zech, Jakob},\n    Title = {Measure transport via polynomial density surrogates},\n    Year = {2023},\n    Journal = {Foundations of Data Science (accepted)},\n    Url = {https://arxiv.org/abs/2311.04172}\n}\n")' style='padding:0px; background-color:#f0f0f0;border:1px solid #ccc;cursor:pointer;border-radius:5px;'>copy</button></li>
+<li><b>Deep Operator Network Approximation Rates for Lipschitz Operators</b><br />
+<i>Analysis and Applications (accepted)</i>, 2025<br>
+Christoph Schwab, Andreas Stein and Jakob Zech<br>
+<a href="https://arxiv.org/abs/2307.09835">Link</a>, <a href="/publications/Schwab2025Lipschitz.html">BibTex</a> <button onclick='copyToClipboard("@article{Schwab2025Lipschitz,\n    Author = {Schwab, Christoph and Stein, Andreas and Zech, Jakob},\n    Title = {Deep Operator Network Approximation Rates for Lipschitz Operators},\n    Year = {2025},\n    Journal = {Analysis and Applications (accepted)},\n    Url = {https://arxiv.org/abs/2307.09835}\n}\n")' style='padding:0px; background-color:#f0f0f0;border:1px solid #ccc;cursor:pointer;border-radius:5px;'>copy</button></li>
 <li><b>Distribution Learning via Neural Differential Equations: A Nonparametric Statistical Perspective</b><br />
 <i>Journal of Machine Learning Research</i>, 2024<br>
 Youssef Marzouk, Zhi (Robert) Ren, Sven Wang and Jakob Zech<br>
