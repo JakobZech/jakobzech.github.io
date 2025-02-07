@@ -59,6 +59,11 @@ var store = [{
         "tags": [],
         "url": "http://localhost:4000/publications/Marzouk2023Distribution.html",
         "teaser":"http://localhost:4000/files/bio-photo.jpg"},{
+        "title": "Distribution learning via neural differential equations: minimal energy regularization and approximation theory",
+        "excerpt":"  Copy BibTeX   @misc{Marzouk2025Node,     Author = {Marzouk, Youssef and Ren, Zhi and Zech, Jakob},     Title = {Distribution learning via neural differential equations: minimal energy regularization and approximation theory},     Year = {2025},     Journal = {arXiv preprint},     Url = {https://arxiv.org/abs/2502.03795} }   ","categories": [],
+        "tags": [],
+        "url": "http://localhost:4000/publications/Marzouk2025Node.html",
+        "teaser":"http://localhost:4000/files/bio-photo.jpg"},{
         "title": "Deep learning in high dimension: ReLU neural network expression for Bayesian PDE inversion",
         "excerpt":"Copy BibTeX @incollection{Opschoor2022Bayesian, AUTHOR = {Opschoor, Joost A. A. and Schwab, Christoph and Zech, Jakob}, TITLE = {Deep learning in high dimension: {R}e{LU} neural network expression for {B}ayesian {PDE} inversion}, BOOKTITLE = {Optimization and control for partial differential equations---uncertainty quantification, open and closed-loop control, and shape optimization}, SERIES = {Radon...","categories": [],
         "tags": [],
@@ -99,6 +104,11 @@ var store = [{
         "tags": [],
         "url": "http://localhost:4000/publications/Schwab2023Lipschitz.html",
         "teaser":"http://localhost:4000/files/bio-photo.jpg"},{
+        "title": "Deep Operator Network Approximation Rates for Lipschitz Operators",
+        "excerpt":"  Copy BibTeX   @article{Schwab2025Lipschitz,     Author = {Schwab, Christoph and Stein, Andreas and Zech, Jakob},     Title = {Deep Operator Network Approximation Rates for Lipschitz Operators},     Year = {2025},     Journal = {Analysis and Applications (accepted)},     Url = {https://arxiv.org/abs/2307.09835} }   ","categories": [],
+        "tags": [],
+        "url": "http://localhost:4000/publications/Schwab2025Lipschitz.html",
+        "teaser":"http://localhost:4000/files/bio-photo.jpg"},{
         "title": "Metropolis-adjusted interacting particle sampling",
         "excerpt":"  Copy BibTeX   @article{Sprungk2023Particle,     Author = {Sprungk, Björn and Weissmann, Simon and Zech, Jakob},     Title = {Metropolis-adjusted interacting particle sampling},     Year = {2023},     Journal = {arXiv preprint},     Url = {https://arxiv.org/abs/2312.13889} }   ","categories": [],
         "tags": [],
@@ -118,6 +128,11 @@ var store = [{
         "excerpt":"  Copy BibTeX   @article{Westermann2023Transport,     Author = {Westermann, Josephine and Zech, Jakob},     Title = {Measure transport via polynomial density surrogates},     Year = {2023},     Journal = {arXiv preprint},     Url = {https://arxiv.org/abs/2311.04172} }   ","categories": [],
         "tags": [],
         "url": "http://localhost:4000/publications/Westermann2023Transport.html",
+        "teaser":"http://localhost:4000/files/bio-photo.jpg"},{
+        "title": "Measure transport via polynomial density surrogates",
+        "excerpt":"  Copy BibTeX   @article{Westermann2025Transport,     Author = {Westermann, Josephine and Zech, Jakob},     Title = {Measure transport via polynomial density surrogates},     Year = {2023},     Journal = {Foundations of Data Science (accepted)},     Url = {https://arxiv.org/abs/2311.04172} }   ","categories": [],
+        "tags": [],
+        "url": "http://localhost:4000/publications/Westermann2025Transport.html",
         "teaser":"http://localhost:4000/files/bio-photo.jpg"},{
         "title": "A Posteriori Error Estimation of hp-DG Finite Element Methods for Highly Indefinite Helmholtz Problems",
         "excerpt":"  Copy BibTeX   @mastersthesis{Zech2014Master,     author = {Zech, Jakob},     title = {A Posteriori Error Estimation of hp-DG Finite Element Methods for Highly Indefinite Helmholtz Problems},     school = {ETH Zürich and Universität Zürich},     year = {2014},     advisor = {Prof. Dr. Stefan Sauter},     url = {https://www.math.uzh.ch/compmath/fileadmin/user/stas/compmath/Abschlussarbeiten/masterarbeit.zech.jakob.052014.pdf},     type = {Master&#x27;s thesis} }   ","categories": [],
