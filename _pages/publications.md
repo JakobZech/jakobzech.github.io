@@ -41,10 +41,6 @@ Philipp Petersen and Jakob Zech<br>
 <i>arXiv preprint</i>, 2024<br>
 Simon Weissmann and Jakob Zech<br>
 <a href="https://arxiv.org/abs/2402.01320">Link</a>, <a href="/publications/Weissmann2024Stein.html">BibTex</a> <button onclick='copyToClipboard("@article{Weissmann2024Stein,\n    Author = {Weissmann, Simon and Zech, Jakob},\n    Title = {On the mean-field limit for Stein variational gradient descent: stability and multilevel approximation},\n    Year = {2024},\n    Journal = {arXiv preprint},\n    Url = {https://arxiv.org/abs/2402.01320}\n}\n")' style='padding:0px; background-color:#f0f0f0;border:1px solid #ccc;cursor:pointer;border-radius:5px;'>copy</button></li>
-<li><b>Metropolis-adjusted interacting particle sampling</b><br />
-<i>arXiv preprint</i>, 2023<br>
-Björn Sprungk, Simon Weissmann and Jakob Zech<br>
-<a href="https://arxiv.org/abs/2312.13889">Link</a>, <a href="/publications/Sprungk2023Particle.html">BibTex</a> <button onclick='copyToClipboard("@article{Sprungk2023Particle,\n    Author = {Sprungk, Björn and Weissmann, Simon and Zech, Jakob},\n    Title = {Metropolis-adjusted interacting particle sampling},\n    Year = {2023},\n    Journal = {arXiv preprint},\n    Url = {https://arxiv.org/abs/2312.13889}\n}\n")' style='padding:0px; background-color:#f0f0f0;border:1px solid #ccc;cursor:pointer;border-radius:5px;'>copy</button></li>
 </ul>
 
 <h2>Books</h2>
@@ -69,10 +65,14 @@ Joost A. A. Opschoor, Christoph Schwab and Jakob Zech<br>
 
 <h2>Journal Papers</h2>
 <ul class="my-publication-list">
+<li><b>Metropolis-adjusted interacting particle sampling</b><br />
+<i>Statistics and Computing (accepted)</i>, 2025<br>
+Björn Sprungk, Simon Weissmann and Jakob Zech<br>
+<a href="https://arxiv.org/abs/2312.13889">Link</a>, <a href="/publications/Sprungk2025Metropolis.html">BibTex</a> <button onclick='copyToClipboard("@article{Sprungk2025Metropolis,\n    Author = {Sprungk, Björn and Weissmann, Simon and Zech, Jakob},\n    Title = {Metropolis-adjusted interacting particle sampling},\n    Year = {2025},\n    Journal = {Statistics and Computing (accepted)},\n    Url = {https://arxiv.org/abs/2312.13889}\n}\n")' style='padding:0px; background-color:#f0f0f0;border:1px solid #ccc;cursor:pointer;border-radius:5px;'>copy</button></li>
 <li><b>Measure transport via polynomial density surrogates</b><br />
-<i>Foundations of Data Science (accepted)</i>, 2023<br>
+<i>Foundations of Data Science (accepted)</i>, 2025<br>
 Josephine Westermann and Jakob Zech<br>
-<a href="https://arxiv.org/abs/2311.04172">Link</a>, <a href="/publications/Westermann2025Transport.html">BibTex</a> <button onclick='copyToClipboard("@article{Westermann2025Transport,\n    Author = {Westermann, Josephine and Zech, Jakob},\n    Title = {Measure transport via polynomial density surrogates},\n    Year = {2023},\n    Journal = {Foundations of Data Science (accepted)},\n    Url = {https://arxiv.org/abs/2311.04172}\n}\n")' style='padding:0px; background-color:#f0f0f0;border:1px solid #ccc;cursor:pointer;border-radius:5px;'>copy</button></li>
+<a href="https://arxiv.org/abs/2311.04172">Link</a>, <a href="/publications/Westermann2025Transport.html">BibTex</a> <button onclick='copyToClipboard("@article{Westermann2025Transport,\n    Author = {Westermann, Josephine and Zech, Jakob},\n    Title = {Measure transport via polynomial density surrogates},\n    Year = {2025},\n    Journal = {Foundations of Data Science (accepted)},\n    Url = {https://arxiv.org/abs/2311.04172}\n}\n")' style='padding:0px; background-color:#f0f0f0;border:1px solid #ccc;cursor:pointer;border-radius:5px;'>copy</button></li>
 <li><b>Deep Operator Network Approximation Rates for Lipschitz Operators</b><br />
 <i>Analysis and Applications (accepted)</i>, 2025<br>
 Christoph Schwab, Andreas Stein and Jakob Zech<br>
