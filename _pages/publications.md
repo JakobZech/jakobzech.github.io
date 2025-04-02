@@ -22,9 +22,9 @@ function copyToClipboard(text) {
 <h2>Preprints</h2>
 <ul class="my-publication-list">
 <li><b>Low Stein Discrepancy via Message-Passing Monte Carlo</b><br />
-<i></i>, 2025<br>
+<i>arXiv preprint</i>, 2025<br>
 Nathan Kirk, T. Konstantin Rusch, Jakob Zech and Daniela Rus<br>
-<a href="https://arxiv.org/abs/2503.21103">Link</a>, <a href="/publications/Kirk2025Stein.html">BibTex</a> <button onclick='copyToClipboard("@misc{Kirk2025Stein,\n    Author = {Kirk, Nathan and Rusch, T. Konstantin and Zech, Jakob and Rus, Daniela},\n    Title = {Low Stein Discrepancy via Message-Passing Monte Carlo},\n    Year = {2025},\n    Eprint = {arXiv:2503.21103},\n    Url = {https://arxiv.org/abs/2503.21103}\n}\n")' style='padding:0px; background-color:#f0f0f0;border:1px solid #ccc;cursor:pointer;border-radius:5px;'>copy</button></li>
+<a href="https://arxiv.org/abs/2503.21103">Link</a>, <a href="/publications/Kirk2025Stein.html">BibTex</a> <button onclick='copyToClipboard("@misc{Kirk2025Stein,\n    Author = {Kirk, Nathan and Rusch, T. Konstantin and Zech, Jakob and Rus, Daniela},\n    Title = {Low Stein Discrepancy via Message-Passing Monte Carlo},\n    Year = {2025},\n    Journal = {arXiv preprint},\n    Url = {https://arxiv.org/abs/2503.21103}\n}\n")' style='padding:0px; background-color:#f0f0f0;border:1px solid #ccc;cursor:pointer;border-radius:5px;'>copy</button></li>
 <li><b>Distribution learning via neural differential equations: minimal energy regularization and approximation theory</b><br />
 <i>arXiv preprint</i>, 2025<br>
 Youssef Marzouk, Zhi Ren and Jakob Zech<br>
