@@ -45,7 +45,7 @@ var store = [{
         "url": "http://localhost:4000/publications/Jerez2017Maxwell.html",
         "teaser":"http://localhost:4000/files/bio-photo.jpg"},{
         "title": "Low Stein Discrepancy via Message-Passing Monte Carlo",
-        "excerpt":"  Copy BibTeX   @misc{Kirk2025Stein,     Author = {Kirk, Nathan and Rusch, T. Konstantin and Zech, Jakob and Rus, Daniela},     Title = {Low Stein Discrepancy via Message-Passing Monte Carlo},     Year = {2025},     Eprint = {arXiv:2503.21103},     Url = {https://arxiv.org/abs/2503.21103} }   ","categories": [],
+        "excerpt":"  Copy BibTeX   @misc{Kirk2025Stein,     Author = {Kirk, Nathan and Rusch, T. Konstantin and Zech, Jakob and Rus, Daniela},     Title = {Low Stein Discrepancy via Message-Passing Monte Carlo},     Year = {2025},     Journal = {arXiv preprint},     Url = {https://arxiv.org/abs/2503.21103} }   ","categories": [],
         "tags": [],
         "url": "http://localhost:4000/publications/Kirk2025Stein.html",
         "teaser":"http://localhost:4000/files/bio-photo.jpg"},{
