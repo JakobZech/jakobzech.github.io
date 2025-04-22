@@ -80,7 +80,7 @@ Bj\&quot;orn Sprungk, Simon Weissmann and Jakob Zech<br>
 <li><b>Measure transport via polynomial density surrogates</b><br />
 <i>Foundations of Data Science (accepted)</i>, 2025<br>
 Josephine Westermann and Jakob Zech<br>
-<a href="https://arxiv.org/abs/2311.04172">Link</a>, <a href="/publications/Westermann2025Transport.html">BibTex</a> <button onclick='copyToClipboard("@article{Westermann2025Transport,\n    Author = {Westermann, Josephine and Zech, Jakob},\n    Title = {Measure transport via polynomial density surrogates},\n    Year = {2025},\n    Journal = {Foundations of Data Science (accepted)},\n    Url = {https://arxiv.org/abs/2311.04172}\n}\n")' style='padding:0px; background-color:#f0f0f0;border:1px solid #ccc;cursor:pointer;border-radius:5px;'>copy</button></li>
+<a href="https://www.aimsciences.org/article/doi/10.3934/fods.2025001">Link</a>, <a href="/publications/Westermann2025Transport.html">BibTex</a> <button onclick='copyToClipboard("@article{Westermann2025Transport,\n    Author = {Westermann, Josephine and Zech, Jakob},\n    Title = {Measure transport via polynomial density surrogates},\n    Year = {2025},\n    Journal = {Foundations of Data Science (accepted)},\n    Url = {https://www.aimsciences.org/article/doi/10.3934/fods.2025001}\n}\n")' style='padding:0px; background-color:#f0f0f0;border:1px solid #ccc;cursor:pointer;border-radius:5px;'>copy</button></li>
 <li><b>Deep Operator Network Approximation Rates for Lipschitz Operators</b><br />
 <i>Analysis and Applications (accepted)</i>, 2025<br>
 Christoph Schwab, Andreas Stein and Jakob Zech<br>
