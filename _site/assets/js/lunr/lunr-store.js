@@ -129,6 +129,16 @@ var store = [{
         "tags": [],
         "url": "http://localhost:4000/publications/Sprungk2025Metropolis.html",
         "teaser":"http://localhost:4000/files/bio-photo.jpg"},{
+        "title": "Metropolis-adjusted interacting particle sampling",
+        "excerpt":"Copy BibTeX @article{Sprungk2025Particle, author = {Sprungk, Bj{\\&quot;o}rn and Weissmann, Simon and Zech, Jakob}, title = {Metropolis-adjusted interacting particle sampling}, journal = {Statistics and Computing}, year = {2025}, month = {Mar}, day = {11}, volume = {35}, number = {3}, pages = {64}, issn = {1573-1375}, doi = {10.1007/s11222-025-10595-w}, url =...","categories": [],
+        "tags": [],
+        "url": "http://localhost:4000/publications/Sprungk2025Particle.html",
+        "teaser":"http://localhost:4000/files/bio-photo.jpg"},{
+        "title": "Optimal Scheduling of Dynamic Transport",
+        "excerpt":"  Copy BibTeX   @misc{Tsimpos2025Optimal,     Author = {Tsimpos, Panos and Ren, Zhi and Zech, Jakob and Marzouk, Youssef},     Title = {Optimal Scheduling of Dynamic Transport},     Year = {2025},     Journal = {arXiv preprint},     Url = {https://arxiv.org/abs/2504.14425} }   ","categories": [],
+        "tags": [],
+        "url": "http://localhost:4000/publications/Tsimpos2025Optimal.html",
+        "teaser":"http://localhost:4000/files/bio-photo.jpg"},{
         "title": "Multilevel Optimization for Inverse Problems",
         "excerpt":"Copy BibTeX @InProceedings{Weissmann2022Optimization, author = {Weissmann, Simon and Wilson, Ashia and Zech, Jakob}, editor = {Loh, Po-Ling and Raginsky, Maxim}, title = {Multilevel Optimization for Inverse Problems}, booktitle = {Proceedings of Thirty Fifth Conference on Learning Theory}, pages = {5489--5524}, year = {2022}, volume = {178}, series = {Proceedings of...","categories": [],
         "tags": [],
