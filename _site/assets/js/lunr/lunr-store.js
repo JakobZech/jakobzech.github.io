@@ -64,6 +64,11 @@ var store = [{
         "tags": [],
         "url": "https://jakobzech.com/publications/Longo2023DeRham.html",
         "teaser":"https://jakobzech.com/files/bio-photo.jpg"},{
+        "title": "Sparsity for Infinite-Parametric Holomorphic Functions on Gaussian Spaces",
+        "excerpt":"  Copy BibTeX   @misc{Marcati2025Sparsity,     Author = {Marcati, Carlo and Schwab, Christoph and Zech, Jakob},     Title = {Sparsity for Infinite-Parametric Holomorphic Functions on Gaussian Spaces},     Year = {2025},     Journal = {arXiv preprint},     Url = {https://arxiv.org/abs/2504.21639} }   ","categories": [],
+        "tags": [],
+        "url": "https://jakobzech.com/publications/Marcati2025Sparsity.html",
+        "teaser":"https://jakobzech.com/files/bio-photo.jpg"},{
         "title": "Distribution Learning via Neural Differential Equations: A Nonparametric Statistical Perspective",
         "excerpt":"Copy BibTeX @article{Marzouk2023Distribution, author = {Marzouk, Youssef and Ren, Zhi (Robert) and Wang, Sven and Zech, Jakob}, title = {Distribution Learning via Neural Differential Equations: A Nonparametric Statistical Perspective}, journal = {Journal of Machine Learning Research}, year = {2024}, volume = {25}, number = {232}, pages = {1--61}, url =...","categories": [],
         "tags": [],
