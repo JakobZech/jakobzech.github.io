@@ -21,6 +21,10 @@ function copyToClipboard(text) {
 
 <h2>Preprints</h2>
 <ul class="my-publication-list">
+<li><b>Sparsity for Infinite-Parametric Holomorphic Functions on Gaussian Spaces</b><br />
+<i>arXiv preprint</i>, 2025<br>
+Carlo Marcati, Christoph Schwab and Jakob Zech<br>
+<a href="https://arxiv.org/abs/2504.21639">Link</a>, <a href="/publications/Marcati2025Sparsity.html">BibTex</a> <button onclick='copyToClipboard("@misc{Marcati2025Sparsity,\n    Author = {Marcati, Carlo and Schwab, Christoph and Zech, Jakob},\n    Title = {Sparsity for Infinite-Parametric Holomorphic Functions on Gaussian Spaces},\n    Year = {2025},\n    Journal = {arXiv preprint},\n    Url = {https://arxiv.org/abs/2504.21639}\n}\n")' style='padding:0px; background-color:#f0f0f0;border:1px solid #ccc;cursor:pointer;border-radius:5px;'>copy</button></li>
 <li><b>Optimal Scheduling of Dynamic Transport</b><br />
 <i>arXiv preprint</i>, 2025<br>
 Panos Tsimpos, Zhi Ren, Jakob Zech and Youssef Marzouk<br>
