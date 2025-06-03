@@ -21,6 +21,10 @@ function copyToClipboard(text) {
 
 <h2>Preprints</h2>
 <ul class="my-publication-list">
+<li><b>Quantum Circuit Encodings of Polynomial Chaos Expansions</b><br />
+<i>arXiv preprint</i>, 2025<br>
+Junaid Aftab, Christoph Schwab, Haizhao Yang and Jakob Zech<br>
+<a href="https://arxiv.org/abs/2506.01811">Link</a>, <a href="/publications/Aftab2025Quantum.html">BibTex</a> <button onclick='copyToClipboard("@misc{Aftab2025Quantum,\n    Author = {Aftab, Junaid and Schwab, Christoph and Yang, Haizhao and Zech, Jakob},\n    Title = {Quantum Circuit Encodings of Polynomial Chaos Expansions},\n    Year = {2025},\n    Journal = {arXiv preprint},\n    Url = {https://arxiv.org/abs/2506.01811}\n}\n")' style='padding:0px; background-color:#f0f0f0;border:1px solid #ccc;cursor:pointer;border-radius:5px;'>copy</button></li>
 <li><b>Sparsity for Infinite-Parametric Holomorphic Functions on Gaussian Spaces</b><br />
 <i>arXiv preprint</i>, 2025<br>
 Carlo Marcati, Christoph Schwab and Jakob Zech<br>
