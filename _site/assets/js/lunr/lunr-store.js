@@ -1,4 +1,9 @@
 var store = [{
+        "title": "Quantum Circuit Encodings of Polynomial Chaos Expansions",
+        "excerpt":"  Copy BibTeX   @misc{Aftab2025Quantum,     Author = {Aftab, Junaid and Schwab, Christoph and Yang, Haizhao and Zech, Jakob},     Title = {Quantum Circuit Encodings of Polynomial Chaos Expansions},     Year = {2025},     Journal = {arXiv preprint},     Url = {https://arxiv.org/abs/2506.01811} }   ","categories": [],
+        "tags": [],
+        "url": "https://jakobzech.com/publications/Aftab2025Quantum.html",
+        "teaser":"https://jakobzech.com/files/bio-photo.jpg"},{
         "title": "Domain uncertainty quantification in computational electromagnetics",
         "excerpt":"Copy BibTeX @article{Aylwin2020Maxwell, AUTHOR = {Aylwin, Ruben and Jerez-Hanckes, Carlos and Schwab, Christoph and Zech, Jakob}, TITLE = {Domain uncertainty quantification in computational electromagnetics}, JOURNAL = {SIAM/ASA J. Uncertain. Quantif.}, FJOURNAL = {SIAM/ASA Journal on Uncertainty Quantification}, VOLUME = {8}, YEAR = {2020}, NUMBER = {1}, PAGES = {301--341}, ISSN...","categories": [],
         "tags": [],
