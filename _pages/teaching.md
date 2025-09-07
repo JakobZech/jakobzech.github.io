@@ -5,6 +5,9 @@ layout: archive
 ---
 
 <ul>
+<li><b>2025 Fall</b> - <i>High Dimensional Numerics</i>, Universit&auml;t Heidelberg
+<li><b>2025 Fall</b> - <i>Seminar: Quantum Computing and Numerics</i>, Universit&auml;t Heidelberg
+<li><b>2025 Spring</b> - <i>Einf&uuml;hrung in die Numerik</i>, Universit&auml;t Heidelberg
 <li><b>2024 Fall</b> - <i>High Dimensional Approximation</i>, Universit&auml;t Heidelberg
 <li><b>2024 Fall</b> - <i>Theory of Deep Learning</i>, Universit&auml;t Heidelberg
 <li><b>2024 Spring</b> - <i>Finite elements</i>, Universit&auml;t Heidelberg, <a href="https://moodle.uni-heidelberg.de/course/view.php?id=18837">Moodle</a></li>
