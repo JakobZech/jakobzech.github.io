@@ -21,7 +21,7 @@ title                    : "Jakob Zech"
 title_separator          : "-"
 subtitle                 : # site tagline that appears below site title in masthead
 name                     : "Jakob Zech"
-description              : "My name is Jakob Zech and I am Juniorprofessor at Heidelberg University."
+description              : "My name is Jakob Zech and I am Professor at Heidelberg University."
 url                      : "https://jakobzech.com" # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : # the subpath of your site, e.g. "/blog"
 repository               : # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
@@ -110,7 +110,7 @@ analytics:
 author:
 # name             : "Jakob Zech"
 #  avatar           : "/files/bio-photo.jpg"
-  bio              : "Juniorprofessor at <br>
+  bio              : "Professor at <br>
     Heidelberg University"
   email            : "jakob.zech@uni-heidelberg.de"
   links:
