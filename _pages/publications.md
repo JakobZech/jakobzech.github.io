@@ -21,6 +21,10 @@ function copyToClipboard(text) {
 
 <h2>Preprints</h2>
 <ul class="my-publication-list">
+<li><b>Adaptive Kernel Selection for Stein Variational Gradient Descent</b><br />
+<i></i>, 2025<br>
+Moritz Melcher, Simon Weissmann, Ashia C. Wilson and Jakob Zech<br>
+<a href="arXiv:2510.02067">Link</a>, <a href="/publications/Melcher2025Kernel.html">BibTex</a> <button onclick='copyToClipboard("@misc{Melcher2025Kernel,\n    Author = {Melcher, Moritz and Weissmann, Simon and Wilson, Ashia C. and Zech, Jakob},\n    Title = {Adaptive Kernel Selection for Stein Variational Gradient Descent},\n    Year = {2025},\n    Eprint = {arXiv:2510.02067}\n}\n")' style='padding:0px; background-color:#f0f0f0;border:1px solid #ccc;cursor:pointer;border-radius:5px;'>copy</button></li>
 <li><b>Quantum Circuit Encodings of Polynomial Chaos Expansions</b><br />
 <i>arXiv preprint</i>, 2025<br>
 Junaid Aftab, Christoph Schwab, Haizhao Yang and Jakob Zech<br>
