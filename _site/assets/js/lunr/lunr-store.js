@@ -85,7 +85,7 @@ var store = [{
         "url": "https://jakobzech.com/publications/Marzouk2025Node.html",
         "teaser":"https://jakobzech.com/files/bio-photo.jpg"},{
         "title": "Adaptive Kernel Selection for Stein Variational Gradient Descent",
-        "excerpt":"  Copy BibTeX   @misc{Melcher2025Kernel,     Author = {Melcher, Moritz and Weissmann, Simon and Wilson, Ashia C. and Zech, Jakob},     Title = {Adaptive Kernel Selection for Stein Variational Gradient Descent},     Year = {2025},     Eprint = {arXiv:2510.02067} }   ","categories": [],
+        "excerpt":"  Copy BibTeX   @misc{Melcher2025Kernel,     Author = {Melcher, Moritz and Weissmann, Simon and Wilson, Ashia C. and Zech, Jakob},     Title = {Adaptive Kernel Selection for Stein Variational Gradient Descent},     Year = {2025},     Journal = {arXiv preprint},     Eprint = {arXiv:2510.02067} }   ","categories": [],
         "tags": [],
         "url": "https://jakobzech.com/publications/Melcher2025Kernel.html",
         "teaser":"https://jakobzech.com/files/bio-photo.jpg"},{
