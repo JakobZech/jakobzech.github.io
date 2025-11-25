@@ -25,14 +25,26 @@ We also welcome applicants with strong theoretical backgrounds who wish to propo
 -   **Postdocs:** PhD in Mathematics or a related field with a strong publication record in SciML, numerical analysis, optimization, or statistical learning theory.
 -   Programming proficiency is desirable (Python/PyTorch/JAX).
 
+## We Offer
+
+-   **Duration:**
+    -   **PhD:** 75% initially for **3 years**
+    -   **Postdoc:** 100% for **2 years**
+-   **Teaching:** Moderate teaching duties (4 SWS), such as supervising tutorials and seminars
+-   Access to high-performance computing resources
+
 At Heidelberg University, we are committed to fostering a diverse and inclusive community. We encourage applications from women and individuals from underrepresented groups and strive to create a supportive and welcoming environment for all members of our community.
 
 ## Application Process
 
-Please send your application as a single PDF file to **Prof. Jakob Zech** ([jakob.zech@uni-heidelberg.de](mailto:jakob.zech@uni-heidelberg.de)) by **December 31**. All applications received by this date will be given full consideration. Afterwards, applications will be reviewed on a rolling basis until the positions are filled. The application should include:
+Please send your application as a single PDF file to **Prof. Jakob Zech** ([jakob.zech@uni-heidelberg.de](mailto:jakob.zech@uni-heidelberg.de)).
 
--   A motivation letter outlining your research interests.
--   Your CV.
--   Contact details of two referees.
--   **For PhD candidates:** Transcripts of records (Bachelor and Master).
--   **For Postdoc candidates:** A brief research statement and copies of 1-2 representative publications.
+**Important:** Please use the subject line **"Application [PhD/Postdoc] - [Your Name]"**.
+
+The (soft) deadline is **December 31, 2025**. All applications received by this date will be given full consideration. Afterwards, applications will be reviewed on a rolling basis until the positions are filled. The application should include:
+
+-   A motivation letter outlining your research interests
+-   Your CV
+-   Contact details of two referees
+-   **For PhD candidates:** Transcripts of records (Bachelor and Master)
+-   **For Postdoc candidates:** A brief research statement and copies of 1-2 representative publications
