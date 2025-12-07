@@ -41,7 +41,7 @@ Please send your application as a single PDF file to **Prof. Jakob Zech** ([jako
 
 **Important:** Please use the subject line **"Application [PhD/Postdoc] - [Your Name]"**.
 
-The (soft) deadline is **December 31, 2025**. All applications received by this date will be given full consideration. Afterwards, applications will be reviewed on a rolling basis until the positions are filled. The application should include:
+The (soft) deadline is **January 11, 2026**. All applications received by this date will be given full consideration. Afterwards, applications will be reviewed on a rolling basis until the positions are filled. The application should include:
 
 -   A motivation letter outlining your research interests
 -   Your CV
