@@ -15,7 +15,7 @@ Successful candidates will contribute to our research in areas such as:
 -   **Operator Learning:** Developing and analyzing neural operator architectures for solving PDEs and approximating infinite-dimensional mappings or dynamical systems.
 -   **Inverse Problems & Uncertainty Quantification:** Bayesian inference, posterior consistency, and generative modeling (measure transport, diffusion models, flow matching) for parameter estimation in high dimensions.
 -   **Structure-Preserving ML:** Integrating physical constraints (conservation laws, symmetries) into learning frameworks.
--   **Optimization & Sampling:** Analysis of particle-based methods (SVGD, consensus-based optimization) and their mean-field limits.
+-   **Optimization & Sampling:** Analysis and applications of particle-based methods, mean-field limits, diffusion processes.
 
 We also welcome applicants with strong theoretical backgrounds who wish to propose their own research directions within the scope of the group's interests.
 
