@@ -1,3 +1,0 @@
-for main site change _layouts/home.html
-to create a subsite, create a markdown file newsubsite.md in _pages
-to change the navigation, change ...
