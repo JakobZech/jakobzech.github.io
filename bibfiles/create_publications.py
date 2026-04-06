@@ -95,7 +95,7 @@ function copyToClipboard() {{
 }}
 </script>
 
-<button onclick='copyToClipboard()' style='padding:5px; background-color:#f0f0f0;border:1px solid #ccc;cursor:pointer;border-radius:5px;'>Copy BibTeX</button>
+<button onclick='copyToClipboard()' class='btn btn--info'>Copy BibTeX</button>
 
 <pre>
 {html.escape(bibtex_content_with_curly_brackets)}
@@ -134,13 +134,13 @@ def generate_bibtex_entry_button_with_curly_brackets(bibtex_entry):
     bibtex_string = bibtex_entry.to_string('bibtex')
     bibtex_string_with_curly_brackets = re.sub(r'=\s*"([^"]*)"', r'= {\1}', bibtex_string)
     escaped_bibtex_string = escape_for_html_attribute(bibtex_string_with_curly_brackets).replace('\n', '\\n')
-    button_html = f"""<button onclick='copyToClipboard("{escaped_bibtex_string}")' style='padding:0px; background-color:#f0f0f0;border:1px solid #ccc;cursor:pointer;border-radius:5px;'>copy</button>"""
+    button_html = f"""<button onclick='copyToClipboard("{escaped_bibtex_string}")' class='btn btn--info' style='padding: 2px 6px; font-size: 0.8em;'>copy</button>"""
     return button_html
 
 def generate_bibtex_entry_button(bibtex_entry):
     bibtex_string = bibtex_entry.to_string('bibtex')
     escaped_bibtex_string = escape_for_html_attribute(bibtex_string).replace('\n', '\\n')
-    button_html = f"""<button onclick='copyToClipboard("{escaped_bibtex_string}")' style='padding:0px;background-color:#f0f0f0;border:1px solid #ccc;cursor:pointer;'>copy</button>"""
+    button_html = f"""<button onclick='copyToClipboard("{escaped_bibtex_string}")' class='btn btn--info' style='padding: 2px 6px; font-size: 0.8em;'>copy</button>"""
     return button_html
         
 def generate_publications_md_and_html_files(bib_data, output_dir):
@@ -205,7 +205,7 @@ function copyToClipboard(text) {
     if current_section_opened:
         md_content += "</ul>\n"
 
-    md_content += '<a href="/files/main.bib" download="main.bib" style="padding:0px;background-color:#f0f0f0;border:1px solid #ccc;cursor:pointer;border-radius:5px;display:inline-block;text-decoration:none;color:black;">Download main.bib</a>\n'
+    md_content += '<a href="/files/main.bib" download="main.bib" class="btn btn--primary">Download main.bib</a>\n'
     # md_content += '<button href="/files/main.bib" download="main.bib" style="padding:0px;background-color:#f0f0f0;border:1px solid #ccc;cursor:pointer;border-radius:5px">Download main.bib</button>\n'
         
     md_content += """
