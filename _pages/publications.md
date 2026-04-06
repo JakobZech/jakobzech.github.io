@@ -24,7 +24,7 @@ function copyToClipboard(text) {
 <li><b>Performance of Neural and Polynomial Operator Surrogates</b><br />
 <i>arXiv preprint</i>, 2026<br>
 Josephine Westermann, Benno Huber, Thomas O&#x27;Leary-Roseberry and Jakob Zech<br>
-<a href="arXiv:2604.00689">arXiv</a>, <a href="/publications/Westermann2026Performance.html">BibTex</a> <button onclick='copyToClipboard("@misc{Westermann2026Performance,\n    Author = {Westermann, Josephine and Huber, Benno and O&#39;Leary-Roseberry, Thomas and Zech, Jakob},\n    Title = {Performance of Neural and Polynomial Operator Surrogates},\n    Year = {2026},\n    Journal = {arXiv preprint},\n    Eprint = {arXiv:2604.00689}\n}\n")' class='btn btn--info' style='padding: 2px 6px; font-size: 0.8em;'>copy</button></li>
+<a href="https://arxiv.org/abs/2604.00689">arXiv</a>, <a href="/publications/Westermann2026Performance.html">BibTex</a> <button onclick='copyToClipboard("@misc{Westermann2026Performance,\n    Author = {Westermann, Josephine and Huber, Benno and O&#39;Leary-Roseberry, Thomas and Zech, Jakob},\n    Title = {Performance of Neural and Polynomial Operator Surrogates},\n    Year = {2026},\n    Journal = {arXiv preprint},\n    Eprint = {https://arxiv.org/abs/2604.00689}\n}\n")' class='btn btn--info' style='padding: 2px 6px; font-size: 0.8em;'>copy</button></li>
 <li><b>Adaptive Kernel Selection for Stein Variational Gradient Descent</b><br />
 <i>arXiv preprint</i>, 2025<br>
 Moritz Melcher, Simon Weissmann, Ashia C. Wilson and Jakob Zech<br>
