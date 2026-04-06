@@ -178,13 +178,23 @@ function copyToClipboard(text) {
             title = clean_bibtex_string(entry.fields.get('title', 'No Title'))
             year = entry.fields.get('year', 'No Year')
             publication_info = get_publication_info(entry)
-            url = entry.fields.get('url', entry.fields.get('eprint', '#'))
+            url = entry.fields.get('url')
+            eprint = entry.fields.get('eprint')
             key = entry.key
+            
+            links_html = []
+            if url:
+                links_html.append(f'<a href="{url}">Journal</a>')
+            if eprint:
+                links_html.append(f'<a href="{eprint}">arXiv</a>')
+            if not url and not eprint:
+                links_html.append('<a href="#">Journal</a>')
+            links_str = ", ".join(links_html)
 
             md_content += f"""<li><b>{title}</b><br />
 <i>{publication_info}</i>, {year}<br>
 {authors}<br>
-<a href="{url}">Link</a>, <a href="/publications/{key}.html">BibTex</a>"""
+{links_str}, <a href="/publications/{key}.html">BibTex</a>"""
             bibtex_copy_button = generate_bibtex_entry_button_with_curly_brackets(entry)
             md_content += " "+bibtex_copy_button+f"</li>\n"
             generate_individual_html(entry, output_dir, title, key)
@@ -205,7 +215,6 @@ function copyToClipboard(text) {
             const items = list.getElementsByTagName('li');
             count += items.length;
         }
-        count -= 2; // Subtract 2 for the last two theses
 
         // Enumerate items in reverse
         for (let list of lists) {
@@ -225,6 +234,7 @@ function copyToClipboard(text) {
         md_file.write(md_content)
 
 def filter_and_save(input_filepath, output_filepath):
+    os.makedirs(os.path.dirname(output_filepath), exist_ok=True)
     try:
         with open(input_filepath, 'r') as file:
             lines = file.readlines()
@@ -238,8 +248,12 @@ def filter_and_save(input_filepath, output_filepath):
 
     except FileNotFoundError:
         print("Error: The file at the specified input filepath does not exist.")
+        import sys
+        sys.exit(1)
     except Exception as e:
         print(f"An error occurred: {e}")
+        import sys
+        sys.exit(1)
         
 def main(bib_file, output_dir):
     filter_and_save(bib_file,bib_file_download)    
