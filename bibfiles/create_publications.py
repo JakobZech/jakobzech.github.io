@@ -73,10 +73,13 @@ def generate_individual_html(entry, output_dir, title, key):
     # Prepare the BibTeX string for inclusion in an HTML attribute
     bibtex_content_for_html_attribute = html.escape(bibtex_content_with_curly_brackets).replace('"', '&quot;')
     
+    # Escape quotes and backslashes in title for YAML front matter
+    safe_title = title.replace('\\', '\\\\').replace('"', '\\"')
+    
     # Generate the HTML content with a copy button
     html_content = f"""---
 layout: archive
-title: "{title}"
+title: "{safe_title}"
 permalink: /publications/{key}.html
 ---
 
