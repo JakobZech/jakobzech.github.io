@@ -10,11 +10,11 @@ layout: archive
 <li><b>2026 Spring</b> - <i>Einf&uuml;hrung in die Numerik</i>, Universit&auml;t Heidelberg</li>
 <li><b>2026 Spring</b> - <i>Scientific Machine Learning for Dynamics and Differential Equations</i>, Universit&auml;t Heidelberg</li>
 <li><b>2026 Spring</b> - <i>Seminar: Optimal Transport and its Applications</i>, Universit&auml;t Heidelberg</li>
-<li><b>2025 Fall</b> - <i>High Dimensional Numerics</i>, Universit&auml;t Heidelberg
-<li><b>2025 Fall</b> - <i>Seminar: Quantum Computing and Numerics</i>, Universit&auml;t Heidelberg
-<li><b>2025 Spring</b> - <i>Einf&uuml;hrung in die Numerik</i>, Universit&auml;t Heidelberg
-<li><b>2024 Fall</b> - <i>High Dimensional Approximation</i>, Universit&auml;t Heidelberg
-<li><b>2024 Fall</b> - <i>Theory of Deep Learning</i>, Universit&auml;t Heidelberg
+<li><b>2025 Fall</b> - <i>High Dimensional Numerics</i>, Universit&auml;t Heidelberg</li>
+<li><b>2025 Fall</b> - <i>Seminar: Quantum Computing and Numerics</i>, Universit&auml;t Heidelberg</li>
+<li><b>2025 Spring</b> - <i>Einf&uuml;hrung in die Numerik</i>, Universit&auml;t Heidelberg</li>
+<li><b>2024 Fall</b> - <i>High Dimensional Approximation</i>, Universit&auml;t Heidelberg</li>
+<li><b>2024 Fall</b> - <i>Theory of Deep Learning</i>, Universit&auml;t Heidelberg</li>
 <li><b>2024 Spring</b> - <i>Finite elements</i>, Universit&auml;t Heidelberg, <a href="https://moodle.uni-heidelberg.de/course/view.php?id=18837">Moodle</a></li>
 <li><b>2023 Fall</b> - <i>Einf&uuml;hrung in die Numerik</i>, Universit&auml;t Heidelberg, <a href="https://moodle.uni-heidelberg.de/course/view.php?id=18837">Moodle</a> (Einschreibeschl&uuml;ssel wird in der ersten Vorlesung bekannt gegeben)</li>
 <li><b>2023 Spring</b> - <i>Theory of Deep Learning</i>, Universit&auml;t Heidelberg, <a href="https://moodle.uni-heidelberg.de/course/view.php?id=16976">Moodle</a> (enrolment key will be announced in first lecture)</li>
