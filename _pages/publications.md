@@ -24,7 +24,7 @@ function copyToClipboard(text) {
 <li><b>Neural and Spectral Operator Surrogates on Gaussian Spaces</b><br />
 <i>arXiv preprint</i>, 2026<br>
 Carlo Marcati, Mario Marić, Christoph Schwab and Jakob Zech<br>
-<a href="arXiv:2607.08492">arXiv</a>, <a href="/publications/Marcati2026Gaussian.html">BibTex</a> <button onclick='copyToClipboard("@misc{Marcati2026Gaussian,\n    Author = {Marcati, Carlo and Marić, Mario and Schwab, Christoph and Zech, Jakob},\n    Title = {Neural and Spectral Operator Surrogates on Gaussian Spaces},\n    Year = {2026},\n    Journal = {arXiv preprint},\n    Eprint = {arXiv:2607.08492}\n}\n")' class='btn btn--info' style='padding: 2px 6px; font-size: 0.8em;'>copy</button></li>
+<a href="https://arXiv.org/abs/2607.08492">arXiv</a>, <a href="/publications/Marcati2026Gaussian.html">BibTex</a> <button onclick='copyToClipboard("@misc{Marcati2026Gaussian,\n    Author = {Marcati, Carlo and Marić, Mario and Schwab, Christoph and Zech, Jakob},\n    Title = {Neural and Spectral Operator Surrogates on Gaussian Spaces},\n    Year = {2026},\n    Journal = {arXiv preprint},\n    Eprint = {https://arXiv.org/abs/2607.08492}\n}\n")' class='btn btn--info' style='padding: 2px 6px; font-size: 0.8em;'>copy</button></li>
 <li><b>Performance of Neural and Polynomial Operator Surrogates</b><br />
 <i>arXiv preprint</i>, 2026<br>
 Josephine Westermann, Benno Huber, Thomas O&#x27;Leary-Roseberry and Jakob Zech<br>
@@ -53,6 +53,10 @@ Youssef Marzouk, Zhi Ren and Jakob Zech<br>
 <i>arXiv preprint</i>, 2024<br>
 Philipp Petersen and Jakob Zech<br>
 <a href="https://arxiv.org/abs/2407.18384">arXiv</a>, <a href="/publications/Petersen2024Deep.html">BibTex</a> <button onclick='copyToClipboard("@misc{Petersen2024Deep,\n    Author = {Petersen, Philipp and Zech, Jakob},\n    Title = {Mathematical theory of deep learning},\n    Year = {2024},\n    Journal = {arXiv preprint},\n    Eprint = {https://arxiv.org/abs/2407.18384}\n}\n")' class='btn btn--info' style='padding: 2px 6px; font-size: 0.8em;'>copy</button></li>
+<li><b>On the mean-field limit for Stein variational gradient descent: stability and multilevel approximation</b><br />
+<i>arXiv preprint</i>, 2024<br>
+Simon Weissmann and Jakob Zech<br>
+<a href="https://arXiv.org/abs/2402.01320">arXiv</a>, <a href="/publications/Weissmann2024Stein.html">BibTex</a> <button onclick='copyToClipboard("@misc{Weissmann2024Stein,\n    Author = {Weissmann, Simon and Zech, Jakob},\n    Title = {On the mean-field limit for Stein variational gradient descent: stability and multilevel approximation},\n    Year = {2024},\n    Journal = {arXiv preprint},\n    Eprint = {https://arXiv.org/abs/2402.01320}\n}\n")' class='btn btn--info' style='padding: 2px 6px; font-size: 0.8em;'>copy</button></li>
 </ul>
 
 <h2>Books</h2>
