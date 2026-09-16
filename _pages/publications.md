@@ -176,7 +176,7 @@ Stefan Sauter and Jakob Zech<br>
 </ul>
 
 <h2>Theses</h2>
-<ul class="my-publication-list">
+<ul class="my-thesis-list">
 <li><b>Sparse-Grid Approximation of High-Dimensional Parametric PDEs</b><br />
 <i>PhD thesis</i>, 2018<br>
 Jakob Zech<br>
