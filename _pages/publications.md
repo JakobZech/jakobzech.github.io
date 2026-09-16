@@ -21,6 +21,10 @@ function copyToClipboard(text) {
 
 <h2>Preprints</h2>
 <ul class="my-publication-list">
+<li><b>Neural and Spectral Operator Surrogates on Gaussian Spaces</b><br />
+<i>arXiv preprint</i>, 2026<br>
+Carlo Marcati, Mario Marić, Christoph Schwab and Jakob Zech<br>
+<a href="arXiv:2607.08492">arXiv</a>, <a href="/publications/Marcati2026Gaussian.html">BibTex</a> <button onclick='copyToClipboard("@misc{Marcati2026Gaussian,\n    Author = {Marcati, Carlo and Marić, Mario and Schwab, Christoph and Zech, Jakob},\n    Title = {Neural and Spectral Operator Surrogates on Gaussian Spaces},\n    Year = {2026},\n    Journal = {arXiv preprint},\n    Eprint = {arXiv:2607.08492}\n}\n")' class='btn btn--info' style='padding: 2px 6px; font-size: 0.8em;'>copy</button></li>
 <li><b>Performance of Neural and Polynomial Operator Surrogates</b><br />
 <i>arXiv preprint</i>, 2026<br>
 Josephine Westermann, Benno Huber, Thomas O&#x27;Leary-Roseberry and Jakob Zech<br>
@@ -45,14 +49,6 @@ Nathan Kirk, T. Konstantin Rusch, Jakob Zech and Daniela Rus<br>
 <i>arXiv preprint</i>, 2025<br>
 Youssef Marzouk, Zhi Ren and Jakob Zech<br>
 <a href="https://arxiv.org/abs/2502.03795">arXiv</a>, <a href="/publications/Marzouk2025Node.html">BibTex</a> <button onclick='copyToClipboard("@misc{Marzouk2025Node,\n    Author = {Marzouk, Youssef and Ren, Zhi and Zech, Jakob},\n    Title = {Distribution learning via neural differential equations: minimal energy regularization and approximation theory},\n    Year = {2025},\n    Journal = {arXiv preprint},\n    Eprint = {https://arxiv.org/abs/2502.03795}\n}\n")' class='btn btn--info' style='padding: 2px 6px; font-size: 0.8em;'>copy</button></li>
-<li><b>Statistical Learning Theory for Neural Operators</b><br />
-<i>arXiv preprint</i>, 2024<br>
-Niklas Reinhardt, Sven Wang and Jakob Zech<br>
-<a href="https://arxiv.org/abs/2412.17582">arXiv</a>, <a href="/publications/Reinhardt2024Operator.html">BibTex</a> <button onclick='copyToClipboard("@misc{Reinhardt2024Operator,\n    Author = {Reinhardt, Niklas and Wang, Sven and Zech, Jakob},\n    Title = {Statistical Learning Theory for Neural Operators},\n    Year = {2024},\n    Journal = {arXiv preprint},\n    Eprint = {https://arxiv.org/abs/2412.17582}\n}\n")' class='btn btn--info' style='padding: 2px 6px; font-size: 0.8em;'>copy</button></li>
-<li><b>On the mean field limit of consensus based methods</b><br />
-<i>arXiv preprint</i>, 2024<br>
-Marvin Koß, Simon Weissmann and Jakob Zech<br>
-<a href="https://arxiv.org/abs/2409.03518">arXiv</a>, <a href="/publications/Koss2024Consensus.html">BibTex</a> <button onclick='copyToClipboard("@misc{Koss2024Consensus,\n    Author = {Koß, Marvin and Weissmann, Simon and Zech, Jakob},\n    Title = {On the mean field limit of consensus based methods},\n    Year = {2024},\n    Journal = {arXiv preprint},\n    Eprint = {https://arxiv.org/abs/2409.03518}\n}\n")' class='btn btn--info' style='padding: 2px 6px; font-size: 0.8em;'>copy</button></li>
 <li><b>Mathematical theory of deep learning</b><br />
 <i>arXiv preprint</i>, 2024<br>
 Philipp Petersen and Jakob Zech<br>
@@ -85,6 +81,10 @@ Joost A. A. Opschoor, Christoph Schwab and Jakob Zech<br>
 
 <h2>Journal Papers</h2>
 <ul class="my-publication-list">
+<li><b>Statistical Learning Theory for Neural Operators</b><br />
+<i>Journal of Machine Learning Research</i>, 2026<br>
+Niklas Reinhardt, Sven Wang and Jakob Zech<br>
+<a href="http://jmlr.org/papers/v27/25-0543.html">Journal</a>, <a href="/publications/Reinhardt2024Operator.html">BibTex</a> <button onclick='copyToClipboard("@article{Reinhardt2024Operator,\n    author = {Reinhardt, Niklas and Wang, Sven and Zech, Jakob},\n    title = {Statistical Learning Theory for Neural Operators},\n    journal = {Journal of Machine Learning Research},\n    year = {2026},\n    volume = {27},\n    number = {102},\n    pages = {1--82},\n    url = {http://jmlr.org/papers/v27/25-0543.html}\n}\n")' class='btn btn--info' style='padding: 2px 6px; font-size: 0.8em;'>copy</button></li>
 <li><b>On the Mean-Field Limit of Consensus-Based Methods</b><br />
 <i>Mathematical Methods in the Applied Sciences</i>, 2026<br>
 Marvin Koß, Simon Weissmann and Jakob Zech<br>
