@@ -174,7 +174,10 @@ function copyToClipboard(text) {
                 md_content += "</ul>\n"
             section_key = entry.key.lower()
             section_title = section_titles.get(section_key, "Other")
-            md_content += f"\n<h2>{section_title}</h2>\n<ul class=\"my-publication-list\">\n"
+            # Theses get their own class so the numbering script skips them:
+            # [n] must count publications only, matching the [JZn] keys elsewhere.
+            list_class = "my-thesis-list" if section_key == "sec:theses" else "my-publication-list"
+            md_content += f"\n<h2>{section_title}</h2>\n<ul class=\"{list_class}\">\n"
             current_section_opened = True
         else:
             authors = format_authors(entry)
@@ -189,7 +192,8 @@ function copyToClipboard(text) {
             if url:
                 links_html.append(f'<a href="{url}">Journal</a>')
             if eprint:
-                links_html.append(f'<a href="{eprint}">arXiv</a>')
+                label = "arXiv" if "arxiv.org" in eprint.lower() else "Preprint"
+                links_html.append(f'<a href="{eprint}">{label}</a>')
             if not url and not eprint:
                 links_html.append('<a href="#">Journal</a>')
             links_str = ", ".join(links_html)

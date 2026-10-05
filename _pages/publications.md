@@ -32,7 +32,7 @@ Carlo Marcati, Mario Marić, Christoph Schwab and Jakob Zech<br>
 <li><b>Operator Surrogates</b><br />
 <i>preprint</i>, 2026<br>
 Ch. Schwab, J. Westermann and J. Zech<br>
-<a href="https://www.sam.math.ethz.ch/sam_reports/reports_final/reports2026/2026-16.pdf">arXiv</a>, <a href="/publications/SWZ26_1171.html">BibTex</a> <button onclick='copyToClipboard("@Techreport{SWZ26_1171,\n    author = {Schwab, Ch. and Westermann, J. and Zech, J.},\n    title = {Operator Surrogates},\n    institution = {Seminar for Applied Mathematics, ETH Z{\&quot;u}rich},\n    number = {2026-16},\n    address = {Switzerland},\n    Journal = {preprint},\n    Eprint = {https://www.sam.math.ethz.ch/sam\_reports/reports\_final/reports2026/2026-16.pdf},\n    year = {2026}\n}\n")' class='btn btn--info' style='padding: 2px 6px; font-size: 0.8em;'>copy</button></li>
+<a href="https://www.sam.math.ethz.ch/sam_reports/reports_final/reports2026/2026-16.pdf">Preprint</a>, <a href="/publications/SWZ26_1171.html">BibTex</a> <button onclick='copyToClipboard("@Techreport{SWZ26_1171,\n    author = {Schwab, Ch. and Westermann, J. and Zech, J.},\n    title = {Operator Surrogates},\n    institution = {Seminar for Applied Mathematics, ETH Z{\&quot;u}rich},\n    number = {2026-16},\n    address = {Switzerland},\n    Journal = {preprint},\n    Eprint = {https://www.sam.math.ethz.ch/sam\_reports/reports\_final/reports2026/2026-16.pdf},\n    year = {2026}\n}\n")' class='btn btn--info' style='padding: 2px 6px; font-size: 0.8em;'>copy</button></li>
 <li><b>Performance of Neural and Polynomial Operator Surrogates</b><br />
 <i>arXiv preprint</i>, 2026<br>
 Josephine Westermann, Benno Huber, Thomas O&#x27;Leary-Roseberry and Jakob Zech<br>
@@ -184,7 +184,7 @@ Stefan Sauter and Jakob Zech<br>
 </ul>
 
 <h2>Theses</h2>
-<ul class="my-publication-list">
+<ul class="my-thesis-list">
 <li><b>Sparse-Grid Approximation of High-Dimensional Parametric PDEs</b><br />
 <i>PhD thesis</i>, 2018<br>
 Jakob Zech<br>
