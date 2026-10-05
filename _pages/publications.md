@@ -30,9 +30,9 @@ Niklas Reinhardt and Jakob Zech<br>
 Carlo Marcati, Mario Marić, Christoph Schwab and Jakob Zech<br>
 <a href="https://arXiv.org/abs/2607.08492">arXiv</a>, <a href="/publications/Marcati2026Gaussian.html">BibTex</a> <button onclick='copyToClipboard("@misc{Marcati2026Gaussian,\n    Author = {Marcati, Carlo and Marić, Mario and Schwab, Christoph and Zech, Jakob},\n    Title = {Neural and Spectral Operator Surrogates on Gaussian Spaces},\n    Year = {2026},\n    Journal = {arXiv preprint},\n    Eprint = {https://arXiv.org/abs/2607.08492}\n}\n")' class='btn btn--info' style='padding: 2px 6px; font-size: 0.8em;'>copy</button></li>
 <li><b>Operator Surrogates</b><br />
-<i>preprint</i>, 2026<br>
+<i>SAM Report 2026-16</i>, 2026<br>
 Ch. Schwab, J. Westermann and J. Zech<br>
-<a href="https://www.sam.math.ethz.ch/sam_reports/reports_final/reports2026/2026-16.pdf">Preprint</a>, <a href="/publications/SWZ26_1171.html">BibTex</a> <button onclick='copyToClipboard("@Techreport{SWZ26_1171,\n    author = {Schwab, Ch. and Westermann, J. and Zech, J.},\n    title = {Operator Surrogates},\n    institution = {Seminar for Applied Mathematics, ETH Z{\&quot;u}rich},\n    number = {2026-16},\n    address = {Switzerland},\n    Journal = {preprint},\n    Eprint = {https://www.sam.math.ethz.ch/sam\_reports/reports\_final/reports2026/2026-16.pdf},\n    year = {2026}\n}\n")' class='btn btn--info' style='padding: 2px 6px; font-size: 0.8em;'>copy</button></li>
+<a href="https://www.sam.math.ethz.ch/sam_reports/reports_final/reports2026/2026-16.pdf">Preprint</a>, <a href="/publications/SWZ26_1171.html">BibTex</a> <button onclick='copyToClipboard("@Techreport{SWZ26_1171,\n    author = {Schwab, Ch. and Westermann, J. and Zech, J.},\n    title = {Operator Surrogates},\n    institution = {Seminar for Applied Mathematics, ETH Z{\&quot;u}rich},\n    number = {2026-16},\n    address = {Switzerland},\n    Journal = {SAM Report 2026-16},\n    Eprint = {https://www.sam.math.ethz.ch/sam\_reports/reports\_final/reports2026/2026-16.pdf},\n    year = {2026}\n}\n")' class='btn btn--info' style='padding: 2px 6px; font-size: 0.8em;'>copy</button></li>
 <li><b>Performance of Neural and Polynomial Operator Surrogates</b><br />
 <i>arXiv preprint</i>, 2026<br>
 Josephine Westermann, Benno Huber, Thomas O&#x27;Leary-Roseberry and Jakob Zech<br>
