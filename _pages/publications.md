@@ -24,7 +24,7 @@ function copyToClipboard(text) {
 <li><b>Bayesian Operator Learning: Posterior Existence and Convergence of Point Estimates for Gaussian Priors</b><br />
 <i>arXiv preprint</i>, 2026<br>
 Niklas Reinhardt and Jakob Zech<br>
-<a href="https://arXiv.org/abs/2607.08492">arXiv</a>, <a href="/publications/Reinhardt2026Bayesian.html">BibTex</a> <button onclick='copyToClipboard("@misc{Reinhardt2026Bayesian,\n    Author = {Reinhardt, Niklas and Zech, Jakob},\n    Title = {Bayesian Operator Learning: Posterior Existence and Convergence of Point Estimates for Gaussian Priors},\n    Year = {2026},\n    Journal = {arXiv preprint},\n    Eprint = {https://arXiv.org/abs/2607.08492}\n}\n")' class='btn btn--info' style='padding: 2px 6px; font-size: 0.8em;'>copy</button></li>
+<a href="https://arXiv.org/abs/2610.03666">arXiv</a>, <a href="/publications/Reinhardt2026Bayesian.html">BibTex</a> <button onclick='copyToClipboard("@misc{Reinhardt2026Bayesian,\n    Author = {Reinhardt, Niklas and Zech, Jakob},\n    Title = {Bayesian Operator Learning: Posterior Existence and Convergence of Point Estimates for Gaussian Priors},\n    Year = {2026},\n    Journal = {arXiv preprint},\n    Eprint = {https://arXiv.org/abs/2610.03666}\n}\n")' class='btn btn--info' style='padding: 2px 6px; font-size: 0.8em;'>copy</button></li>
 <li><b>Neural and Spectral Operator Surrogates on Gaussian Spaces</b><br />
 <i>arXiv preprint</i>, 2026<br>
 Carlo Marcati, Mario Marić, Christoph Schwab and Jakob Zech<br>
