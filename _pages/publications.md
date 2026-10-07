@@ -21,6 +21,10 @@ function copyToClipboard(text) {
 
 <h2>Preprints</h2>
 <ul class="my-publication-list">
+<li><b>Minimax Operator Learning for Holomorphic Maps between Hilbert Spaces</b><br />
+<i>arXiv preprint</i>, 2026<br>
+Ly Duc Hoang, Sven Wang and Jakob Zech<br>
+<a href="https://arXiv.org/abs/2610.07295">arXiv</a>, <a href="/publications/Hoang2026Minimax.html">BibTex</a> <button onclick='copyToClipboard("@misc{Hoang2026Minimax,\n    Author = {Hoang, Ly Duc and Wang, Sven and Zech, Jakob},\n    Title = {Minimax Operator Learning for Holomorphic Maps between Hilbert Spaces},\n    Year = {2026},\n    Journal = {arXiv preprint},\n    Eprint = {https://arXiv.org/abs/2610.07295}\n}\n")' class='btn btn--info' style='padding: 2px 6px; font-size: 0.8em;'>copy</button></li>
 <li><b>Bayesian Operator Learning: Posterior Existence and Convergence of Point Estimates for Gaussian Priors</b><br />
 <i>arXiv preprint</i>, 2026<br>
 Niklas Reinhardt and Jakob Zech<br>
