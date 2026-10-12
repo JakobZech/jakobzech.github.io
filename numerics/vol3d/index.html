@@ -1,7 +1,5 @@
 <!doctype html>
-<!-- vol3d.html - 3D diffusion at 64^3, live: sliders for the first forcing modes of the 3D log-coefficient, the whole predicted
-     volume arrives as bytes and the three orthogonal slices are cut in the browser (scrub them with the slice sliders).
-     Behind /api/vol3d/solve (server.py). Trigger: served at /vol3d, or copied to the jakobzech.com site with NS2D_API set. Deps: none. -->
+<!-- live PDE surrogate demo page; served by server.py or from the jakobzech.com site (window.NS2D_API = API origin) -->
 <html lang="en">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
@@ -22,11 +20,11 @@
 </head>
 <body>
 <h1>3D diffusion, rendered live by a surrogate</h1>
-<p class="sub">A 64&sup3; parametric diffusion problem. Each slider move is one 32&sup3; multigrid solve plus local polynomial corrections, tens of milliseconds on a CPU; the full solve takes about a second. <a href="../">All demos</a></p>
+<p class="sub">A 64&sup3; parametric diffusion problem. Each slider move takes tens of milliseconds on a CPU; the full solve takes about a second. <a href="../">All demos</a></p>
 <div class="grid">
   <div>
     <div id="knobs"></div>
-    <div class="knob"><label><span>fine PCG iterations</span><span id="pv">0</span></label><input id="pcg" type="range" min="0" max="4" value="0"></div>
+    <div class="knob"><label><span>refinement steps</span><span id="pv">0</span></label><input id="pcg" type="range" min="0" max="4" value="0"></div>
     <button id="zero">reset</button> <button id="rand">random</button> <button id="ref">compare with the full solver</button>
     <div class="stat" id="stat">waiting for the server&hellip;</div>
     <p class="note" id="cell"></p>
@@ -76,7 +74,7 @@ async function solve(withRef) {
     const nn = N * N * N; A = new Uint8Array(buf, 16, nn); U = new Uint8Array(buf, 16 + nn, nn); R = withRef ? new Uint8Array(buf, 16 + 2 * nn + 8, nn) : null; showRef = withRef;
     for (let ax = 0; ax < 3; ax++) { $("s" + ax).max = N - 1; }
     redraw();
-    let s = `surrogate: ${r.headers.get("X-Total-Ms")} ms on the server (coarse solve ${r.headers.get("X-Coarse-Ms")}, patches ${r.headers.get("X-Patches-Ms")}, ${pcg} PCG its)\nround trip: ${(performance.now() - t0).toFixed(0)} ms, ${(buf.byteLength / 1024).toFixed(0)} KB`;
+    let s = `surrogate: ${r.headers.get("X-Total-Ms")} ms on the server (${pcg} refinement steps)\nround trip: ${(performance.now() - t0).toFixed(0)} ms, ${(buf.byteLength / 1024).toFixed(0)} KB`;
     if (withRef) s += `\nfull solve: ${r.headers.get("X-Ref-Ms")} ms, relative L2 error of the surrogate: ${r.headers.get("X-Rel-L2")}  (showing the full solver's u; move a slider to go back)`;
     $("stat").textContent = s;
   } catch (e) { $("stat").textContent = "server not reachable: " + e; }
@@ -92,7 +90,7 @@ async function init() {
   $("zero").onclick = () => { document.querySelectorAll("#knobs input").forEach(e => { e.value = 0; $("v" + e.dataset.k).textContent = "0.000"; }); solve(false); };
   $("rand").onclick = () => { document.querySelectorAll("#knobs input").forEach(e => { e.value = Math.round((Math.random() * 2 - 1) * 1000); $("v" + e.dataset.k).textContent = (e.value / 1000).toFixed(3); }); solve(false); };
   $("ref").onclick = () => solve(true);
-  $("cell").textContent = `-div(exp(a) grad u) = 1 on the unit cube, u = 0 on the boundary, a = sum of ${info.d} sine modes with decaying amplitudes; the other ${info.d - info.knobs} modes are zero here. Surrogate: coarse grid ${info.coarse}^3, trained on ${info.n_train} solves.`;
+  $("cell").textContent = `-div(exp(a) grad u) = 1 on the unit cube, u = 0 on the boundary, a = sum of ${info.d} sine modes with decaying amplitudes; the other ${info.d - info.knobs} modes are zero here.`;
   document.querySelectorAll("#knobs input")[0].value = 700; $("v0").textContent = "0.700"; solve(false);
 }
 init();

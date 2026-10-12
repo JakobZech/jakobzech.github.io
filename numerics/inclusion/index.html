@@ -1,8 +1,5 @@
 <!doctype html>
-<!-- inclusion.html - diffusion with a draggable inclusion: drag the object's centre or its boundary control points on the left canvas,
-     turn the contrast and background knobs, and the solution and the flux re-render through the two-grid surrogate behind
-     /api/inclusion/solve (server.py). Trigger: served by server.py at /inclusion, or copied to the jakobzech.com site with NS2D_API set.
-     Deps: none (plain JS, canvas, pointer events). -->
+<!-- live PDE surrogate demo page; served by server.py or from the jakobzech.com site (window.NS2D_API = API origin) -->
 <html lang="en">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
@@ -24,12 +21,12 @@
 </head>
 <body>
 <h1>Diffusion with a draggable inclusion</h1>
-<p class="sub">Drag the object or its boundary points on the left. Each move is one coarse solve plus local polynomial corrections plus a few fine PCG iterations, a few milliseconds. <a href="../">All demos</a></p>
+<p class="sub">Drag the object or its boundary points on the left; the solution and the flux follow live. <a href="../">All demos</a></p>
 <div class="grid">
   <div>
     <div class="knob"><label><span>contrast log<sub>10</sub>(k<sub>in</sub>/k<sub>bg</sub>)</span><span id="cv"></span></label><input id="c" type="range" min="-1000" max="1000" value="500"></div>
     <div id="knobs"></div>
-    <div class="knob"><label><span>fine PCG iterations</span><span id="pv">4</span></label><input id="pcg" type="range" min="0" max="8" value="4"></div>
+    <div class="knob"><label><span>refinement steps</span><span id="pv">4</span></label><input id="pcg" type="range" min="0" max="8" value="4"></div>
     <button id="reset">reset shape</button> <button id="rand">random</button> <button id="ref">compare with the full solver</button>
     <div class="stat" id="stat">waiting for the server&hellip;</div>
     <p class="note" id="cell"></p>
@@ -95,7 +92,7 @@ async function solve(withRef) {
     const r = await fetch(`${API}/api/inclusion/solve?bg=${state.bg.join(",")}&cx=${state.cx}&cy=${state.cy}&r=${state.r.join(",")}&c=${c}&ref=${withRef ? 1 : 0}&pcg=${pcg}`);
     const buf = new Float32Array(await r.arrayBuffer()); const nn = N * N;
     draw($("c0"), buf.subarray(0, nn), N); draw($("c1"), buf.subarray(nn, 2 * nn), N); draw($("c2"), buf.subarray(2 * nn, 3 * nn), N); overlay();
-    let s = `surrogate: ${r.headers.get("X-Total-Ms")} ms on the server (coarse solve ${r.headers.get("X-Coarse-Ms")}, patches ${r.headers.get("X-Patches-Ms")}, ${pcg} PCG its)\nround trip: ${(performance.now() - t0).toFixed(0)} ms`;
+    let s = `surrogate: ${r.headers.get("X-Total-Ms")} ms on the server (${pcg} refinement steps)\nround trip: ${(performance.now() - t0).toFixed(0)} ms`;
     if (withRef) { draw($("c3"), buf.subarray(3 * nn, 4 * nn), N); $("l3").textContent = "full solver: u"; s += `\nfull solve: ${r.headers.get("X-Ref-Ms")} ms, relative L2 error of the surrogate: ${r.headers.get("X-Rel-L2")}`; }
     $("stat").textContent = s;
   } catch (e) { $("stat").textContent = "server not reachable: " + e; }
@@ -114,7 +111,7 @@ async function init() {
   $("ref").onclick = () => solve(true);
   const ov = $("ov"); ov.addEventListener("pointerdown", onDown); ov.addEventListener("pointermove", onMove); ov.addEventListener("pointerup", onUp); ov.addEventListener("pointercancel", onUp);
   window.addEventListener("resize", overlay);
-  $("cell").textContent = `-div(k grad u) = 1 on the unit square, u = 0 on the boundary; k = exp(a), a = a smooth background (${info.d_bg} sine modes) plus the log-contrast inside the object. Surrogate: coarse grid ${info.coarse}, ${info.modes} local modes, trained on ${info.n_train} random objects.`;
+  $("cell").textContent = `-div(k grad u) = 1 on the unit square, u = 0 on the boundary; k = exp(a), a = a smooth background (${info.d_bg} sine modes) plus the log-contrast inside the object.`;
   state.bg[0] = 0.5; document.querySelectorAll("#knobs input")[0].value = 500; $("v0").textContent = "0.50"; solve(false);
 }
 init();

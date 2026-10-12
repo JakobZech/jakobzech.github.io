@@ -1,8 +1,5 @@
 <!doctype html>
-<!-- index.html - the live Navier-Stokes surrogate page: sliders for the first forcing modes and the viscosity, four heatmaps
-     (streamfunction, vorticity, speed, and the reference or error on demand), re-rendered on every slider move by the two-grid
-     surrogate behind /api/solve (server.py). Trigger: served by server.py at /, or copied to the jakobzech.com site with API set.
-     Deps: none (plain JS, canvas). -->
+<!-- live PDE surrogate demo page; served by server.py or from the jakobzech.com site (window.NS2D_API = API origin) -->
 <html lang="en">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
@@ -22,7 +19,7 @@
 </head>
 <body>
 <h1>Steady Navier&ndash;Stokes, rendered live by a surrogate</h1>
-<p class="sub">Drag a slider: one 32&times;32 Newton solve plus a learned local correction gives the 128&times;128 solution in a few milliseconds. The full solver needs about a second. <a href="../">All demos</a></p>
+<p class="sub">Drag a slider: the 128&times;128 solution follows in tens of milliseconds; the full solver needs about a second. <a href="../">All demos</a></p>
 <div class="grid">
   <div>
     <div id="knobs"></div>
@@ -67,7 +64,7 @@ async function solve(withRef) {
     const nn = N * N; const psi = buf.subarray(0, nn), om = buf.subarray(nn, 2 * nn), u = buf.subarray(2 * nn, 3 * nn), v = buf.subarray(3 * nn, 4 * nn);
     const sp = new Float32Array(nn); for (let k = 0; k < nn; k++) sp[k] = Math.hypot(u[k], v[k]);
     draw($("c0"), psi, N, false); draw($("c1"), om, N, true); draw($("c2"), sp, N, false);
-    let s = `surrogate: ${r.headers.get("X-Total-Ms")} ms on the server (coarse Newton ${r.headers.get("X-Coarse-Ms")}, patches ${r.headers.get("X-Patches-Ms")})\nround trip: ${(performance.now() - t0).toFixed(0)} ms`;
+    let s = `surrogate: ${r.headers.get("X-Total-Ms")} ms on the server\nround trip: ${(performance.now() - t0).toFixed(0)} ms`;
     if (withRef) {
       const ur = buf.subarray(6 * nn, 7 * nn), vr = buf.subarray(7 * nn, 8 * nn); const spr = new Float32Array(nn); for (let k = 0; k < nn; k++) spr[k] = Math.hypot(ur[k], vr[k]);
       draw($("c3"), spr, N, false); $("l3").textContent = "full solver: speed";
@@ -89,7 +86,7 @@ async function init() {
   $("zero").onclick = () => { document.querySelectorAll("#knobs input").forEach(e => { e.value = 0; $("v" + e.dataset.k).textContent = "0.000"; }); $("nu").value = 500; solve(false); };
   $("rand").onclick = () => { document.querySelectorAll("#knobs input").forEach(e => { e.value = Math.round((Math.random() * 2 - 1) * 1000); $("v" + e.dataset.k).textContent = (e.value / 1000).toFixed(3); }); solve(false); };
   $("ref").onclick = () => solve(true);
-  $("cell").textContent = info.cell + `. Surrogate: coarse grid ${info.coarse}, degree ${info.degree}, trained on ${info.n_train} solves. The other ${info.d - info.knobs} forcing modes are zero here.`;
+  $("cell").textContent = info.cell + ` The other ${info.d - info.knobs} forcing modes are zero here.`;
   document.querySelectorAll("#knobs input")[0].value = 600; $("v0").textContent = "0.600"; solve(false);
 }
 init();
