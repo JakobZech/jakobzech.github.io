@@ -1,0 +1,119 @@
+<!doctype html>
+<!-- live PDE surrogate demo page; served by server.py or from the jakobzech.com site (window.NS2D_API = API origin) -->
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Flow past an object</title>
+<style>
+  :root { --bg: #fafafa; --fg: #222; --muted: #666; --accent: #1f5fbf; }
+  body { margin: 0 auto; padding: 16px; font: 15px/1.45 system-ui, sans-serif; color: var(--fg); background: var(--bg); max-width: 1200px; }
+  h1 { font-size: 1.4rem; margin: 0 0 4px; } .sub { color: var(--muted); margin: 0 0 14px; }
+  .grid { display: grid; grid-template-columns: 300px 1fr; gap: 20px; } @media (max-width: 800px) { .grid { grid-template-columns: 1fr; } }
+  .knob { margin: 8px 0; } .knob label { display: flex; justify-content: space-between; font-size: 0.9rem; } input[type=range] { width: 100%; }
+  .panels { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 10px; }
+  .panel { text-align: center; font-size: 0.85rem; color: var(--muted); position: relative; }
+  canvas.field { width: 100%; image-rendering: pixelated; border: 1px solid #ddd; background: #fff; display: block; }
+  canvas.overlay { position: absolute; left: 0; top: 0; width: 100%; touch-action: none; cursor: grab; }
+  #editor { width: 100%; aspect-ratio: 1; border: 1px solid #ddd; background: #fff; touch-action: none; cursor: grab; display: block; }
+  .stat { font-family: ui-monospace, monospace; font-size: 0.85rem; color: var(--muted); margin-top: 10px; white-space: pre-line; }
+  button { font: inherit; padding: 6px 12px; border: 1px solid var(--accent); color: var(--accent); background: #fff; border-radius: 6px; cursor: pointer; margin: 2px 0; }
+  button:hover { background: #eef3fb; } .note { font-size: 0.85rem; color: var(--muted); margin-top: 14px; } a { color: var(--accent); }
+  h3 { font-size: 0.95rem; margin: 10px 0 4px; color: var(--muted); }
+</style>
+</head>
+<body>
+<h1>Flow past an object, rendered live by a surrogate</h1>
+<p class="sub">Steady Navier&ndash;Stokes in a channel (parabolic inflow from the left, no-slip walls, free outflow). Drag the object in the flow; reshape it in the editor on the left; set the viscosity. <a href="../">All demos</a></p>
+<div class="grid">
+  <div>
+    <h3>shape editor: drag the points</h3>
+    <canvas id="editor"></canvas>
+    <div class="knob"><label><span>viscosity &nu;</span><span id="nuv"></span></label><input id="nu" type="range" min="0" max="1000" value="400"></div>
+    <button id="circle">circle</button> <button id="rand">random</button> <button id="ref">compare with the full solver</button>
+    <div class="stat" id="stat">waiting for the server&hellip;</div>
+    <p class="note" id="cell"></p>
+  </div>
+  <div class="panels">
+    <div class="panel"><canvas id="c0" class="field"></canvas><canvas id="ov" class="overlay"></canvas>speed |u|, drag the object</div>
+    <div class="panel"><canvas id="c1" class="field"></canvas>vorticity &omega;</div>
+    <div class="panel"><canvas id="c2" class="field"></canvas>streamfunction &psi;</div>
+    <div class="panel"><canvas id="c3" class="field"></canvas><span id="l3">full solver: speed (press compare)</span></div>
+  </div>
+</div>
+<script>window.NS2D_API = "https://numerics.strukturbruch.com";</script>
+<script>
+const API = (window.NS2D_API || "");
+let info = null, N = 128, M = 8, busy = false, pending = false, lastMask = null;
+const state = { cx: -0.5, cy: 0.0, r: [] };   // centre and radii in [-1, 1]
+const $ = id => document.getElementById(id);
+function viridis(t) { const s = [[68,1,84],[59,82,139],[33,145,140],[94,201,98],[253,231,37]]; t = Math.min(1, Math.max(0, t)) * 4; const i = Math.min(3, Math.floor(t)); const f = t - i; return [0,1,2].map(k => Math.round(s[i][k] + f * (s[i+1][k] - s[i][k]))); }
+function draw(canvas, arr, n, symmetric, mask) {
+  canvas.width = n; canvas.height = n; const ctx = canvas.getContext("2d"); const img = ctx.createImageData(n, n);
+  let lo = Infinity, hi = -Infinity; for (let k = 0; k < arr.length; k++) { if (mask && mask[k] > 0.5) continue; const v = arr[k]; if (v < lo) lo = v; if (v > hi) hi = v; }
+  if (symmetric) { const m = Math.max(Math.abs(lo), Math.abs(hi)); lo = -m; hi = m; } const r = (hi - lo) || 1;
+  for (let i = 0; i < n; i++) for (let j = 0; j < n; j++) { const k = i * n + j; const p = 4 * ((n - 1 - j) * n + i);
+    if (mask && mask[k] > 0.5) { img.data[p] = 60; img.data[p+1] = 60; img.data[p+2] = 60; img.data[p+3] = 255; continue; }
+    const c = viridis((arr[k] - lo) / r); img.data[p] = c[0]; img.data[p+1] = c[1]; img.data[p+2] = c[2]; img.data[p+3] = 255; }
+  ctx.putImageData(img, 0, 0);
+}
+const centre = () => [info.c_lo + (state.cx + 1) / 2 * (info.c_hi - info.c_lo), 0.3 + (state.cy + 1) / 2 * 0.4];
+const radii = () => state.r.map(v => info.r0 * (1 + info.r_amp * v));
+function radiusAt(th) { const R = radii(); let s = 0;
+  for (let k = 0; k <= M / 2; k++) { let re = 0, im = 0; for (let m = 0; m < M; m++) { const a = 2 * Math.PI * k * m / M; re += R[m] * Math.cos(a); im -= R[m] * Math.sin(a); }
+    const w = (k > 0 && k < M / 2) ? 2 : 1; s += w * (re * Math.cos(k * th) - im * Math.sin(k * th)) / M; } return s; }
+function overlay() {   // the object's outline and centre handle on the speed panel
+  const ov = $("ov"), W = ov.clientWidth; ov.width = W; ov.height = W; const ctx = ov.getContext("2d"); ctx.clearRect(0, 0, W, W);
+  const [c1, c2] = centre(); const P = p => [p[0] * W, (1 - p[1]) * W];
+  ctx.strokeStyle = "#fff"; ctx.lineWidth = 2; ctx.beginPath();
+  for (let q = 0; q <= 128; q++) { const th = 2 * Math.PI * q / 128; const rr = radiusAt(th); const p = P([c1 + rr * Math.cos(th), c2 + rr * Math.sin(th)]); q ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1]); }
+  ctx.stroke(); const q = P([c1, c2]); ctx.fillStyle = "#fff"; ctx.beginPath(); ctx.arc(q[0], q[1], 7, 0, 7); ctx.fill(); ctx.strokeStyle = "#ff8c00"; ctx.stroke();
+}
+function editor() {   // the big shape editor: unit-scaled object, control points draggable radially
+  const ed = $("editor"), W = ed.clientWidth; ed.width = W; ed.height = W; const ctx = ed.getContext("2d"); ctx.clearRect(0, 0, W, W);
+  const S = W / (2 * info.r0 * (1 + info.r_amp) * 1.15); const P = (x, y) => [W / 2 + x * S, W / 2 - y * S];
+  ctx.strokeStyle = "#1f5fbf"; ctx.lineWidth = 2; ctx.fillStyle = "#dde7f7"; ctx.beginPath();
+  for (let q = 0; q <= 180; q++) { const th = 2 * Math.PI * q / 180; const rr = radiusAt(th); const p = P(rr * Math.cos(th), rr * Math.sin(th)); q ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1]); }
+  ctx.closePath(); ctx.fill(); ctx.stroke();
+  const R = radii(); ctx.fillStyle = "#ff8c00";
+  for (let m = 0; m < M; m++) { const th = 2 * Math.PI * m / M; const p = P(R[m] * Math.cos(th), R[m] * Math.sin(th)); ctx.beginPath(); ctx.arc(p[0], p[1], 7, 0, 7); ctx.fill(); }
+  ctx.fillStyle = "#666"; ctx.font = "12px system-ui"; ctx.fillText("flow →", 8, W - 8);
+}
+let drag = null, dragEd = null;
+function posIn(el, e) { const r = el.getBoundingClientRect(); return [(e.clientX - r.left) / r.width, 1 - (e.clientY - r.top) / r.height]; }
+$("ov").addEventListener("pointerdown", e => { const [x, y] = posIn($("ov"), e); const [c1, c2] = centre(); if (Math.hypot(x - c1, y - c2) < info.r0 * (1 + info.r_amp)) { drag = true; $("ov").setPointerCapture(e.pointerId); } });
+$("ov").addEventListener("pointermove", e => { if (!drag) return; const [x, y] = posIn($("ov"), e);
+  state.cx = Math.max(-1, Math.min(1, (x - info.c_lo) / (info.c_hi - info.c_lo) * 2 - 1)); state.cy = Math.max(-1, Math.min(1, (y - 0.3) / 0.4 * 2 - 1)); overlay(); solve(false); });
+$("ov").addEventListener("pointerup", () => drag = null); $("ov").addEventListener("pointercancel", () => drag = null);
+$("editor").addEventListener("pointerdown", e => { const ed = $("editor"), W = ed.clientWidth; const S = W / (2 * info.r0 * (1 + info.r_amp) * 1.15); const r = ed.getBoundingClientRect();
+  const x = (e.clientX - r.left - W / 2) / S, y = -(e.clientY - r.top - W / 2) / S; const R = radii(); let best = null, bd = 0.02;
+  for (let m = 0; m < M; m++) { const th = 2 * Math.PI * m / M; const d = Math.hypot(x - R[m] * Math.cos(th), y - R[m] * Math.sin(th)); if (d < bd) { bd = d; best = m; } }
+  if (best !== null) { dragEd = best; ed.setPointerCapture(e.pointerId); } });
+$("editor").addEventListener("pointermove", e => { if (dragEd === null) return; const ed = $("editor"), W = ed.clientWidth; const S = W / (2 * info.r0 * (1 + info.r_amp) * 1.15); const r = ed.getBoundingClientRect();
+  const x = (e.clientX - r.left - W / 2) / S, y = -(e.clientY - r.top - W / 2) / S; const th = 2 * Math.PI * dragEd / M; const rr = x * Math.cos(th) + y * Math.sin(th);
+  state.r[dragEd] = Math.max(-1, Math.min(1, (rr / info.r0 - 1) / info.r_amp)); editor(); overlay(); solve(false); });
+$("editor").addEventListener("pointerup", () => dragEd = null); $("editor").addEventListener("pointercancel", () => dragEd = null);
+function nuValue() { const t = $("nu").value / 1000; return Math.exp(Math.log(info.nu_min) + t * (Math.log(info.nu_max) - Math.log(info.nu_min))); }
+async function solve(withRef) {
+  if (busy) { pending = true; return; } busy = true; const t0 = performance.now(); const nu = nuValue(); $("nuv").textContent = nu.toFixed(4) + "  (Re_object ~ " + Math.round(0.2 / nu) + ")";
+  try {
+    const r = await fetch(`${API}/api/channel/solve?cx=${state.cx}&cy=${state.cy}&r=${state.r.join(",")}&nu=${nu}&ref=${withRef ? 1 : 0}`); const buf = new Float32Array(await r.arrayBuffer()); const nn = N * N;
+    const mask = buf.subarray(0, nn); lastMask = mask; draw($("c0"), buf.subarray(3 * nn, 4 * nn), N, false, mask); draw($("c1"), buf.subarray(2 * nn, 3 * nn), N, true, mask); draw($("c2"), buf.subarray(nn, 2 * nn), N, false, mask); overlay();
+    let s = `surrogate: ${r.headers.get("X-Total-Ms")} ms on the server\nround trip: ${(performance.now() - t0).toFixed(0)} ms`;
+    if (withRef) { draw($("c3"), buf.subarray(6 * nn, 7 * nn), N, false, mask); $("l3").textContent = "full solver: speed"; s += `\nfull Newton solve: ${r.headers.get("X-Ref-Ms")} ms, relative L2 error of the surrogate velocity: ${r.headers.get("X-Vel-Rel-L2")}`; }
+    $("stat").textContent = s;
+  } catch (e) { $("stat").textContent = "server not reachable: " + e; }
+  busy = false; if (pending) { pending = false; solve(false); }
+}
+async function init() {
+  info = await (await fetch(`${API}/api/channel/info`)).json(); N = info.N; M = info.n_ctrl; state.r = new Array(M).fill(0);
+  $("nu").addEventListener("input", () => solve(false));
+  $("circle").onclick = () => { state.r.fill(0); editor(); overlay(); solve(false); };
+  $("rand").onclick = () => { state.r = state.r.map(() => Math.random() * 2 - 1); state.cx = Math.random() * 2 - 1; state.cy = Math.random() * 2 - 1; $("nu").value = Math.round(Math.random() * 1000); editor(); overlay(); solve(false); };
+  $("ref").onclick = () => solve(true); window.addEventListener("resize", () => { editor(); overlay(); });
+  $("cell").textContent = `Unit square, inflow u = 4 y2 (1 - y2) at the left, no-slip top and bottom walls, free outflow at the right; the object is impermeable. Viscosity from ${info.nu_min} to ${info.nu_max}; the flow is computed as a steady state, which above an object Reynolds number of about 50 is the (unstable) steady branch of an unsteady flow.`;
+  editor(); overlay(); solve(false);
+}
+init();
+</script>
+</body>
+</html>
