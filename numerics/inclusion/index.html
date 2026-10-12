@@ -18,15 +18,24 @@
   button { font: inherit; padding: 6px 12px; border: 1px solid var(--accent); color: var(--accent); background: #fff; border-radius: 6px; cursor: pointer; margin: 2px 0; }
   button:hover { background: #eef3fb; } .note { font-size: 0.85rem; color: var(--muted); margin-top: 14px; } a { color: var(--accent); }
 </style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.11/katex.min.css">
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.11/katex.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.11/contrib/auto-render.min.js" onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '\\(', right: '\\)', display: false}]});"></script>
+<style>.eqs { background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 8px 14px; margin: 0 0 14px; font-size: 0.95rem; } .eqs p { margin: 4px 0; }</style>
 </head>
 <body>
 <h1>Diffusion with a draggable inclusion</h1>
 <p class="sub">Drag the object or its boundary points on the left; the solution and the flux follow live. <a href="../">All demos</a></p>
+<div class="eqs">
+<p>$$-\nabla\!\cdot\big(k\,\nabla u\big) = 1 \ \text{ in } (0,1)^2,\qquad u = 0 \ \text{ on the boundary},\qquad k = \exp\!\Big(\sum_{j=1}^{50} y_j\, j^{-1}\psi_j(x) \;+\; c\,\mathbf 1_{D}(x)\Big),$$</p>
+<p>$$D = \{\,x : |x - x_c| < r(\theta(x))\,\},\qquad r(\theta) = \text{trigonometric interpolant of the radii } r_m = 0.15\,(1 + 0.5\,\rho_m),\ m = 1,\dots,8 .$$</p>
+<p>Parameters: centre \(x_c \in [0.25,0.75]^2\) (drag), control radii \(\rho_m \in [-1,1]\) (drag the points), log-contrast \(c \in [-4.6, 4.6]\) (\(k_{\rm in}/k_{\rm bg}\) from 0.01 to 100), background \(y_1,\dots,y_4 \in [-1,1]\).</p>
+</div>
 <div class="grid">
   <div>
     <div class="knob"><label><span>contrast log<sub>10</sub>(k<sub>in</sub>/k<sub>bg</sub>)</span><span id="cv"></span></label><input id="c" type="range" min="-1000" max="1000" value="500"></div>
     <div id="knobs"></div>
-    <div class="knob"><label><span>refinement steps</span><span id="pv">4</span></label><input id="pcg" type="range" min="0" max="8" value="4"></div>
+    <div class="knob"><label><span>refinement steps</span><span id="pv">4</span></label><input id="steps" type="range" min="0" max="8" value="4"></div>
     <button id="reset">reset shape</button> <button id="rand">random</button> <button id="ref">compare with the full solver</button>
     <div class="stat" id="stat">waiting for the server&hellip;</div>
     <p class="note" id="cell"></p>
@@ -87,12 +96,12 @@ function onMove(e) {
 function onUp() { drag = null; }
 async function solve(withRef) {
   if (busy) { pending = true; return; } busy = true; const t0 = performance.now();
-  const c = $("c").value / 1000; $("cv").textContent = (c * info.log_contrast / Math.LN10).toFixed(2); const pcg = $("pcg").value; $("pv").textContent = pcg;
+  const c = $("c").value / 1000; $("cv").textContent = (c * info.log_contrast / Math.LN10).toFixed(2); const steps = $("steps").value; $("pv").textContent = steps;
   try {
-    const r = await fetch(`${API}/api/inclusion/solve?bg=${state.bg.join(",")}&cx=${state.cx}&cy=${state.cy}&r=${state.r.join(",")}&c=${c}&ref=${withRef ? 1 : 0}&pcg=${pcg}`);
+    const r = await fetch(`${API}/api/inclusion/solve?bg=${state.bg.join(",")}&cx=${state.cx}&cy=${state.cy}&r=${state.r.join(",")}&c=${c}&ref=${withRef ? 1 : 0}&steps=${steps}`);
     const buf = new Float32Array(await r.arrayBuffer()); const nn = N * N;
     draw($("c0"), buf.subarray(0, nn), N); draw($("c1"), buf.subarray(nn, 2 * nn), N); draw($("c2"), buf.subarray(2 * nn, 3 * nn), N); overlay();
-    let s = `surrogate: ${r.headers.get("X-Total-Ms")} ms on the server (${pcg} refinement steps)\nround trip: ${(performance.now() - t0).toFixed(0)} ms`;
+    let s = `surrogate: ${r.headers.get("X-Total-Ms")} ms on the server (${steps} refinement steps)\nround trip: ${(performance.now() - t0).toFixed(0)} ms`;
     if (withRef) { draw($("c3"), buf.subarray(3 * nn, 4 * nn), N); $("l3").textContent = "full solver: u"; s += `\nfull solve: ${r.headers.get("X-Ref-Ms")} ms, relative L2 error of the surrogate: ${r.headers.get("X-Rel-L2")}`; }
     $("stat").textContent = s;
   } catch (e) { $("stat").textContent = "server not reachable: " + e; }
@@ -105,7 +114,7 @@ async function init() {
     div.innerHTML = `<label><span>background mode ${k + 1}</span><span id="v${k}">0.00</span></label><input type="range" min="-1000" max="1000" value="0" data-k="${k}">`; $("knobs").appendChild(div);
   }
   document.querySelectorAll("#knobs input").forEach(e => e.addEventListener("input", () => { state.bg[e.dataset.k] = e.value / 1000; $("v" + e.dataset.k).textContent = (e.value / 1000).toFixed(2); solve(false); }));
-  $("c").addEventListener("input", () => solve(false)); $("pcg").addEventListener("input", () => solve(false));
+  $("c").addEventListener("input", () => solve(false)); $("steps").addEventListener("input", () => solve(false));
   $("reset").onclick = () => { state.cx = 0; state.cy = 0; state.r.fill(0); overlay(); solve(false); };
   $("rand").onclick = () => { state.cx = Math.random() * 2 - 1; state.cy = Math.random() * 2 - 1; state.r = state.r.map(() => Math.random() * 2 - 1); $("c").value = Math.round((Math.random() * 2 - 1) * 1000); overlay(); solve(false); };
   $("ref").onclick = () => solve(true);

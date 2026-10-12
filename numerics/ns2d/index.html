@@ -16,10 +16,19 @@
   button { font: inherit; padding: 6px 12px; border: 1px solid var(--accent); color: var(--accent); background: #fff; border-radius: 6px; cursor: pointer; }
   button:hover { background: #eef3fb; } .note { font-size: 0.85rem; color: var(--muted); margin-top: 14px; }
 </style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.11/katex.min.css">
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.11/katex.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.11/contrib/auto-render.min.js" onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '\\(', right: '\\)', display: false}]});"></script>
+<style>.eqs { background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 8px 14px; margin: 0 0 14px; font-size: 0.95rem; } .eqs p { margin: 4px 0; }</style>
 </head>
 <body>
 <h1>Steady Navier&ndash;Stokes, rendered live by a surrogate</h1>
 <p class="sub">Drag a slider: the 128&times;128 solution follows in tens of milliseconds; the full solver needs about a second. <a href="../">All demos</a></p>
+<div class="eqs">
+<p>$$u\cdot\nabla\omega = \nu\,\Delta\omega + g(y,x),\qquad -\Delta\psi = \omega,\qquad u = (\partial_{x_2}\psi,\,-\partial_{x_1}\psi)\ \text{ in } (0,1)^2,\qquad \psi = \partial_n\psi = 0 \ \text{ on the boundary (no slip)},$$</p>
+<p>$$g(y,x) = 5\sum_{j=1}^{200} y_j\, j^{-1/2}\,\psi_j(x),\qquad \psi_j(x) = \sin(k_j\pi x_1)\sin(l_j\pi x_2).$$</p>
+<p>Parameters: \(y_1,\dots,y_6 \in [-1,1]\) (the other \(y_j\) are 0) and the viscosity \(\nu \in [0.006, 0.02]\). Grid: \(128^2\) cells.</p>
+</div>
 <div class="grid">
   <div>
     <div id="knobs"></div>

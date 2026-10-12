@@ -20,15 +20,24 @@
   button:hover { background: #eef3fb; } .note { font-size: 0.85rem; color: var(--muted); margin-top: 14px; } a { color: var(--accent); }
   h3 { font-size: 0.95rem; margin: 12px 0 4px; color: var(--muted); }
 </style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.11/katex.min.css">
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.11/katex.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.11/contrib/auto-render.min.js" onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '\\(', right: '\\)', display: false}]});"></script>
+<style>.eqs { background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 8px 14px; margin: 0 0 14px; font-size: 0.95rem; } .eqs p { margin: 4px 0; }</style>
 </head>
 <body>
 <h1>3D diffusion, rendered live by a surrogate</h1>
 <p class="sub">A 64&sup3; parametric diffusion problem. Each slider move takes tens of milliseconds on a CPU; the full solve takes about a second. Drag the cubes to rotate them; the three slice sliders move the cutting planes. <a href="../">All demos</a></p>
+<div class="eqs">
+<p>$$-\nabla\!\cdot\big(e^{a(y,x)}\,\nabla u\big) = 1 \ \text{ in } (0,1)^3,\qquad u = 0 \ \text{ on the boundary},\qquad a(y,x) = \sum_{j=1}^{200} y_j\, j^{-s}\, \psi_j(x),\quad \psi_j(x) = \prod_{i=1}^{3}\sin(k_{j,i}\pi x_i).$$</p>
+<p>Parameters: \(y \in [-1,1]^{200}\) (sliders \(y_1,\dots,y_6\); the rest 0 or random), and \(s\) when the slider is shown. Grid: \(64^3\) cells.</p>
+</div>
 <div class="grid">
   <div>
     <h3>coefficient</h3>
+    <div class="knob" id="sknob" style="display:none"><label><span>decay exponent s</span><span id="sv"></span></label><input id="s" type="range" min="0" max="1000" value="333"></div>
     <div id="knobs"></div>
-    <div class="knob"><label><span>refinement steps</span><span id="pv">0</span></label><input id="pcg" type="range" min="0" max="4" value="0"></div>
+    <div class="knob"><label><span>refinement steps</span><span id="pv">0</span></label><input id="steps" type="range" min="0" max="4" value="0"></div>
     <button id="zero">reset</button> <button id="rand">random</button> <button id="ref">compare with the full solver</button>
     <h3>cutting planes</h3>
     <div class="knob"><label><span>plane y<sub>1</sub> = <span id="s0v"></span></span></label><input id="s0" type="range" min="0" max="63" value="32"></div>
@@ -52,7 +61,7 @@
 <script>window.NS2D_API = "https://numerics.strukturbruch.com";</script>
 <script>
 const API = (window.NS2D_API || "");
-let info = null, N = 64, busy = false, pending = false, A = null, U = null, R = null, showRef = false;
+let info = null, N = 64, busy = false, pending = false, A = null, U = null, R = null, showRef = false, seed = -1;
 const view = { az: 0.6, el: 0.45 };   // camera azimuth / elevation (radians), drag to change
 const $ = id => document.getElementById(id);
 function viridis(t) { const s = [[68,1,84],[59,82,139],[33,145,140],[94,201,98],[253,231,37]]; t = Math.min(1, Math.max(0, t)) * 4; const i = Math.min(3, Math.floor(t)); const f = t - i; return [0,1,2].map(k => Math.round(s[i][k] + f * (s[i+1][k] - s[i][k]))); }
@@ -109,13 +118,14 @@ function redraw() {
 }
 function knobValues() { return Array.from(document.querySelectorAll("#knobs input")).map(e => (e.value / 1000).toFixed(3)); }
 async function solve(withRef) {
-  if (busy) { pending = true; return; } busy = true; const t0 = performance.now(); const pcg = $("pcg").value; $("pv").textContent = pcg;
+  if (busy) { pending = true; return; } busy = true; const t0 = performance.now(); const steps = $("steps").value; $("pv").textContent = steps;
   try {
-    const r = await fetch(`${API}/api/vol3d/solve?x=${knobValues().join(",")}&ref=${withRef ? 1 : 0}&pcg=${pcg}`); const buf = await r.arrayBuffer(); N = +r.headers.get("X-N");
+    const sv = info.s_min > 0 ? info.s_min + ($("s").value / 1000) * (info.s_max - info.s_min) : 0; if (info.s_min > 0) $("sv").textContent = sv.toFixed(2);
+    const r = await fetch(`${API}/api/vol3d/solve?x=${knobValues().join(",")}&ref=${withRef ? 1 : 0}&steps=${steps}&s=${sv}&seed=${seed}`); const buf = await r.arrayBuffer(); N = +r.headers.get("X-N");
     const nn = N * N * N; A = new Uint8Array(buf, 16, nn); U = new Uint8Array(buf, 16 + nn, nn); R = withRef ? new Uint8Array(buf, 16 + 2 * nn + 8, nn) : null; showRef = withRef;
     for (let ax = 0; ax < 3; ax++) $("s" + ax).max = N - 1;
     redraw();
-    let s = `surrogate: ${r.headers.get("X-Total-Ms")} ms on the server (${pcg} refinement steps)\nround trip: ${(performance.now() - t0).toFixed(0)} ms, ${(buf.byteLength / 1024).toFixed(0)} KB`;
+    let s = `surrogate: ${r.headers.get("X-Total-Ms")} ms on the server (${steps} refinement steps)\nround trip: ${(performance.now() - t0).toFixed(0)} ms, ${(buf.byteLength / 1024).toFixed(0)} KB`;
     if (withRef) s += `\nfull solve: ${r.headers.get("X-Ref-Ms")} ms, relative L2 error of the surrogate: ${r.headers.get("X-Rel-L2")}  (showing the full solver's u; move a coefficient slider to go back)`;
     $("stat").textContent = s;
   } catch (e) { $("stat").textContent = "server not reachable: " + e; }
@@ -132,11 +142,12 @@ async function init() {
   for (let k = 0; k < info.knobs; k++) { const div = document.createElement("div"); div.className = "knob";
     div.innerHTML = `<label><span>mode ${k + 1}</span><span id="v${k}">0.000</span></label><input type="range" min="-1000" max="1000" value="0" data-k="${k}">`; $("knobs").appendChild(div); }
   document.querySelectorAll("#knobs input").forEach(e => e.addEventListener("input", () => { $("v" + e.dataset.k).textContent = (e.value / 1000).toFixed(3); solve(false); }));
-  $("pcg").addEventListener("input", () => solve(false)); for (let ax = 0; ax < 3; ax++) $("s" + ax).addEventListener("input", redraw);
-  $("zero").onclick = () => { document.querySelectorAll("#knobs input").forEach(e => { e.value = 0; $("v" + e.dataset.k).textContent = "0.000"; }); solve(false); };
-  $("rand").onclick = () => { document.querySelectorAll("#knobs input").forEach(e => { e.value = Math.round((Math.random() * 2 - 1) * 1000); $("v" + e.dataset.k).textContent = (e.value / 1000).toFixed(3); }); solve(false); };
+  $("steps").addEventListener("input", () => solve(false)); for (let ax = 0; ax < 3; ax++) $("s" + ax).addEventListener("input", redraw);
+  if (info.s_min > 0) { $("sknob").style.display = "block"; $("s").addEventListener("input", () => solve(false)); }
+  $("zero").onclick = () => { seed = -1; document.querySelectorAll("#knobs input").forEach(e => { e.value = 0; $("v" + e.dataset.k).textContent = "0.000"; }); solve(false); };
+  $("rand").onclick = () => { seed = Math.floor(Math.random() * 1e9); document.querySelectorAll("#knobs input").forEach(e => { e.value = Math.round((Math.random() * 2 - 1) * 1000); $("v" + e.dataset.k).textContent = (e.value / 1000).toFixed(3); }); solve(false); };
   $("ref").onclick = () => solve(true); rotatable($("cubeA")); rotatable($("cubeU")); window.addEventListener("resize", redraw);
-  $("cell").textContent = `-div(exp(a) grad u) = 1 on the unit cube, u = 0 on the boundary, a = sum of ${info.d} sine modes with decaying amplitudes; the other ${info.d - info.knobs} modes are zero here.`;
+  $("cell").textContent = `-div(exp(a) grad u) = 1 on the unit cube, u = 0 on the boundary, a = sum of ${info.d} sine modes with decaying amplitudes; the other ${info.d - info.knobs} modes are zero after reset and random after "random".`;
   document.querySelectorAll("#knobs input")[0].value = 700; $("v0").textContent = "0.700"; solve(false);
 }
 init();

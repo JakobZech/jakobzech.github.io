@@ -20,10 +20,19 @@
   button:hover { background: #eef3fb; } .note { font-size: 0.85rem; color: var(--muted); margin-top: 14px; } a { color: var(--accent); }
   h3 { font-size: 0.95rem; margin: 10px 0 4px; color: var(--muted); }
 </style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.11/katex.min.css">
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.11/katex.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.11/contrib/auto-render.min.js" onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '\\(', right: '\\)', display: false}]});"></script>
+<style>.eqs { background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 8px 14px; margin: 0 0 14px; font-size: 0.95rem; } .eqs p { margin: 4px 0; }</style>
 </head>
 <body>
 <h1>Flow past an object, rendered live by a surrogate</h1>
 <p class="sub">Steady Navier&ndash;Stokes in a channel (parabolic inflow from the left, no-slip walls, free outflow). Drag the object in the flow; reshape it in the editor on the left; set the viscosity. <a href="../">All demos</a></p>
+<div class="eqs">
+<p>$$u\cdot\nabla\omega = \nu\,\Delta\omega - \tfrac{1}{\eta}\,\nabla\times\big(\mathbf 1_{D}\,u\big),\qquad -\Delta\psi = \omega,\qquad u = (\partial_{x_2}\psi,\,-\partial_{x_1}\psi)\ \text{ in } (0,1)^2,$$</p>
+<p>$$u = \big(4x_2(1-x_2),\,0\big) \text{ at } x_1 = 0,\qquad u = 0 \text{ at } x_2 \in \{0,1\},\qquad \partial_{x_1}\psi = \partial_{x_1}\omega = 0 \text{ at } x_1 = 1,\qquad \eta = 10^{-3}.$$</p>
+<p>The object \(D = \{x : |x - x_c| < r(\theta(x))\}\) is impermeable (a Brinkman region of permeability \(\eta\)); \(r(\theta)\) interpolates 8 control radii \(0.1\,(1+0.5\rho_m)\). Parameters: centre \(x_c \in [0.2,0.6]\times[0.3,0.7]\), \(\rho_m \in [-1,1]\), viscosity \(\nu \in [0.001, 0.04]\) (object Reynolds number \(\approx 0.2/\nu\)).</p>
+</div>
 <div class="grid">
   <div>
     <h3>shape editor: drag the points</h3>
