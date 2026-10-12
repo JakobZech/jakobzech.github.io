@@ -1,0 +1,123 @@
+<!doctype html>
+<!-- inclusion.html - diffusion with a draggable inclusion: drag the object's centre or its boundary control points on the left canvas,
+     turn the contrast and background knobs, and the solution and the flux re-render through the two-grid surrogate behind
+     /api/inclusion/solve (server.py). Trigger: served by server.py at /inclusion, or copied to the jakobzech.com site with NS2D_API set.
+     Deps: none (plain JS, canvas, pointer events). -->
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Diffusion with a draggable inclusion</title>
+<style>
+  :root { --bg: #fafafa; --fg: #222; --muted: #666; --accent: #1f5fbf; }
+  body { margin: 0 auto; padding: 16px; font: 15px/1.45 system-ui, sans-serif; color: var(--fg); background: var(--bg); max-width: 1150px; }
+  h1 { font-size: 1.4rem; margin: 0 0 4px; } .sub { color: var(--muted); margin: 0 0 14px; }
+  .grid { display: grid; grid-template-columns: 240px 1fr; gap: 20px; } @media (max-width: 760px) { .grid { grid-template-columns: 1fr; } }
+  .knob { margin: 8px 0; } .knob label { display: flex; justify-content: space-between; font-size: 0.9rem; } input[type=range] { width: 100%; }
+  .panels { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 10px; }
+  .panel { text-align: center; font-size: 0.85rem; color: var(--muted); position: relative; }
+  canvas.field { width: 100%; image-rendering: pixelated; border: 1px solid #ddd; background: #fff; display: block; }
+  canvas.overlay { position: absolute; left: 0; top: 0; width: 100%; touch-action: none; cursor: grab; }
+  .stat { font-family: ui-monospace, monospace; font-size: 0.85rem; color: var(--muted); margin-top: 10px; white-space: pre-line; }
+  button { font: inherit; padding: 6px 12px; border: 1px solid var(--accent); color: var(--accent); background: #fff; border-radius: 6px; cursor: pointer; margin: 2px 0; }
+  button:hover { background: #eef3fb; } .note { font-size: 0.85rem; color: var(--muted); margin-top: 14px; } a { color: var(--accent); }
+</style>
+</head>
+<body>
+<h1>Diffusion with a draggable inclusion</h1>
+<p class="sub">Drag the object or its boundary points on the left. Each move is one coarse solve plus local polynomial corrections plus a few fine PCG iterations, a few milliseconds. <a href="../">Navier&ndash;Stokes demo</a></p>
+<div class="grid">
+  <div>
+    <div class="knob"><label><span>contrast log<sub>10</sub>(k<sub>in</sub>/k<sub>bg</sub>)</span><span id="cv"></span></label><input id="c" type="range" min="-1000" max="1000" value="500"></div>
+    <div id="knobs"></div>
+    <div class="knob"><label><span>fine PCG iterations</span><span id="pv">4</span></label><input id="pcg" type="range" min="0" max="8" value="4"></div>
+    <button id="reset">reset shape</button> <button id="rand">random</button> <button id="ref">compare with the full solver</button>
+    <div class="stat" id="stat">waiting for the server&hellip;</div>
+    <p class="note" id="cell"></p>
+  </div>
+  <div class="panels">
+    <div class="panel"><canvas id="c0" class="field"></canvas><canvas id="ov" class="overlay"></canvas>log-coefficient, drag the object</div>
+    <div class="panel"><canvas id="c1" class="field"></canvas>solution u</div>
+    <div class="panel"><canvas id="c2" class="field"></canvas>flux |k &nabla;u|</div>
+    <div class="panel"><canvas id="c3" class="field"></canvas><span id="l3">full solver: u (press compare)</span></div>
+  </div>
+</div>
+<script>window.NS2D_API = "https://numerics.strukturbruch.com";</script>
+<script>
+const API = (window.NS2D_API || "");
+let info = null, N = 128, M = 8, busy = false, pending = false;
+const state = { cx: 0.0, cy: 0.0, r: [], bg: [] };   // all in [-1, 1]; centre maps to [0.25, 0.75], radius to 0.15 (1 + 0.5 r)
+const $ = id => document.getElementById(id);
+function viridis(t) { const s = [[68,1,84],[59,82,139],[33,145,140],[94,201,98],[253,231,37]]; t = Math.min(1, Math.max(0, t)) * 4; const i = Math.min(3, Math.floor(t)); const f = t - i; return [0,1,2].map(k => Math.round(s[i][k] + f * (s[i+1][k] - s[i][k]))); }
+function draw(canvas, arr, n) {
+  canvas.width = n; canvas.height = n; const ctx = canvas.getContext("2d"); const img = ctx.createImageData(n, n);
+  let lo = Infinity, hi = -Infinity; for (const v of arr) { if (v < lo) lo = v; if (v > hi) hi = v; } const r = (hi - lo) || 1;
+  for (let i = 0; i < n; i++) for (let j = 0; j < n; j++) { const c = viridis((arr[i * n + j] - lo) / r); const p = 4 * ((n - 1 - j) * n + i); img.data[p] = c[0]; img.data[p+1] = c[1]; img.data[p+2] = c[2]; img.data[p+3] = 255; }
+  ctx.putImageData(img, 0, 0);
+}
+// geometry in physical coordinates (y1 horizontal, y2 vertical up), as in the solver
+const centre = () => [0.25 + (state.cx + 1) / 4, 0.25 + (state.cy + 1) / 4];
+const radii = () => state.r.map(v => 0.15 * (1 + 0.5 * v));
+function boundary(nPts) {   // trigonometric interpolation of the M control radii, as inclusion_mask does
+  const R = radii(); const pts = []; const [c1, c2] = centre();
+  for (let q = 0; q < nPts; q++) { const th = 2 * Math.PI * q / nPts; let s = 0;
+    for (let k = 0; k <= M / 2; k++) { let re = 0, im = 0; for (let m = 0; m < M; m++) { const a = 2 * Math.PI * k * m / M; re += R[m] * Math.cos(a); im -= R[m] * Math.sin(a); }
+      const w = (k > 0 && k < M / 2) ? 2 : 1; s += w * (re * Math.cos(k * th) - im * Math.sin(k * th)) / M; }
+    pts.push([c1 + s * Math.cos(th), c2 + s * Math.sin(th)]); }
+  return pts;
+}
+function overlay() {
+  const ov = $("ov"), W = ov.clientWidth; ov.width = W; ov.height = W; const ctx = ov.getContext("2d"); ctx.clearRect(0, 0, W, W);
+  const P = p => [p[0] * W, (1 - p[1]) * W]; const b = boundary(128);
+  ctx.strokeStyle = "#fff"; ctx.lineWidth = 2; ctx.beginPath(); b.forEach((p, i) => { const q = P(p); i ? ctx.lineTo(q[0], q[1]) : ctx.moveTo(q[0], q[1]); }); ctx.closePath(); ctx.stroke();
+  const [c1, c2] = centre(); const R = radii(); ctx.fillStyle = "#ff8c00";
+  for (let m = 0; m < M; m++) { const th = 2 * Math.PI * m / M; const q = P([c1 + R[m] * Math.cos(th), c2 + R[m] * Math.sin(th)]); ctx.beginPath(); ctx.arc(q[0], q[1], 6, 0, 7); ctx.fill(); }
+  const q = P([c1, c2]); ctx.fillStyle = "#fff"; ctx.beginPath(); ctx.arc(q[0], q[1], 7, 0, 7); ctx.fill(); ctx.strokeStyle = "#ff8c00"; ctx.stroke();
+}
+let drag = null;   // {kind: "centre"|"ctrl", m}
+function pointerPos(e) { const ov = $("ov"); const rect = ov.getBoundingClientRect(); return [(e.clientX - rect.left) / rect.width, 1 - (e.clientY - rect.top) / rect.height]; }
+function onDown(e) {
+  const [x, y] = pointerPos(e); const [c1, c2] = centre(); const R = radii(); let best = null, bd = 0.03;
+  for (let m = 0; m < M; m++) { const th = 2 * Math.PI * m / M; const d = Math.hypot(x - c1 - R[m] * Math.cos(th), y - c2 - R[m] * Math.sin(th)); if (d < bd) { bd = d; best = { kind: "ctrl", m }; } }
+  if (!best && Math.hypot(x - c1, y - c2) < Math.min(...R)) best = { kind: "centre" };
+  if (best) { drag = best; $("ov").setPointerCapture(e.pointerId); }
+}
+function onMove(e) {
+  if (!drag) return; const [x, y] = pointerPos(e);
+  if (drag.kind === "centre") { state.cx = Math.max(-1, Math.min(1, (x - 0.25) * 4 - 1)); state.cy = Math.max(-1, Math.min(1, (y - 0.25) * 4 - 1)); }
+  else { const [c1, c2] = centre(); const th = 2 * Math.PI * drag.m / M; const rr = (x - c1) * Math.cos(th) + (y - c2) * Math.sin(th); state.r[drag.m] = Math.max(-1, Math.min(1, (rr / 0.15 - 1) / 0.5)); }
+  overlay(); solve(false);
+}
+function onUp() { drag = null; }
+async function solve(withRef) {
+  if (busy) { pending = true; return; } busy = true; const t0 = performance.now();
+  const c = $("c").value / 1000; $("cv").textContent = (c * info.log_contrast / Math.LN10).toFixed(2); const pcg = $("pcg").value; $("pv").textContent = pcg;
+  try {
+    const r = await fetch(`${API}/api/inclusion/solve?bg=${state.bg.join(",")}&cx=${state.cx}&cy=${state.cy}&r=${state.r.join(",")}&c=${c}&ref=${withRef ? 1 : 0}&pcg=${pcg}`);
+    const buf = new Float32Array(await r.arrayBuffer()); const nn = N * N;
+    draw($("c0"), buf.subarray(0, nn), N); draw($("c1"), buf.subarray(nn, 2 * nn), N); draw($("c2"), buf.subarray(2 * nn, 3 * nn), N); overlay();
+    let s = `surrogate: ${r.headers.get("X-Total-Ms")} ms on the server (coarse solve ${r.headers.get("X-Coarse-Ms")}, patches ${r.headers.get("X-Patches-Ms")}, ${pcg} PCG its)\nround trip: ${(performance.now() - t0).toFixed(0)} ms`;
+    if (withRef) { draw($("c3"), buf.subarray(3 * nn, 4 * nn), N); $("l3").textContent = "full solver: u"; s += `\nfull solve: ${r.headers.get("X-Ref-Ms")} ms, relative L2 error of the surrogate: ${r.headers.get("X-Rel-L2")}`; }
+    $("stat").textContent = s;
+  } catch (e) { $("stat").textContent = "server not reachable: " + e; }
+  busy = false; if (pending) { pending = false; solve(false); }
+}
+async function init() {
+  info = await (await fetch(`${API}/api/inclusion/info`)).json(); N = info.N; M = info.n_ctrl; state.r = new Array(M).fill(0); state.bg = new Array(info.bg_knobs).fill(0);
+  for (let k = 0; k < info.bg_knobs; k++) {
+    const div = document.createElement("div"); div.className = "knob";
+    div.innerHTML = `<label><span>background mode ${k + 1}</span><span id="v${k}">0.00</span></label><input type="range" min="-1000" max="1000" value="0" data-k="${k}">`; $("knobs").appendChild(div);
+  }
+  document.querySelectorAll("#knobs input").forEach(e => e.addEventListener("input", () => { state.bg[e.dataset.k] = e.value / 1000; $("v" + e.dataset.k).textContent = (e.value / 1000).toFixed(2); solve(false); }));
+  $("c").addEventListener("input", () => solve(false)); $("pcg").addEventListener("input", () => solve(false));
+  $("reset").onclick = () => { state.cx = 0; state.cy = 0; state.r.fill(0); overlay(); solve(false); };
+  $("rand").onclick = () => { state.cx = Math.random() * 2 - 1; state.cy = Math.random() * 2 - 1; state.r = state.r.map(() => Math.random() * 2 - 1); $("c").value = Math.round((Math.random() * 2 - 1) * 1000); overlay(); solve(false); };
+  $("ref").onclick = () => solve(true);
+  const ov = $("ov"); ov.addEventListener("pointerdown", onDown); ov.addEventListener("pointermove", onMove); ov.addEventListener("pointerup", onUp); ov.addEventListener("pointercancel", onUp);
+  window.addEventListener("resize", overlay);
+  $("cell").textContent = `-div(k grad u) = 1 on the unit square, u = 0 on the boundary; k = exp(a), a = a smooth background (${info.d_bg} sine modes) plus the log-contrast inside the object. Surrogate: coarse grid ${info.coarse}, ${info.modes} local modes, trained on ${info.n_train} random objects.`;
+  state.bg[0] = 0.5; document.querySelectorAll("#knobs input")[0].value = 500; $("v0").textContent = "0.50"; solve(false);
+}
+init();
+</script>
+</body>
+</html>
