@@ -1,0 +1,78 @@
+<!doctype html>
+<!-- live PDE surrogate demo page; served by server.py or from the jakobzech.com site (window.NS2D_API = API origin) -->
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Diffusion with a KL field</title>
+<style>
+  :root { --bg: #fafafa; --fg: #222; --muted: #666; --accent: #1f5fbf; }
+  body { margin: 0 auto; padding: 16px; font: 15px/1.45 system-ui, sans-serif; color: var(--fg); background: var(--bg); max-width: 1100px; }
+  h1 { font-size: 1.4rem; margin: 0 0 4px; } .sub { color: var(--muted); margin: 0 0 14px; }
+  .grid { display: grid; grid-template-columns: 260px 1fr; gap: 20px; } @media (max-width: 760px) { .grid { grid-template-columns: 1fr; } }
+  .knob { margin: 6px 0; } .knob label { display: flex; justify-content: space-between; font-size: 0.88rem; } input[type=range] { width: 100%; }
+  .panels { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px; }
+  .panel { text-align: center; font-size: 0.85rem; color: var(--muted); } canvas { width: 100%; image-rendering: pixelated; border: 1px solid #ddd; background: #fff; display: block; }
+  .stat { font-family: ui-monospace, monospace; font-size: 0.85rem; color: var(--muted); margin-top: 10px; white-space: pre-line; }
+  button { font: inherit; padding: 6px 12px; border: 1px solid var(--accent); color: var(--accent); background: #fff; border-radius: 6px; cursor: pointer; margin: 2px 0; }
+  button:hover { background: #eef3fb; } .note { font-size: 0.85rem; color: var(--muted); margin-top: 14px; } a { color: var(--accent); }
+</style>
+</head>
+<body>
+<h1>Diffusion with a Karhunen&ndash;Lo&egrave;ve type coefficient</h1>
+<p class="sub">log k = &sum;<sub>j</sub> y<sub>j</sub> j<sup>&minus;s</sup> &psi;<sub>j</sub>: the sliders set the first coefficients and the decay exponent s, the rest of the 200 coefficients are drawn at random. Small s means a rough coefficient. <a href="../">All demos</a></p>
+<div class="grid">
+  <div>
+    <div class="knob"><label><span>decay exponent s</span><span id="sv"></span></label><input id="s" type="range" min="0" max="1000" value="333"></div>
+    <div id="knobs"></div>
+    <div class="knob"><label><span>refinement steps</span><span id="pv">0</span></label><input id="pcg" type="range" min="0" max="8" value="0"></div>
+    <button id="rand">random (all 200 coefficients)</button> <button id="zero">reset</button> <button id="ref">compare with the full solver</button>
+    <div class="stat" id="stat">waiting for the server&hellip;</div>
+    <p class="note" id="cell"></p>
+  </div>
+  <div class="panels">
+    <div class="panel"><canvas id="c0"></canvas>log-coefficient a</div>
+    <div class="panel"><canvas id="c1"></canvas>solution u</div>
+    <div class="panel"><canvas id="c2"></canvas><span id="l2">full solver: u (press compare)</span></div>
+  </div>
+</div>
+<script>window.NS2D_API = "https://numerics.strukturbruch.com";</script>
+<script>
+const API = (window.NS2D_API || "");
+let info = null, N = 128, busy = false, pending = false, seed = -1;
+const $ = id => document.getElementById(id);
+function viridis(t) { const s = [[68,1,84],[59,82,139],[33,145,140],[94,201,98],[253,231,37]]; t = Math.min(1, Math.max(0, t)) * 4; const i = Math.min(3, Math.floor(t)); const f = t - i; return [0,1,2].map(k => Math.round(s[i][k] + f * (s[i+1][k] - s[i][k]))); }
+function draw(canvas, arr, n) {
+  canvas.width = n; canvas.height = n; const ctx = canvas.getContext("2d"); const img = ctx.createImageData(n, n);
+  let lo = Infinity, hi = -Infinity; for (const v of arr) { if (v < lo) lo = v; if (v > hi) hi = v; } const r = (hi - lo) || 1;
+  for (let i = 0; i < n; i++) for (let j = 0; j < n; j++) { const c = viridis((arr[i * n + j] - lo) / r); const p = 4 * ((n - 1 - j) * n + i); img.data[p] = c[0]; img.data[p+1] = c[1]; img.data[p+2] = c[2]; img.data[p+3] = 255; }
+  ctx.putImageData(img, 0, 0);
+}
+function knobValues() { return Array.from(document.querySelectorAll("#knobs input")).map(e => (e.value / 1000).toFixed(3)); }
+function sValue() { return info.s_min + ($("s").value / 1000) * (info.s_max - info.s_min); }
+async function solve(withRef) {
+  if (busy) { pending = true; return; } busy = true; const t0 = performance.now(); const s = sValue(); $("sv").textContent = s.toFixed(2); const pcg = $("pcg").value; $("pv").textContent = pcg;
+  try {
+    const r = await fetch(`${API}/api/kl/solve?x=${knobValues().join(",")}&s=${s}&seed=${seed}&ref=${withRef ? 1 : 0}&pcg=${pcg}`); const buf = new Float32Array(await r.arrayBuffer()); const nn = N * N;
+    draw($("c0"), buf.subarray(0, nn), N); draw($("c1"), buf.subarray(nn, 2 * nn), N);
+    let st = `surrogate: ${r.headers.get("X-Total-Ms")} ms on the server (${pcg} refinement steps)\nround trip: ${(performance.now() - t0).toFixed(0)} ms`;
+    if (withRef) { draw($("c2"), buf.subarray(2 * nn, 3 * nn), N); $("l2").textContent = "full solver: u"; st += `\nfull solve: ${r.headers.get("X-Ref-Ms")} ms, relative L2 error of the surrogate: ${r.headers.get("X-Rel-L2")}`; }
+    $("stat").textContent = st;
+  } catch (e) { $("stat").textContent = "server not reachable: " + e; }
+  busy = false; if (pending) { pending = false; solve(false); }
+}
+async function init() {
+  info = await (await fetch(`${API}/api/kl/info`)).json(); N = info.N;
+  for (let k = 0; k < info.knobs; k++) { const div = document.createElement("div"); div.className = "knob";
+    div.innerHTML = `<label><span>y<sub>${k + 1}</sub></span><span id="v${k}">0.00</span></label><input type="range" min="-1000" max="1000" value="0" data-k="${k}">`; $("knobs").appendChild(div); }
+  document.querySelectorAll("#knobs input").forEach(e => e.addEventListener("input", () => { $("v" + e.dataset.k).textContent = (e.value / 1000).toFixed(2); solve(false); }));
+  $("s").addEventListener("input", () => solve(false)); $("pcg").addEventListener("input", () => solve(false));
+  $("rand").onclick = () => { seed = Math.floor(Math.random() * 1e9); document.querySelectorAll("#knobs input").forEach(e => { e.value = Math.round((Math.random() * 2 - 1) * 1000); $("v" + e.dataset.k).textContent = (e.value / 1000).toFixed(2); }); solve(false); };
+  $("zero").onclick = () => { seed = -1; document.querySelectorAll("#knobs input").forEach(e => { e.value = 0; $("v" + e.dataset.k).textContent = "0.00"; }); solve(false); };
+  $("ref").onclick = () => solve(true);
+  $("cell").textContent = `-div(k grad u) = 1 on the unit square, u = 0 on the boundary, k = exp(a), a = sum of ${info.d} sine modes psi_j (ordered by frequency) with coefficients y_j j^-s, y_j in [-1, 1]; s from ${info.s_min} to ${info.s_max}. The ${info.d - info.knobs} coefficients beyond the sliders are 0 after reset and random after "random".`;
+  document.querySelectorAll("#knobs input")[0].value = 800; $("v0").textContent = "0.80"; solve(false);
+}
+init();
+</script>
+</body>
+</html>
