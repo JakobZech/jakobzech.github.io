@@ -10,37 +10,42 @@
   h1 { font-size: 1.4rem; margin: 0 0 4px; } .sub { color: var(--muted); margin: 0 0 14px; }
   .grid { display: grid; grid-template-columns: 240px 1fr; gap: 20px; } @media (max-width: 760px) { .grid { grid-template-columns: 1fr; } }
   .knob { margin: 8px 0; } .knob label { display: flex; justify-content: space-between; font-size: 0.9rem; } input[type=range] { width: 100%; }
-  .panels { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; } .panel { text-align: center; font-size: 0.85rem; color: var(--muted); }
-  canvas { width: 100%; image-rendering: pixelated; border: 1px solid #ddd; background: #fff; display: block; }
+  .views { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; } @media (max-width: 760px) { .views { grid-template-columns: 1fr; } }
+  .view { text-align: center; font-size: 0.85rem; color: var(--muted); }
+  canvas.cube { width: 100%; aspect-ratio: 1; border: 1px solid #ddd; background: #fff; display: block; touch-action: none; cursor: grab; }
+  .panels { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 10px; } .panel { text-align: center; font-size: 0.8rem; color: var(--muted); }
+  canvas.flat { width: 100%; image-rendering: pixelated; border: 1px solid #ddd; background: #fff; display: block; }
   .stat { font-family: ui-monospace, monospace; font-size: 0.85rem; color: var(--muted); margin-top: 10px; white-space: pre-line; }
   button { font: inherit; padding: 6px 12px; border: 1px solid var(--accent); color: var(--accent); background: #fff; border-radius: 6px; cursor: pointer; margin: 2px 0; }
   button:hover { background: #eef3fb; } .note { font-size: 0.85rem; color: var(--muted); margin-top: 14px; } a { color: var(--accent); }
-  h3 { font-size: 0.95rem; margin: 14px 0 4px; color: var(--muted); }
+  h3 { font-size: 0.95rem; margin: 12px 0 4px; color: var(--muted); }
 </style>
 </head>
 <body>
 <h1>3D diffusion, rendered live by a surrogate</h1>
-<p class="sub">A 64&sup3; parametric diffusion problem. Each slider move takes tens of milliseconds on a CPU; the full solve takes about a second. <a href="../">All demos</a></p>
+<p class="sub">A 64&sup3; parametric diffusion problem. Each slider move takes tens of milliseconds on a CPU; the full solve takes about a second. Drag the cubes to rotate them; the three slice sliders move the cutting planes. <a href="../">All demos</a></p>
 <div class="grid">
   <div>
+    <h3>coefficient</h3>
     <div id="knobs"></div>
     <div class="knob"><label><span>refinement steps</span><span id="pv">0</span></label><input id="pcg" type="range" min="0" max="4" value="0"></div>
     <button id="zero">reset</button> <button id="rand">random</button> <button id="ref">compare with the full solver</button>
+    <h3>cutting planes</h3>
+    <div class="knob"><label><span>plane y<sub>1</sub> = <span id="s0v"></span></span></label><input id="s0" type="range" min="0" max="63" value="32"></div>
+    <div class="knob"><label><span>plane y<sub>2</sub> = <span id="s1v"></span></span></label><input id="s1" type="range" min="0" max="63" value="32"></div>
+    <div class="knob"><label><span>plane y<sub>3</sub> = <span id="s2v"></span></span></label><input id="s2" type="range" min="0" max="63" value="32"></div>
     <div class="stat" id="stat">waiting for the server&hellip;</div>
     <p class="note" id="cell"></p>
   </div>
   <div>
-    <h3>log-coefficient a, slices through the volume</h3>
-    <div class="panels">
-      <div class="panel"><canvas id="a0"></canvas>y<sub>1</sub> = <span id="s0v"></span></div>
-      <div class="panel"><canvas id="a1"></canvas>y<sub>2</sub> = <span id="s1v"></span></div>
-      <div class="panel"><canvas id="a2"></canvas>y<sub>3</sub> = <span id="s2v"></span></div>
+    <div class="views">
+      <div class="view"><canvas id="cubeA" class="cube"></canvas>log-coefficient a on the three cutting planes</div>
+      <div class="view"><canvas id="cubeU" class="cube"></canvas><span id="ut">solution u on the three cutting planes</span></div>
     </div>
-    <h3 id="ut">solution u</h3>
     <div class="panels">
-      <div class="panel"><canvas id="u0"></canvas><input id="s0" type="range" min="0" max="63" value="32"></div>
-      <div class="panel"><canvas id="u1"></canvas><input id="s1" type="range" min="0" max="63" value="32"></div>
-      <div class="panel"><canvas id="u2"></canvas><input id="s2" type="range" min="0" max="63" value="32"></div>
+      <div class="panel"><canvas id="u0" class="flat"></canvas>u on the plane y<sub>1</sub> = const</div>
+      <div class="panel"><canvas id="u1" class="flat"></canvas>u on the plane y<sub>2</sub> = const</div>
+      <div class="panel"><canvas id="u2" class="flat"></canvas>u on the plane y<sub>3</sub> = const</div>
     </div>
   </div>
 </div>
@@ -48,23 +53,59 @@
 <script>
 const API = (window.NS2D_API || "");
 let info = null, N = 64, busy = false, pending = false, A = null, U = null, R = null, showRef = false;
+const view = { az: 0.6, el: 0.45 };   // camera azimuth / elevation (radians), drag to change
 const $ = id => document.getElementById(id);
 function viridis(t) { const s = [[68,1,84],[59,82,139],[33,145,140],[94,201,98],[253,231,37]]; t = Math.min(1, Math.max(0, t)) * 4; const i = Math.min(3, Math.floor(t)); const f = t - i; return [0,1,2].map(k => Math.round(s[i][k] + f * (s[i+1][k] - s[i][k]))); }
-function slice(vol, axis, k) {   // index = i*N*N + j*N + l  (i = y1, j = y2, l = y3); returns an N x N uint8 array (rows = first remaining axis)
+const LUT = Array.from({ length: 256 }, (_, v) => viridis(v / 255));
+function slice(vol, axis, k) {   // volume index = i*N*N + j*N + l (i = y1, j = y2, l = y3); returns N x N uint8 [p * N + q] with (p, q) the two remaining axes in order
   const out = new Uint8Array(N * N);
-  for (let p = 0; p < N; p++) for (let q = 0; q < N; q++) {
-    const idx = axis === 0 ? k * N * N + p * N + q : axis === 1 ? p * N * N + k * N + q : p * N * N + q * N + k; out[p * N + q] = vol[idx]; }
+  for (let p = 0; p < N; p++) for (let q = 0; q < N; q++) { const idx = axis === 0 ? k * N * N + p * N + q : axis === 1 ? p * N * N + k * N + q : p * N * N + q * N + k; out[p * N + q] = vol[idx]; }
   return out;
 }
-function draw(canvas, arr) {
-  canvas.width = N; canvas.height = N; const ctx = canvas.getContext("2d"); const img = ctx.createImageData(N, N);
-  for (let p = 0; p < N; p++) for (let q = 0; q < N; q++) { const c = viridis(arr[p * N + q] / 255); const o = 4 * ((N - 1 - q) * N + p); img.data[o] = c[0]; img.data[o+1] = c[1]; img.data[o+2] = c[2]; img.data[o+3] = 255; }
-  ctx.putImageData(img, 0, 0);
+function sliceImage(arr) {   // canvas with x = p (first remaining axis), y = q (second), y up
+  const c = document.createElement("canvas"); c.width = N; c.height = N; const ctx = c.getContext("2d"); const img = ctx.createImageData(N, N);
+  for (let p = 0; p < N; p++) for (let q = 0; q < N; q++) { const col = LUT[arr[p * N + q]]; const o = 4 * ((N - 1 - q) * N + p); img.data[o] = col[0]; img.data[o+1] = col[1]; img.data[o+2] = col[2]; img.data[o+3] = 255; }
+  ctx.putImageData(img, 0, 0); return c;
 }
+function project(x, y, z) {   // orthographic camera: azimuth about the vertical y3, then elevation; returns [screen x, screen y (up), depth towards the viewer]
+  const ca = Math.cos(view.az), sa = Math.sin(view.az), ce = Math.cos(view.el), se = Math.sin(view.el);
+  const X = x - 0.5, Y = y - 0.5, Z = z - 0.5; const x1 = ca * X - sa * Y, y1 = sa * X + ca * Y;
+  return [x1, Z * ce - y1 * se, y1 * ce + Z * se];
+}
+function drawCube(canvas, vol) {
+  const W = canvas.clientWidth; canvas.width = W; canvas.height = W; const ctx = canvas.getContext("2d"); ctx.clearRect(0, 0, W, W);
+  const S = W * 0.62, cx = W / 2, cy = W / 2; const P = p => [cx + p[0] * S, cy - p[1] * S];
+  const k = [+$("s0").value, +$("s1").value, +$("s2").value]; const pos = k.map(v => (v + 0.5) / N);
+  const pieces = [];   // each cutting plane split by the other two into four quads, so a painter's sort by depth is exact
+  for (let ax = 0; ax < 3; ax++) {
+    const img = sliceImage(slice(vol, ax, k[ax])); const o = [1, 2].map(d => (ax + d) % 3).sort();
+    const cuts = [[0, pos[o[0]], 1], [0, pos[o[1]], 1]];
+    for (let a = 0; a < 2; a++) for (let b = 0; b < 2; b++) {
+      const p0 = cuts[0][a], p1 = cuts[0][a + 1], q0 = cuts[1][b], q1 = cuts[1][b + 1]; if (p1 - p0 < 1e-6 || q1 - q0 < 1e-6) continue;
+      const pt = (p, q) => { const v = [0, 0, 0]; v[ax] = pos[ax]; v[o[0]] = p; v[o[1]] = q; return v; };
+      const c3 = [pt(p0, q0), pt(p1, q0), pt(p1, q1), pt(p0, q1)].map(v => project(...v)); const depth = c3.reduce((s, c) => s + c[2], 0) / 4;
+      pieces.push({ img, sx: p0 * N, sy: (1 - q1) * N, sw: (p1 - p0) * N, sh: (q1 - q0) * N, corners: c3.map(P), depth, shade: ax });
+    }
+  }
+  pieces.sort((u, v) => u.depth - v.depth);
+  for (const pc of pieces) {   // affine map of the image sub-rectangle onto the projected quad (origin at the (p0, q1) corner)
+    const [c0, c1, c2, c3] = pc.corners; ctx.save();
+    const ux = (c1[0] - c0[0]) / pc.sw, uy = (c1[1] - c0[1]) / pc.sw, vx = (c0[0] - c3[0]) / pc.sh, vy = (c0[1] - c3[1]) / pc.sh;
+    ctx.setTransform(ux, uy, vx, vy, c3[0], c3[1]); ctx.drawImage(pc.img, pc.sx, pc.sy, pc.sw, pc.sh, 0, 0, pc.sw, pc.sh); ctx.restore();
+    ctx.fillStyle = ["rgba(0,0,0,0.00)", "rgba(0,0,0,0.08)", "rgba(0,0,0,0.16)"][pc.shade]; ctx.beginPath(); pc.corners.forEach((c, i) => i ? ctx.lineTo(c[0], c[1]) : ctx.moveTo(c[0], c[1])); ctx.closePath(); ctx.fill();
+  }
+  const V = [[0,0,0],[1,0,0],[1,1,0],[0,1,0],[0,0,1],[1,0,1],[1,1,1],[0,1,1]].map(v => P(project(...v)));
+  const E = [[0,1],[1,2],[2,3],[3,0],[4,5],[5,6],[6,7],[7,4],[0,4],[1,5],[2,6],[3,7]];
+  ctx.strokeStyle = "#999"; ctx.lineWidth = 1; ctx.beginPath(); for (const [a, b] of E) { ctx.moveTo(V[a][0], V[a][1]); ctx.lineTo(V[b][0], V[b][1]); } ctx.stroke();
+  ctx.fillStyle = "#666"; ctx.font = "12px system-ui";
+  for (const [x, y, z, t] of [[1.06, 0, 0, "y1"], [0, 1.06, 0, "y2"], [0, 0, 1.06, "y3"]]) { const p = P(project(x, y, z)); ctx.fillText(t, p[0] - 6, p[1] + 4); }
+}
+function drawFlat(canvas, arr) { canvas.width = N; canvas.height = N; canvas.getContext("2d").drawImage(sliceImage(arr), 0, 0); }
 function redraw() {
   if (!A) return; const vol = showRef && R ? R : U;
-  for (let ax = 0; ax < 3; ax++) { const k = +$("s" + ax).value; $("s" + ax + "v").textContent = ((k + 0.5) / N).toFixed(2); draw($("a" + ax), slice(A, ax, k)); draw($("u" + ax), slice(vol, ax, k)); }
-  $("ut").textContent = showRef && R ? "full solver: u" : "solution u";
+  for (let ax = 0; ax < 3; ax++) $("s" + ax + "v").textContent = ((+$("s" + ax).value + 0.5) / N).toFixed(2);
+  drawCube($("cubeA"), A); drawCube($("cubeU"), vol); for (let ax = 0; ax < 3; ax++) drawFlat($("u" + ax), slice(vol, ax, +$("s" + ax).value));
+  $("ut").textContent = (showRef && R ? "full solver: u" : "solution u") + " on the three cutting planes";
 }
 function knobValues() { return Array.from(document.querySelectorAll("#knobs input")).map(e => (e.value / 1000).toFixed(3)); }
 async function solve(withRef) {
@@ -72,24 +113,29 @@ async function solve(withRef) {
   try {
     const r = await fetch(`${API}/api/vol3d/solve?x=${knobValues().join(",")}&ref=${withRef ? 1 : 0}&pcg=${pcg}`); const buf = await r.arrayBuffer(); N = +r.headers.get("X-N");
     const nn = N * N * N; A = new Uint8Array(buf, 16, nn); U = new Uint8Array(buf, 16 + nn, nn); R = withRef ? new Uint8Array(buf, 16 + 2 * nn + 8, nn) : null; showRef = withRef;
-    for (let ax = 0; ax < 3; ax++) { $("s" + ax).max = N - 1; }
+    for (let ax = 0; ax < 3; ax++) $("s" + ax).max = N - 1;
     redraw();
     let s = `surrogate: ${r.headers.get("X-Total-Ms")} ms on the server (${pcg} refinement steps)\nround trip: ${(performance.now() - t0).toFixed(0)} ms, ${(buf.byteLength / 1024).toFixed(0)} KB`;
-    if (withRef) s += `\nfull solve: ${r.headers.get("X-Ref-Ms")} ms, relative L2 error of the surrogate: ${r.headers.get("X-Rel-L2")}  (showing the full solver's u; move a slider to go back)`;
+    if (withRef) s += `\nfull solve: ${r.headers.get("X-Ref-Ms")} ms, relative L2 error of the surrogate: ${r.headers.get("X-Rel-L2")}  (showing the full solver's u; move a coefficient slider to go back)`;
     $("stat").textContent = s;
   } catch (e) { $("stat").textContent = "server not reachable: " + e; }
   busy = false; if (pending) { pending = false; solve(false); }
+}
+function rotatable(canvas) {
+  let last = null;
+  canvas.addEventListener("pointerdown", e => { last = [e.clientX, e.clientY]; canvas.setPointerCapture(e.pointerId); });
+  canvas.addEventListener("pointermove", e => { if (!last) return; view.az += (e.clientX - last[0]) * 0.01; view.el = Math.max(-1.4, Math.min(1.4, view.el + (e.clientY - last[1]) * 0.01)); last = [e.clientX, e.clientY]; redraw(); });
+  canvas.addEventListener("pointerup", () => last = null); canvas.addEventListener("pointercancel", () => last = null);
 }
 async function init() {
   info = await (await fetch(`${API}/api/vol3d/info`)).json(); N = info.N;
   for (let k = 0; k < info.knobs; k++) { const div = document.createElement("div"); div.className = "knob";
     div.innerHTML = `<label><span>mode ${k + 1}</span><span id="v${k}">0.000</span></label><input type="range" min="-1000" max="1000" value="0" data-k="${k}">`; $("knobs").appendChild(div); }
   document.querySelectorAll("#knobs input").forEach(e => e.addEventListener("input", () => { $("v" + e.dataset.k).textContent = (e.value / 1000).toFixed(3); solve(false); }));
-  $("pcg").addEventListener("input", () => solve(false));
-  for (let ax = 0; ax < 3; ax++) $("s" + ax).addEventListener("input", redraw);
+  $("pcg").addEventListener("input", () => solve(false)); for (let ax = 0; ax < 3; ax++) $("s" + ax).addEventListener("input", redraw);
   $("zero").onclick = () => { document.querySelectorAll("#knobs input").forEach(e => { e.value = 0; $("v" + e.dataset.k).textContent = "0.000"; }); solve(false); };
   $("rand").onclick = () => { document.querySelectorAll("#knobs input").forEach(e => { e.value = Math.round((Math.random() * 2 - 1) * 1000); $("v" + e.dataset.k).textContent = (e.value / 1000).toFixed(3); }); solve(false); };
-  $("ref").onclick = () => solve(true);
+  $("ref").onclick = () => solve(true); rotatable($("cubeA")); rotatable($("cubeU")); window.addEventListener("resize", redraw);
   $("cell").textContent = `-div(exp(a) grad u) = 1 on the unit cube, u = 0 on the boundary, a = sum of ${info.d} sine modes with decaying amplitudes; the other ${info.d - info.knobs} modes are zero here.`;
   document.querySelectorAll("#knobs input")[0].value = 700; $("v0").textContent = "0.700"; solve(false);
 }
