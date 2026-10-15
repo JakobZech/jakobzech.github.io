@@ -1,0 +1,197 @@
+<!doctype html>
+<!-- live PDE surrogate demo page; served by server.py or from the jakobzech.com site (window.NS2D_API = API origin) -->
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wave scattering, live</title>
+<style>
+  :root { --bg: #fafafa; --fg: #222; --muted: #666; --accent: #1f5fbf; }
+  body { margin: 0 auto; padding: 16px; font: 15px/1.45 system-ui, sans-serif; color: var(--fg); background: var(--bg); max-width: 1150px; }
+  h1 { font-size: 1.4rem; margin: 0 0 4px; } .sub { color: var(--muted); margin: 0 0 14px; }
+  .grid { display: grid; grid-template-columns: 250px 1fr; gap: 20px; } @media (max-width: 760px) { .grid { grid-template-columns: 1fr; } }
+  .knob { margin: 4px 0; } .knob label { display: flex; justify-content: space-between; font-size: 0.86rem; } input[type=range] { width: 100%; }
+  .views { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; } @media (max-width: 760px) { .views { grid-template-columns: 1fr; } }
+  .view { text-align: center; font-size: 0.85rem; color: var(--muted); }
+  canvas.cube { width: 100%; aspect-ratio: 1; border: 1px solid #ddd; background: #fff; display: block; touch-action: none; cursor: grab; }
+  .panels { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 10px; } .panel { text-align: center; font-size: 0.8rem; color: var(--muted); }
+  canvas.flat { width: 100%; image-rendering: pixelated; border: 1px solid #ddd; background: #fff; display: block; }
+  .stat { font-family: ui-monospace, monospace; font-size: 0.82rem; color: var(--muted); margin-top: 10px; white-space: pre-line; }
+  button { font: inherit; padding: 5px 10px; border: 1px solid var(--accent); color: var(--accent); background: #fff; border-radius: 6px; cursor: pointer; margin: 2px 0; }
+  button:hover { background: #eef3fb; } button.on { background: var(--accent); color: #fff; } a { color: var(--accent); }
+  h3 { font-size: 0.92rem; margin: 12px 0 2px; color: var(--muted); } .row { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; font-size: 0.86rem; }
+  .eqs { background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 8px 14px; margin: 0 0 14px; font-size: 0.95rem; } .eqs p { margin: 4px 0; }
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.11/katex.min.css">
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.11/katex.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.11/contrib/auto-render.min.js" onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '\\(', right: '\\)', display: false}]});"></script>
+</head>
+<body>
+<h1>Scattering of an electromagnetic wave by a 3D object</h1>
+<p class="sub">A plane wave travels along x<sub>1</sub> through the unit cube and hits one object; you set its position, shape, orientation and material. The wavelength is a quarter of the box. Start from the glass ball or the metal plate. Drag the cubes to rotate them; the three plane sliders move the cutting planes. <a href="../">All demos</a></p>
+<div class="eqs">
+<p>$$\nabla\times\nabla\times E - k^2\,\varepsilon(x)\,E = 0\ \text{ in } \mathbb{R}^3,\qquad E = E_{\rm inc} + E_s,\quad E_{\rm inc} = e_3\,e^{ikx_1},\quad k = \tfrac{2\pi}{\lambda},\ \lambda = \tfrac14,$$</p>
+<p>$$\varepsilon(x) = 1 + \chi_{\Omega}(x)\,\big(\varepsilon_r - 1 + i\,\sigma/\omega\big),\qquad \Omega = \big\{\,|x'_1/a_1|^p + |x'_2/a_2|^p + |x'_3/a_3|^p \le 1\,\big\},$$</p>
+<p>with \(x'\) the coordinates relative to the centre \(c\), rotated by the two angles; \(E_s\) satisfies the outgoing radiation condition (absorbing layers around the box), time dependence \(e^{-i\omega t}\). Parameters: \(c, a, p\), the angles, \(\varepsilon_r \in [1, 2.5]\) and \(\sigma/\omega \in [0, 20]\) (large = metal). Grid: \(64^3\) cells.</p>
+</div>
+<div class="grid">
+  <div>
+    <div class="row"><button id="pball">glass ball</button><button id="pplate">metal plate</button><button id="rand">random</button></div>
+    <div id="knobs"></div>
+    <h3>display</h3>
+    <div class="row"><label><input type="radio" name="mode" value="tot" checked> E<sub>3</sub> total</label><label><input type="radio" name="mode" value="sca"> E<sub>3</sub> scattered</label><label><input type="radio" name="mode" value="abs"> |E<sub>s</sub>|</label></div>
+    <div class="row"><label><input type="checkbox" id="anim" checked> animate in time</label></div>
+    <div class="row"><button id="ref">compare with the full solver</button></div>
+    <h3>cutting planes</h3>
+    <div class="knob"><label><span>plane x<sub>1</sub> = <span id="s0v"></span></span></label><input id="s0" type="range" min="0" max="63" value="32"></div>
+    <div class="knob"><label><span>plane x<sub>2</sub> = <span id="s1v"></span></span></label><input id="s1" type="range" min="0" max="63" value="32"></div>
+    <div class="knob"><label><span>plane x<sub>3</sub> = <span id="s2v"></span></span></label><input id="s2" type="range" min="0" max="63" value="32"></div>
+    <div class="stat" id="stat">waiting for the server&hellip;</div>
+  </div>
+  <div>
+    <div class="views">
+      <div class="view"><canvas id="cubeO" class="cube"></canvas>the object; the arrow is the direction of the incident wave, E along x<sub>3</sub></div>
+      <div class="view"><canvas id="cubeU" class="cube"></canvas><span id="ut">field on the three cutting planes</span></div>
+    </div>
+    <div class="panels">
+      <div class="panel"><canvas id="u0" class="flat"></canvas>plane x<sub>1</sub> = const</div>
+      <div class="panel"><canvas id="u1" class="flat"></canvas>plane x<sub>2</sub> = const</div>
+      <div class="panel"><canvas id="u2" class="flat"></canvas>plane x<sub>3</sub> = const</div>
+    </div>
+  </div>
+</div>
+<script>window.NS2D_API = "https://numerics.strukturbruch.com";</script>
+<script>
+const API = (window.NS2D_API || "");
+const LABELS = { c1: "centre x<sub>1</sub>", c2: "centre x<sub>2</sub>", c3: "centre x<sub>3</sub>", a1: "half-width a<sub>1</sub>", a2: "half-width a<sub>2</sub>", a3: "half-width a<sub>3</sub>",
+  yaw: "turn about x<sub>3</sub>", pitch: "tilt", p: "roundness p (2 = round, 8 = boxy)", eps: "permittivity &epsilon;<sub>r</sub>", sigma: "conductivity &sigma;/&omega;" };
+let info = null, N = 64, busy = false, pending = false, F = null, S = null, R = null, scale = 1, rscale = 1, showRef = false, phase = 0, surf = [], params = null;
+const view = { az: 0.7, el: 0.4 };
+const $ = id => document.getElementById(id);
+function cw(t) { const a = [59, 76, 192], m = [242, 242, 242], b = [180, 4, 38]; t = Math.max(-1, Math.min(1, t)); const [u, v, f] = t < 0 ? [m, a, -t] : [m, b, t]; return [0, 1, 2].map(k => Math.round(u[k] + f * (v[k] - u[k]))); }
+function viridis(t) { const s = [[68,1,84],[59,82,139],[33,145,140],[94,201,98],[253,231,37]]; t = Math.min(1, Math.max(0, t)) * 4; const i = Math.min(3, Math.floor(t)); const f = t - i; return [0,1,2].map(k => Math.round(s[i][k] + f * (s[i+1][k] - s[i][k]))); }
+const CW = Array.from({ length: 256 }, (_, v) => cw(v / 127.5 - 1)), VI = Array.from({ length: 256 }, (_, v) => viridis(v / 255));
+function phys(j, v) { const p = info.params[j], t = (v + 1) / 2; return p.scale === "lin" ? p.lo + (p.hi - p.lo) * t : p.scale === "log" ? p.lo * Math.pow(p.hi / p.lo, t) : p.lo + (p.hi - p.lo) * t * t; }
+function unitVals() { return Array.from(document.querySelectorAll("#knobs input")).map(e => e.value / 1000); }
+function fmt(j, v) { const n = info.params[j].name, x = phys(j, v); return (n === "yaw" || n === "pitch") ? (x * 180 / Math.PI).toFixed(0) + "°" : x.toFixed(n === "sigma" || n === "p" ? 1 : 3); }
+// field value at index idx for the current mode and phase, as a colour-table index 0..255
+function value(idx) {
+  const src = showRef && R ? R : S, sc = showRef && R ? rscale : scale, mode = MODE;
+  if (mode === "abs") { let a = 0; for (let c = 0; c < 6; c++) { const v = src[c * N * N * N + idx] * sc / 127; a += v * v; } return [Math.sqrt(a), "abs"]; }
+  const cp = Math.cos(phase), sp = Math.sin(phase);
+  let re = src[4 * N * N * N + idx] * sc / 127, im = src[5 * N * N * N + idx] * sc / 127;
+  if (mode === "tot") { const i1 = Math.floor(idx / (N * N)); re += info.inc_ez[i1][0]; im += info.inc_ez[i1][1]; }
+  return [re * cp + im * sp, mode];
+}
+let vmax = 1, MODE = "tot";
+function setRange() {   // colour range: the maximum of the current quantity over the volume (all phases)
+  const src = showRef && R ? R : S, sc = showRef && R ? rscale : scale, mode = MODE, n3 = N * N * N; let m = 0;
+  for (let i = 0; i < n3; i += 3) {
+    let re = src[4 * n3 + i] * sc / 127, im = src[5 * n3 + i] * sc / 127;
+    if (mode === "abs") { let a = 0; for (let c = 0; c < 6; c++) { const v = src[c * n3 + i] * sc / 127; a += v * v; } m = Math.max(m, Math.sqrt(a)); continue; }
+    if (mode === "tot") { const i1 = Math.floor(i / (N * N)); re += info.inc_ez[i1][0]; im += info.inc_ez[i1][1]; }
+    m = Math.max(m, Math.hypot(re, im));
+  }
+  vmax = m || 1;
+}
+function sliceImage(axis, k) {   // canvas N x N: x = first remaining axis, y (up) = second; object boundary drawn in dark grey
+  const c = document.createElement("canvas"); c.width = N; c.height = N; const ctx = c.getContext("2d"); const img = ctx.createImageData(N, N);
+  const at = (p, q) => axis === 0 ? k * N * N + p * N + q : axis === 1 ? p * N * N + k * N + q : p * N * N + q * N + k;
+  for (let p = 0; p < N; p++) for (let q = 0; q < N; q++) {
+    const idx = at(p, q); const [v, mode] = value(idx); let col = mode === "abs" ? VI[Math.round(Math.min(1, v / vmax) * 255)] : CW[Math.round((Math.max(-1, Math.min(1, v / vmax)) + 1) * 127.5)];
+    const inside = F[idx] >= 128; if (inside && ((p > 0 && F[at(p - 1, q)] < 128) || (p < N - 1 && F[at(p + 1, q)] < 128) || (q > 0 && F[at(p, q - 1)] < 128) || (q < N - 1 && F[at(p, q + 1)] < 128))) col = [40, 40, 40];
+    const o = 4 * ((N - 1 - q) * N + p); img.data[o] = col[0]; img.data[o+1] = col[1]; img.data[o+2] = col[2]; img.data[o+3] = 255;
+  }
+  ctx.putImageData(img, 0, 0); return c;
+}
+function project(x, y, z) { const ca = Math.cos(view.az), sa = Math.sin(view.az), ce = Math.cos(view.el), se = Math.sin(view.el); const X = x - 0.5, Y = y - 0.5, Z = z - 0.5; const x1 = ca * X - sa * Y, y1 = sa * X + ca * Y; return [x1, Z * ce - y1 * se, y1 * ce + Z * se]; }
+function frame(canvas) { const W = canvas.clientWidth; canvas.width = W; canvas.height = W; const ctx = canvas.getContext("2d"); ctx.clearRect(0, 0, W, W); const S_ = W * 0.62; return [ctx, W, p => [W / 2 + p[0] * S_, W / 2 - p[1] * S_]]; }
+function edges(ctx, P) {
+  const V = [[0,0,0],[1,0,0],[1,1,0],[0,1,0],[0,0,1],[1,0,1],[1,1,1],[0,1,1]].map(v => P(project(...v)));
+  ctx.strokeStyle = "#999"; ctx.lineWidth = 1; ctx.beginPath(); for (const [a, b] of [[0,1],[1,2],[2,3],[3,0],[4,5],[5,6],[6,7],[7,4],[0,4],[1,5],[2,6],[3,7]]) { ctx.moveTo(V[a][0], V[a][1]); ctx.lineTo(V[b][0], V[b][1]); } ctx.stroke();
+  ctx.fillStyle = "#666"; ctx.font = "12px system-ui"; for (const [x, y, z, t] of [[1.06, 0, 0, "x1"], [0, 1.06, 0, "x2"], [0, 0, 1.06, "x3"]]) { const p = P(project(x, y, z)); ctx.fillText(t, p[0] - 6, p[1] + 4); }
+}
+function buildSurface() {   // boundary voxels of the object with a normal from the indicator gradient
+  surf = []; const at = (i, j, k) => (i < 0 || j < 0 || k < 0 || i >= N || j >= N || k >= N) ? 0 : F[i * N * N + j * N + k];
+  for (let i = 0; i < N; i++) for (let j = 0; j < N; j++) for (let k = 0; k < N; k++) {
+    if (at(i, j, k) < 128) continue;
+    if (at(i-1,j,k) >= 128 && at(i+1,j,k) >= 128 && at(i,j-1,k) >= 128 && at(i,j+1,k) >= 128 && at(i,j,k-1) >= 128 && at(i,j,k+1) >= 128) continue;
+    const g = [at(i-1,j,k) - at(i+1,j,k), at(i,j-1,k) - at(i,j+1,k), at(i,j,k-1) - at(i,j,k+1)]; const gn = Math.hypot(...g) || 1;
+    surf.push([(i + 0.5) / N, (j + 0.5) / N, (k + 0.5) / N, g[0] / gn, g[1] / gn, g[2] / gn]);
+  }
+}
+function drawObject() {
+  const [ctx, W, P] = frame($("cubeO")); edges(ctx, P); if (!params) return;
+  const eps = phys(9, params[9]), sig = phys(10, params[10]), metal = Math.min(1, sig / 5), glass = (eps - 1) / 1.5;
+  const base = [0, 1, 2].map(c => [150, 150, 160][c] * metal + [110, 170, 230][c] * (1 - metal) * Math.max(0.3, glass) + [200, 200, 200][c] * (1 - metal) * (1 - Math.max(0.3, glass)));
+  const pts = surf.map(s => { const p = project(s[0], s[1], s[2]); const nrm = project(s[0] + s[3], s[1] + s[4], s[2] + s[5]); const q = project(s[0], s[1], s[2]); return [p, nrm[2] - q[2]]; });
+  pts.sort((a, b) => a[0][2] - b[0][2]); const r = Math.max(1.5, W / N * 0.75);
+  for (const [p, nz] of pts) { const sh = 0.35 + 0.65 * Math.max(0, nz); const [x, y] = P(p); ctx.fillStyle = `rgb(${base.map(v => Math.round(v * sh)).join(",")})`; ctx.fillRect(x - r, y - r, 2 * r, 2 * r); }
+  const a0 = P(project(-0.1, 0.5, 0.5)), a1 = P(project(0.12, 0.5, 0.5)); ctx.strokeStyle = "#c33"; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(a0[0], a0[1]); ctx.lineTo(a1[0], a1[1]); ctx.stroke();
+  const ang = Math.atan2(a1[1] - a0[1], a1[0] - a0[0]); ctx.fillStyle = "#c33"; ctx.beginPath(); ctx.moveTo(a1[0], a1[1]); ctx.lineTo(a1[0] - 9 * Math.cos(ang - 0.4), a1[1] - 9 * Math.sin(ang - 0.4)); ctx.lineTo(a1[0] - 9 * Math.cos(ang + 0.4), a1[1] - 9 * Math.sin(ang + 0.4)); ctx.fill();
+}
+function drawField() {
+  const [ctx, W, P] = frame($("cubeU")); const k = [+$("s0").value, +$("s1").value, +$("s2").value]; const pos = k.map(v => (v + 0.5) / N); const pieces = [];
+  for (let ax = 0; ax < 3; ax++) {
+    const img = sliceImage(ax, k[ax]); const o = [1, 2].map(d => (ax + d) % 3).sort(); const cuts = [[0, pos[o[0]], 1], [0, pos[o[1]], 1]];
+    for (let a = 0; a < 2; a++) for (let b = 0; b < 2; b++) {
+      const p0 = cuts[0][a], p1 = cuts[0][a + 1], q0 = cuts[1][b], q1 = cuts[1][b + 1]; if (p1 - p0 < 1e-6 || q1 - q0 < 1e-6) continue;
+      const pt = (p, q) => { const v = [0, 0, 0]; v[ax] = pos[ax]; v[o[0]] = p; v[o[1]] = q; return v; };
+      const c3 = [pt(p0, q0), pt(p1, q0), pt(p1, q1), pt(p0, q1)].map(v => project(...v)); const depth = c3.reduce((s, c) => s + c[2], 0) / 4;
+      pieces.push({ img, sx: p0 * N, sy: (1 - q1) * N, sw: (p1 - p0) * N, sh: (q1 - q0) * N, corners: c3.map(P), depth, shade: ax });
+    }
+    drawFlat($("u" + ax), img);
+  }
+  pieces.sort((u, v) => u.depth - v.depth);
+  for (const pc of pieces) {
+    const [c0, c1, , c3] = pc.corners; ctx.save(); const ux = (c1[0] - c0[0]) / pc.sw, uy = (c1[1] - c0[1]) / pc.sw, vx = (c0[0] - c3[0]) / pc.sh, vy = (c0[1] - c3[1]) / pc.sh;
+    ctx.setTransform(ux, uy, vx, vy, c3[0], c3[1]); ctx.imageSmoothingEnabled = false; ctx.drawImage(pc.img, pc.sx, pc.sy, pc.sw, pc.sh, 0, 0, pc.sw, pc.sh); ctx.restore();
+    ctx.fillStyle = ["rgba(0,0,0,0.00)", "rgba(0,0,0,0.06)", "rgba(0,0,0,0.12)"][pc.shade]; ctx.beginPath(); pc.corners.forEach((c, i) => i ? ctx.lineTo(c[0], c[1]) : ctx.moveTo(c[0], c[1])); ctx.closePath(); ctx.fill();
+  }
+  edges(ctx, P);
+}
+function drawFlat(canvas, img) { canvas.width = N; canvas.height = N; canvas.getContext("2d").drawImage(img, 0, 0); }
+function redraw() {
+  if (!S) return; for (let ax = 0; ax < 3; ax++) $("s" + ax + "v").textContent = ((+$("s" + ax).value + 0.5) / N).toFixed(2);
+  drawField(); const m = MODE;
+  $("ut").textContent = (showRef && R ? "full solver: " : "") + (m === "tot" ? "Re E3, total field" : m === "sca" ? "Re E3, scattered field" : "|E|, scattered field") + " on the cutting planes";
+}
+async function solve(withRef) {
+  if (busy) { pending = true; return; } busy = true; const t0 = performance.now(); params = unitVals();
+  try {
+    const r = await fetch(`${API}/api/scatter/solve?x=${params.map(v => v.toFixed(3)).join(",")}&ref=${withRef ? 1 : 0}`);
+    if (!r.ok) { $("stat").textContent = await r.text(); busy = false; return; }
+    const buf = await r.arrayBuffer(); N = +r.headers.get("X-N"); const n3 = N * N * N;
+    F = new Uint8Array(buf, 0, n3); S = new Int8Array(buf, n3, 6 * n3); scale = +r.headers.get("X-Scale");
+    R = withRef ? new Int8Array(buf, 7 * n3, 6 * n3) : null; rscale = withRef ? +r.headers.get("X-Ref-Scale") : 1; showRef = withRef;
+    buildSurface(); setRange(); drawObject(); redraw();
+    let s = `surrogate: ${r.headers.get("X-Total-Ms")} ms on the server\nround trip: ${(performance.now() - t0).toFixed(0)} ms`;
+    if (withRef) s += `\nfull solve: ${r.headers.get("X-Ref-Ms")} ms, relative L2 error of the surrogate (scattered field): ${r.headers.get("X-Rel-L2")}\n(showing the full solver; move a slider to go back)`;
+    $("stat").textContent = s;
+  } catch (e) { $("stat").textContent = "server not reachable: " + e; }
+  busy = false; if (pending) { pending = false; solve(false); }
+}
+function rotatable(canvas) {
+  let last = null;
+  canvas.addEventListener("pointerdown", e => { last = [e.clientX, e.clientY]; canvas.setPointerCapture(e.pointerId); });
+  canvas.addEventListener("pointermove", e => { if (!last) return; view.az += (e.clientX - last[0]) * 0.01; view.el = Math.max(-1.4, Math.min(1.4, view.el + (e.clientY - last[1]) * 0.01)); last = [e.clientX, e.clientY]; drawObject(); redraw(); });
+  canvas.addEventListener("pointerup", () => last = null); canvas.addEventListener("pointercancel", () => last = null);
+}
+function setKnobs(u) { document.querySelectorAll("#knobs input").forEach((e, j) => { e.value = Math.round(u[j] * 1000); $("v" + j).textContent = fmt(j, u[j]); }); }
+let lastT = null;
+function tick(t) { if ($("anim").checked && S && MODE !== "abs") { if (lastT !== null) phase = (phase + (t - lastT) * 0.004) % (2 * Math.PI); redraw(); } lastT = t; requestAnimationFrame(tick); }
+async function init() {
+  info = await (await fetch(`${API}/api/scatter/info`)).json(); N = info.N;
+  info.params.forEach((p, j) => { const div = document.createElement("div"); div.className = "knob";
+    div.innerHTML = `<label><span>${LABELS[p.name] || p.name}</span><span id="v${j}"></span></label><input type="range" min="-1000" max="1000" value="0" data-j="${j}">`; $("knobs").appendChild(div); });
+  document.querySelectorAll("#knobs input").forEach(e => e.addEventListener("input", () => { $("v" + e.dataset.j).textContent = fmt(+e.dataset.j, e.value / 1000); solve(false); }));
+  $("pball").onclick = () => { setKnobs(info.presets.ball); solve(false); }; $("pplate").onclick = () => { setKnobs(info.presets.plate); solve(false); };
+  $("rand").onclick = () => { setKnobs(info.params.map(() => Math.random() * 2 - 1)); solve(false); }; $("ref").onclick = () => solve(true);
+  document.querySelectorAll("input[name=mode]").forEach(e => e.addEventListener("change", () => { MODE = e.value; setRange(); redraw(); }));
+  for (let ax = 0; ax < 3; ax++) $("s" + ax).addEventListener("input", redraw);
+  rotatable($("cubeO")); rotatable($("cubeU")); window.addEventListener("resize", () => { drawObject(); redraw(); });
+  setKnobs(info.presets.ball); solve(false); requestAnimationFrame(tick);
+}
+init();
+</script>
+</body>
+</html>
